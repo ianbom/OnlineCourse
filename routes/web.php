@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('content', ContentController::class)->except('index');
         Route::get('/index/content', [ContentController::class, 'index'])->name('content.index');
+        Route::get('/search/content', [ContentController::class, 'searchContent'])->name('content.search');
 
         Route::resource('materi', MateriController::class)->except('index');
         Route::get('/index/materi', [MateriController::class, 'index'])->name('materi.index');

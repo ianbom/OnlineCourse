@@ -15,7 +15,7 @@ class ContentController extends Controller
      */
     public function index()
     {
-        $content = Content::all();
+        $content = Content::with('course')->paginate(5); // 10 item per halaman
         return view('web.admin.content.index_content', ['content' => $content]);
     }
 
@@ -38,7 +38,7 @@ class ContentController extends Controller
 
     public function show(string $id)
     {
-        $content = Content::findOrFail($id); 
+        $content = Content::findOrFail($id);
         return view('web.admin.content.show_content', compact('content'));
     }
 
@@ -63,5 +63,31 @@ class ContentController extends Controller
         $content->delete();
         return redirect()->back()->with('success', 'Content deleted successfully');
     }
+
+    public function searchContent(Request $request)
+    {
+        $search = $request->input('search');
+
+        // $courses = Course::where('name_course', 'like', "%$search%")
+        // ->orWhereHas('content', function ($query) use ($search) {
+        //     $query->where('name_content', 'like', "%$search%")
+        //         ->orWhereHas('materi', function ($query) use ($search) {
+        //             $query->where('name_materi', 'like', "%$search%");
+        //         });
+        // })
+        // ->with(['content.materi']) // Eager load untuk mengurangi query tambahan
+        // ->get();
+
+        $content = Content::where('name_content', 'like', "%$search%")
+            ->orWhereHas('course', function ($query) use ($search) {
+                $query->where('name_course', 'like', "%$search%");
+            })
+            ->get();
+
+        $html = view('web.admin.content.table_content', compact('content'))->render();
+
+        return response()->json(['html' => $html]);
+    }
+
 
 }

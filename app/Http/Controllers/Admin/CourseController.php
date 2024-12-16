@@ -204,4 +204,6 @@ public function update2(CourseRequest $request, string $id)
     }
 }
 
+
+
 }
