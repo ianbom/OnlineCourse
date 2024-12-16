@@ -43,7 +43,7 @@
 
         <!-- Pagination Links -->
         <div class="mt-4">
-            {{ $content->links() }}
+            {{ $content->links('vendor.pagination.tailwind') }}
         </div>
     </div>
 
