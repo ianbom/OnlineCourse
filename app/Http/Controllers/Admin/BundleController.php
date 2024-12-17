@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BundleRequest;
 use App\Models\Bundle;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class BundleController extends Controller
 {
@@ -24,9 +25,21 @@ class BundleController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function dataBundle(){
+        $query = Bundle::query();
+
+        return DataTables::of($query)
+            ->addIndexColumn()
+            ->addColumn('action', function ($bundle) {
+                return view('web.admin.bundle.action_bundle', compact('bundle'))->render();
+            })
+            ->editColumn('created_at', function ($bundle) {
+                return $bundle->created_at->format('d-m-Y');
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
     public function create()
     {
         return view('web.admin.bundle.create_bundle');
@@ -37,7 +50,7 @@ class BundleController extends Controller
         $data = $request->all();
         Bundle::create($data);
 
-        return response()->json(['success' => true, 'data' => $data]);
+        return redirect()->back()->with('success', 'Bundle created successfully');
     }
 
     /**

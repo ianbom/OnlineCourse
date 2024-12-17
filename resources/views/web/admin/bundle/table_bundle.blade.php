@@ -3,24 +3,25 @@
 
 
 <style>
-
-    #courseTable td {
+    #bundleTable td {
         border-bottom: 1px solid #ddd;
     }
 </style>
 
-<table id="courseTable" class="w-full whitespace-no-wrap">
+<table id="bundleTable" class="w-full whitespace-no-wrap">
     <thead>
         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
             <th class="px-4 py-3">#</th>
-            <th class="px-4 py-3">Nama Course</th>
+            <th class="px-4 py-3">Nama Paket</th>
+            <th class="px-4 py-3">Harga</th>
+            <th class="px-4 py-3">Durasi (hari)</th>
             <th class="px-4 py-3">Deskripsi</th>
             <th class="px-4 py-3">Created At</th>
             <th class="px-4 py-3">Aksi</th>
         </tr>
     </thead>
     <tbody class="bg-white divide-y">
-        <!-- Data akan dimasukkan oleh DataTables -->
+
     </tbody>
 </table>
 
@@ -30,13 +31,15 @@
 
 <script>
     $(document).ready(function () {
-        $('#courseTable').DataTable({
+        $('#bundleTable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{ route('course.data') }}',
+            ajax: '{{ route('bundle.data') }}',
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-                { data: 'name_course', name: 'name_course' },
+                { data: 'name_bundle', name: 'name_bundle' },
+                { data: 'price', name: 'price' },
+                { data: 'duration', name: 'duration' },
                 { data: 'description', name: 'description' },
                 { data: 'created_at', name: 'created_at' },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
@@ -54,8 +57,8 @@
                 zeroRecords: "Tidak ada data ditemukan",
             },
             initComplete: function () {
-                $('#courseTable tbody').addClass('bg-white divide-y');
-            }
+                $('#contentTable tbody').addClass('bg-white divide-y');
+            },
         });
     });
 </script>

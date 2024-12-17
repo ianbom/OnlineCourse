@@ -8,6 +8,7 @@ use App\Models\Content;
 use App\Models\Materi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\DataTables;
 
 class MateriController extends Controller
 {
@@ -20,9 +21,25 @@ class MateriController extends Controller
         return view('web.admin.materi.index_materi', ['materi' => $materi]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
+    public function dataMateri(){
+    $query = Materi::query();
+    return DataTables::of($query)
+        ->addIndexColumn()
+        ->addColumn('name_content', function ($materi) {
+            return $materi->content ? $materi->content->name_content : '-';
+        })
+        ->addColumn('action', function ($materi) {
+            return view('web.admin.materi.action_materi', compact('materi'))->render();
+        })
+        ->editColumn('created_at', function ($materi) {
+            return $materi->created_at->format('d-m-Y');
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+    }
+
+
     public function create()
     {
         $content = Content::all();
@@ -103,7 +120,7 @@ class MateriController extends Controller
 
         return redirect()->back()->with('success', 'Materi has been updated');
     } catch (\Throwable $th) {
-    
+
         return response()->json(['error' => $th->getMessage()]);
     }
 }
@@ -114,6 +131,9 @@ class MateriController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $materi = Materi::findOrFail($id);
+        $materi->delete();
+
+        return redirect()->back()->with('success', 'Materi berhasil dihapus!');
     }
 }

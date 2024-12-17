@@ -1,26 +1,26 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.tailwind.min.css">
 
-
 <style>
 
-    #courseTable td {
+    #materiTable td {
         border-bottom: 1px solid #ddd;
     }
 </style>
 
-<table id="courseTable" class="w-full whitespace-no-wrap">
+
+<table id="materiTable" class="w-full whitespace-no-wrap">
     <thead>
         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
             <th class="px-4 py-3">#</th>
-            <th class="px-4 py-3">Nama Course</th>
-            <th class="px-4 py-3">Deskripsi</th>
+            <th class="px-4 py-3">Nama Content</th>
+            <th class="px-4 py-3">Nama Materi</th>
             <th class="px-4 py-3">Created At</th>
             <th class="px-4 py-3">Aksi</th>
         </tr>
     </thead>
     <tbody class="bg-white divide-y">
-        <!-- Data akan dimasukkan oleh DataTables -->
+
     </tbody>
 </table>
 
@@ -30,14 +30,14 @@
 
 <script>
     $(document).ready(function () {
-        $('#courseTable').DataTable({
+        $('#materiTable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{ route('course.data') }}',
+            ajax: '{{ route('materi.data') }}',
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-                { data: 'name_course', name: 'name_course' },
-                { data: 'description', name: 'description' },
+                { data: 'name_content', name: 'name_content' },
+                { data: 'name_materi', name: 'name_materi' },
                 { data: 'created_at', name: 'created_at' },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ],
@@ -53,9 +53,7 @@
                 },
                 zeroRecords: "Tidak ada data ditemukan",
             },
-            initComplete: function () {
-                $('#courseTable tbody').addClass('bg-white divide-y');
-            }
+
         });
     });
 </script>

@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::resource('bundle', BundleController::class)->except('index');
         Route::get('/index/bundle', [BundleController::class, 'index'])->name('bundle.index');
+        Route::get('/data/bundle', [BundleController::class, 'dataBundle'])->name('bundle.data');
 
         Route::resource('course', CourseController::class)->except('index');
         Route::get('/index/course', [CourseController::class, 'index'])->name('course.index');
@@ -34,10 +35,11 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('content', ContentController::class)->except('index');
         Route::get('/index/content', [ContentController::class, 'index'])->name('content.index');
-        Route::get('/search/content', [ContentController::class, 'searchContent'])->name('content.search');
+        Route::get('/data/content', [ContentController::class, 'dataContent'])->name('content.data');
 
         Route::resource('materi', MateriController::class)->except('index');
         Route::get('/index/materi', [MateriController::class, 'index'])->name('materi.index');
+        Route::get('/data/materi', [MateriController::class, 'dataMateri'])->name('materi.data');
 
         Route::resource('category', CategoryController::class)->except('index');
         Route::get('/index/category', [CategoryController::class, 'index'])->name('category.index');
