@@ -24,13 +24,8 @@
         </div>
 
         <div class="mb-4">
-            <h2 class="text-lg font-semibold text-gray-800">Content</h2>
-            <p class="text-gray-700">{{ $materi->content->name_content }}</p>
-        </div>
-
-        <div class="mb-4">
-            <h2 class="text-lg font-semibold text-gray-800">Course</h2>
-            <p class="text-gray-700">{{ $materi->content->course->name_course }}</p>
+            <h2 class="text-lg font-semibold text-gray-800">Modul</h2>
+            <p class="text-gray-700">{{ $materi->course->name_course }}</p>
         </div>
     </div>
 

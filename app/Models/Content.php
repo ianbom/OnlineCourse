@@ -20,4 +20,8 @@ class Content extends Model
     public function materi(){
         return $this->hasMany(Materi::class, 'id_content', 'id_content');
     }
+
+    public function rating(){
+        return $this->hasMany(Rating::class, 'id_rating', 'id_rating');
+    }
 }

@@ -51,24 +51,24 @@
 
     <!-- Tabel Konten -->
     <div class="mt-8 px-4 py-3 bg-white rounded-lg shadow-md">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">Daftar Konten</h2>
-        @if ($course->content && $course->content->isNotEmpty())
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Daftar Materi</h2>
+        @if ($course->materi && $course->materi->isNotEmpty())
         <table class="w-full whitespace-no-wrap">
             <thead>
                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
                     <th class="px-4 py-3">#</th>
-                    <th class="px-4 py-3">Nama Konten</th>
+                    <th class="px-4 py-3">Nama Materi</th>
                     <th class="px-4 py-3">Aksi</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y">
-                @foreach ($course->content as $index => $content)
+                @foreach ($course->materi as $index => $materi)
                     <tr class="text-gray-700">
                         <td class="px-4 py-3 text-sm">{{ $index + 1 }}</td>
-                        <td class="px-4 py-3 text-sm">{{ $content->name_content }}</td>
+                        <td class="px-4 py-3 text-sm">{{ $materi->name_materi }}</td>
                         <td class="px-4 py-3 text-sm">
                             <div class="flex space-x-2">
-                                <a href="{{ route('content.show', $content->id_content) }}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg focus:outline-none focus:shadow-outline-blue" aria-label="Detail">
+                                <a href="{{ route('materi.show', $materi->id_materi) }}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg focus:outline-none focus:shadow-outline-blue" aria-label="Detail">
                                     <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M9.5 3.5C7 3.5 4 7 4 10s3 6.5 5.5 6.5S15 13 15 10 12 3.5 9.5 3.5zM9.5 5c1.5 0 4 3.5 4 5s-2.5 5-4 5-4-3.5-4-5 2.5-5 4-5zm0 1.5C8.67 6.5 8 7.17 8 8s.67 1.5 1.5 1.5S11 8.83 11 8s-.67-1.5-1.5-1.5z"></path>
                                     </svg>

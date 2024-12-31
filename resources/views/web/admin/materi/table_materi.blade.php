@@ -13,7 +13,7 @@
     <thead>
         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
             <th class="px-4 py-3">#</th>
-            <th class="px-4 py-3">Nama Content</th>
+            <th class="px-4 py-3">Nama Modul</th>
             <th class="px-4 py-3">Nama Materi</th>
             <th class="px-4 py-3">Created At</th>
             <th class="px-4 py-3">Aksi</th>
@@ -36,7 +36,7 @@
             ajax: '{{ route('materi.data') }}',
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-                { data: 'name_content', name: 'name_content' },
+                { data: 'name_course', name: 'name_course' },
                 { data: 'name_materi', name: 'name_materi' },
                 { data: 'created_at', name: 'created_at' },
                 { data: 'action', name: 'action', orderable: false, searchable: false },

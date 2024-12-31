@@ -17,19 +17,19 @@
 
             <!-- Pilih Content -->
             <label class="block text-sm">
-                <span class="text-gray-700">Pilih Content</span>
+                <span class="text-gray-700">Pilih Modul</span>
                 <select
-                    name="id_content"
-                    id="id_content"
+                    name="id_course"
+                    id="id_course"
                     class="block w-full mt-1 text-sm border-gray-300 rounded-md form-select focus:border-purple-400 focus:outline-none focus:ring-purple-400"
                     required
                 >
-                    <option value="">-- Pilih Content --</option>
-                    @foreach ($content as $contentItem)
-                        <option value="{{ $contentItem->id_content }}" {{ old('id_content') == $contentItem->id_content ? 'selected' : '' }}>{{ $contentItem->name_content }}</option>
+                    <option value="">-- Pilih Modul --</option>
+                    @foreach ($course as $courseItem)
+                        <option value="{{ $courseItem->id_course }}" {{ old('id_course') == $courseItem->id_course ? 'selected' : '' }}>{{ $courseItem->name_course }}</option>
                     @endforeach
                 </select>
-                @error('id_content')
+                @error('id_course')
                     <div class="text-red-500 text-xs mt-2">{{ $message }}</div>
                 @enderror
             </label>

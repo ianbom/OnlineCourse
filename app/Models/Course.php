@@ -15,6 +15,10 @@ class Course extends Model
         return $this->hasMany(Content::class, 'id_course', 'id_course');
     }
 
+    public function materi(){
+        return $this->hasMany(Materi::class, 'id_course', 'id_course');
+    }
+
     public function courseCategory(){
         return $this->hasMany(CourseCategory::class, 'id_course', 'id_course');
     }

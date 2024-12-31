@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('materi', function (Blueprint $table) {
             $table->id('id_materi');
-            $table->foreignId('id_content')->constrained('content', 'id_content')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('id_course')->constrained('course', 'id_course')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name_materi');
-            $table->string('video');
+            $table->string('video')->nullable();;
             $table->text('description');
-            $table->string('text_book');
+            $table->string('text_book')->nullable();;
             $table->timestamps();
         });
     }

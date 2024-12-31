@@ -82,7 +82,7 @@ class CourseController extends Controller
 
     public function show(string $id)
     {
-        $course = Course::with('content.materi')->findOrFail($id);
+        $course = Course::with('materi')->findOrFail($id);
 
         //return response()->json(['data' => $course]);
         return view('web.admin.course.show_course', ['course' => $course]);

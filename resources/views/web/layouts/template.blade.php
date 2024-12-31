@@ -165,7 +165,7 @@
                 </a>
             </li>
 
-            <li class="relative px-6 py-3">
+            {{-- <li class="relative px-6 py-3">
                 <!-- Highlight Bar -->
                 @if(Request::is('admin/index/content') )
                 <span
@@ -194,7 +194,7 @@
                     </svg>
                     <span class="ml-4">Content</span>
                 </a>
-            </li>
+            </li> --}}
 
             <li class="relative px-6 py-3">
                 <!-- Highlight Bar -->

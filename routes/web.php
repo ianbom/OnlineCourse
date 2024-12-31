@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\MateriController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\PaketLanggananController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Course;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +49,15 @@ Route::middleware('auth')->group(function () {
         Route::resource('user', UserController::class)->except('index');
         Route::get('/index/user', [UserController::class, 'index'])->name('user.index');
 
+    });
+
+    Route::prefix('user')->group(function(){
+
+        Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');
+        Route::get('/kelas/search', [KelasController::class, 'searchKelas'])->name('kelas.search');
+        Route::get('/kelas/{course}', [KelasController::class, 'show'])->name('kelas.show');
+
+        Route::get('/paket-langganan', [PaketLanggananController::class, 'index'])->name('paket.index');
     });
 
 

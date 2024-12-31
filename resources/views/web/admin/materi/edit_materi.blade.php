@@ -59,22 +59,22 @@
 
             <!-- Materi Content (Choose Content) -->
             <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Pilih Content</span>
+                <span class="text-gray-700">Pilih Modul</span>
                 <select
-                    name="id_content"
-                    id="id_content"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-lg focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('id_content') border-red-500 @enderror"
+                    name="id_course"
+                    id="id_course"
+                    class="block w-full mt-1 text-sm border-gray-300 rounded-lg focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('id_course') border-red-500 @enderror"
                     required
                 >
-                    <option value="">Pilih Content</option>
-                    @foreach ($content as $item)
-                        <option value="{{ $item->id_content }}"
-                            {{ old('id_content', $materi->id_content) == $item->id_content ? 'selected' : '' }}>
-                            {{ $item->name_content }}
+                    <option value="">Pilih Modul</option>
+                    @foreach ($course as $item)
+                        <option value="{{ $item->id_course }}"
+                            {{ old('id_course', $materi->id_course) == $item->id_course ? 'selected' : '' }}>
+                            {{ $item->name_course }}
                         </option>
                     @endforeach
                 </select>
-                @error('id_content')
+                @error('id_course')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </label>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\MateriRequest;
 use App\Models\Content;
+use App\Models\Course;
 use App\Models\Materi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -26,8 +27,8 @@ class MateriController extends Controller
     $query = Materi::query();
     return DataTables::of($query)
         ->addIndexColumn()
-        ->addColumn('name_content', function ($materi) {
-            return $materi->content ? $materi->content->name_content : '-';
+        ->addColumn('name_course', function ($materi) {
+            return $materi->course ? $materi->course->name_course : '-';
         })
         ->addColumn('action', function ($materi) {
             return view('web.admin.materi.action_materi', compact('materi'))->render();
@@ -42,8 +43,8 @@ class MateriController extends Controller
 
     public function create()
     {
-        $content = Content::all();
-        return view('web.admin.materi.create_materi', ['content' => $content]);
+        $course = Course::all();
+        return view('web.admin.materi.create_materi', ['course' => $course]);
     }
 
     public function store(MateriRequest $request)
@@ -84,8 +85,8 @@ class MateriController extends Controller
     public function edit(string $id)
     {
         $materi = Materi::findOrFail($id);
-        $content = Content::all();
-        return view('web.admin.materi.edit_materi', ['materi' => $materi, 'content' => $content]);
+        $course = Course::all();
+        return view('web.admin.materi.edit_materi', ['materi' => $materi, 'course' => $course]);
     }
 
     public function update(MateriRequest $request, string $id)
