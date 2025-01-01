@@ -5,7 +5,7 @@
     <aside class="w-64 bg-white shadow-md flex flex-col">
         <!-- Logo -->
         <div class="py-4">
-            {{-- <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-32 h-auto ml-2">  --}}
+            <img src="{{ asset('img/lgoshaelife.png') }}" alt="Logo" class="w-32 h-auto ml-2">
         </div>
 
 
@@ -15,9 +15,9 @@
                 <h3 class="text-gray-400 text-sm font-semibold uppercase mb-3">Menu</h3>
                 <ul>
                     <li class="mb-2">
-                        <a href=""
+                        <a href="{{ route('kelas.index') }}"
                            class="flex items-center px-4 py-2 rounded hover:bg-gray-100
-                           {{ Route::currentRouteName() == 'user.buku.index' ? 'bg-[#D3E9FF] text-[#052D6E] font-semibold' : '' }}">
+                           {{ Route::currentRouteName() == 'kelas.index' ? 'bg-[#D3E9FF] text-[#052D6E] font-semibold' : '' }}">
                             <i class="fas fa-home text-blue-500 mr-3"></i>
                             <span class="text-gray-700">Kelas</span>
                         </a>
@@ -56,9 +56,9 @@
             <div>
                 <ul>
                     <li class="mb-2">
-                        <a href=""
+                        <a href="{{ route('paket.index') }}"
                            class="flex items-center px-4 py-2 rounded hover:bg-gray-100
-                           {{ Route::currentRouteName() == 'user.paketLangganan.index' ? 'bg-[#D3E9FF] text-[#052D6E] font-semibold' : '' }}">
+                           {{ Route::currentRouteName() == 'paket.index' ? 'bg-[#D3E9FF] text-[#052D6E] font-semibold' : '' }}">
                             <i class="fas fa-box text-blue-500 mr-3"></i>
                             <span class="text-gray-700">Paket Langganan</span>
                         </a>
@@ -72,9 +72,9 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href=""
+                        <a href="{{ route('order.index') }}"
                            class="flex items-center px-4 py-2 rounded hover:bg-gray-100
-                           {{ Route::currentRouteName() == 'user.order.index' ? 'bg-[#D3E9FF] text-[#052D6E] font-semibold' : '' }}">
+                           {{ Route::currentRouteName() == 'order.index' ? 'bg-[#D3E9FF] text-[#052D6E] font-semibold' : '' }}">
                             <i class="fas fa-shopping-cart text-blue-500 mr-3"></i>
                             <span class="text-gray-700">Pembelian</span>
                         </a>
@@ -94,7 +94,7 @@
 
             <div>
                 <a href="">
-                    <img src="{{ asset('images/library.png') }}" class="w-24 h-24 mb-2">
+                    <img src="{{ asset('img/Frame 1.png') }}" class="w-24 h-24 mb-2">
                 </a>
 
 
@@ -109,7 +109,7 @@
     </aside>
 
     <!-- Main Content -->
-<div class="flex-1" style="background-image: url('{{ asset('images/bg.png') }}'); background-size: cover; background-position: center; background-color: white;">
+<div class="flex-1" style="background-image: url('{{ asset('img/bgOnlinecourse.png') }}'); background-size: cover; background-position: center; background-color: white;">
 
     @yield('content')
 </div>

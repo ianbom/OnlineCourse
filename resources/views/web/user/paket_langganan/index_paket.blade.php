@@ -53,7 +53,7 @@
                         </div>
                     </div>
 
-                    <form action="#" method="POST">
+                    <form action="{{ route('order.store', $bundle->id_bundle) }}" method="POST">
                         @csrf
                         <button type="submit"
                                 class="w-full bg-white text-blue-500 py-2 rounded-lg font-medium hover:bg-blue-50 transition">
