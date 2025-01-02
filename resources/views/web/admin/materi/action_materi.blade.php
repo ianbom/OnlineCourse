@@ -26,4 +26,10 @@
             </svg>
         </button>
     </form>
+
+    <a href="{{ route('question.index', $materi->id_materi) }}"
+        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg focus:outline-none focus:shadow-outline-blue"
+        aria-label="Show">
+        Quiz
+    </a>
 </div>

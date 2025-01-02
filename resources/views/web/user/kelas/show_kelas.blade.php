@@ -39,9 +39,24 @@
                                 <i class="fas fa-question-circle text-orange-500"></i>
                                 <span>Kuis</span>
                             </div>
-                            <button class="bg-brown-800 text-white px-4 py-2 rounded-lg">
-                                SIMPAN
-                            </button>
+                            @if ($checkSimpan)
+                            <form action="{{ route('delete.save', $course->id_course) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-800 text-white px-4 py-2 rounded-lg">
+                                    Hapus dr simpan
+                                </button>
+                            </form>
+                            @else
+                            <form action="{{ route('belajar.save', $course->id_course) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="bg-blue-800 text-white px-4 py-2 rounded-lg">
+                                    SIMPAN
+                                </button>
+                            </form>
+                            @endif
+
+
                         </div>
                     </div>
                 </div>
@@ -59,7 +74,7 @@
                                 <i class="fas fa-play"></i>
                             </div>
                             <div>
-                                <h3 class="font-medium">{{ $index + 1 }}. {{ $materi->name_materi }}</h3>
+                                <a href="{{ route('kelas.belajar', $materi->id_materi) }}" class="font-medium">{{ $index + 1 }}. {{ $materi->name_materi }}</a>
                             </div>
                         </div>
                         <div class="flex items-center gap-4">
@@ -81,7 +96,7 @@
 
             <!-- CTA Button -->
             <div class="mt-8 text-center">
-                <a href="#" class="bg-orange-500 text-white px-8 py-3 rounded-lg inline-block hover:bg-orange-600">
+                <a href="{{ route('kelas.belajar', $course->materi->first()->id_materi) }}" class="bg-orange-500 text-white px-8 py-3 rounded-lg inline-block hover:bg-orange-600">
                     BELAJAR SEKARANG
                 </a>
             </div>

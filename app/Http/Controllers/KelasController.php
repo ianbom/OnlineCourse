@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Materi;
+use App\Models\Save;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KelasController extends Controller
 {
@@ -28,7 +31,15 @@ class KelasController extends Controller
     }
 
     public function show(Course $course){
-        return view('web.user.kelas.show_kelas', ['course' => $course]);
+        $userId = Auth::id();
+        $checkSimpan = Save::where('id', $userId )->where('id_course', $course->id_course)->first();
+
+        return view('web.user.kelas.show_kelas', ['course' => $course, 'checkSimpan' => $checkSimpan]);
+    }
+
+    public function belajar(Materi $materi){
+
+        return view('web.user.kelas.belajar.belajar', ['materi' => $materi, 'idCourse' => $materi->id_course]);
     }
 
 

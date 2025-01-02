@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\MateriController;
+use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\BelajarController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PaketLanggananController;
 use App\Http\Controllers\PembelianController;
@@ -36,13 +38,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/index/course', [CourseController::class, 'index'])->name('course.index');
         Route::get('/data/course', [CourseController::class, 'dataCourse'])->name('course.data');
 
-        Route::resource('content', ContentController::class)->except('index');
-        Route::get('/index/content', [ContentController::class, 'index'])->name('content.index');
-        Route::get('/data/content', [ContentController::class, 'dataContent'])->name('content.data');
-
         Route::resource('materi', MateriController::class)->except('index');
         Route::get('/index/materi', [MateriController::class, 'index'])->name('materi.index');
         Route::get('/data/materi', [MateriController::class, 'dataMateri'])->name('materi.data');
+
+        Route::get('/index/question/{materi}', [QuestionController::class, 'index'])->name('question.index');
+        Route::get('/create/question/{materi}', [QuestionController::class, 'create'])->name('question.create');
+        Route::get('/edit/question/{question}', [QuestionController::class, 'edit'])->name('question.edit');
+        Route::post('/store/question', [QuestionController::class, 'store'])->name('question.store');
+        Route::put('/update/question/{question}', [QuestionController::class, 'update'])->name('question.update');
+        Route::delete('/delete/question/{question}', [QuestionController::class, 'destroy'])->name('question.delete');
 
         Route::resource('category', CategoryController::class)->except('index');
         Route::get('/index/category', [CategoryController::class, 'index'])->name('category.index');
@@ -57,6 +62,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');
         Route::get('/kelas/search', [KelasController::class, 'searchKelas'])->name('kelas.search');
         Route::get('/kelas/{course}', [KelasController::class, 'show'])->name('kelas.show');
+        Route::get('/belajar/{materi}', [KelasController::class, 'belajar'])->name('kelas.belajar');
+
+        Route::post('/catat/{materi}', [BelajarController::class, 'catat'])->name('belajar.catat');
+        Route::post('/save/{course}', [BelajarController::class, 'saveCourse'])->name('belajar.save');
+        Route::delete('/delete/save/{course}', [BelajarController::class, 'deleteSaveCourse'])->name('delete.save');
 
         Route::get('/paket-langganan', [PaketLanggananController::class, 'index'])->name('paket.index');
         Route::post('/order/{bundle}', [PaketLanggananController::class, 'order'])->name('order.store');
@@ -67,6 +77,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/order', [PembelianController::class, 'indexOrder'])->name('order.index');
         Route::get('/orders/search', [PembelianController::class, 'searchOrder'])->name('order.search');
+
 
 
     });

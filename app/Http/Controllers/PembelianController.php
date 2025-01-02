@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Payment;
+use App\Models\Subscription;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,8 +30,50 @@ class PembelianController extends Controller
 
 
     public function bayarOrder(Order $order){
+        $userId = Auth::id();
+
+
+
+        $checkSubs = Subscription::where('id', $userId)->first();
+        $checkSubsActive = Subscription::where('id', $userId)->where('status_subs', true)->first();
+
+        $payment = Payment::create([
+            'id_order' => $order->id_order,
+            'price_total' => $order->price_total,
+            'payment_method' => 'Gratis jir',
+            'payment_status' => 'Successful',
+        ]);
+
         $order->status_order = 'success';
         $order->save();
+
+        if ($order->status_order == 'success') {
+            if ($checkSubsActive) {
+                $checkSubsActive->update([
+                    'id_bundle' => $order->id_bundle,
+                    'status_subs' => true,
+                    'start_date' => now(),
+                    'end_date' => Carbon::parse($checkSubsActive->end_date)->addDays($order->bundle->duration),
+                ]);
+            } if ($checkSubs) {
+                $checkSubs->update([
+                    'id_bundle' => $order->id_bundle,
+                    'status_subs' => true,
+                    'start_date' => now(),
+                    'end_date' => Carbon::parse($checkSubs->end_date)->addDays($order->bundle->duration),
+                ]);
+            } else{
+                Subscription::create([
+                    'id' => $order->id,
+                    'id_bundle' => $order->id_bundle,
+                    'status_subs' => true,
+                    'start_date' => now(),
+                    'end_date' => now()->addDays($order->bundle->duration)
+                ]);
+            }
+        }
+
+        return redirect()->back();
 
         return redirect()->back()->with('success', 'Order Added Successfully');
     }

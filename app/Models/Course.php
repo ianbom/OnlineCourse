@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
+    use HasFactory;
     protected $guarded = ['id_course'];
     protected $table = 'course';
     protected $primaryKey = 'id_course';
@@ -26,5 +28,9 @@ class Course extends Model
     public function category()
     {
         return $this->belongsToMany(Category::class, 'course_category', 'id_course', 'id_category');
+    }
+
+    public function saveCourse(){
+        return $this->hasMany(Save::class, 'id_course', 'id_course');
     }
 }

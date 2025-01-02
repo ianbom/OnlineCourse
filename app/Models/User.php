@@ -58,4 +58,18 @@ class User extends Authenticatable
     public function rating(){
         return $this->hasMany(Rating::class, 'id', 'id');
     }
+
+    public function note(){
+        return $this->hasMany(Note::class, 'id', 'id');
+    }
+
+    public function saveCourse(){
+        return $this->hasMany(Save::class, 'id', 'id');
+    }
+
+    public function answer(){
+        return $this->hasMany(Answer::class, 'id', 'id');
+    }
+
+
 }
