@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
 use App\Models\Course;
 use App\Models\Materi;
+use App\Models\Question;
 use App\Models\Save;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,9 +40,20 @@ class KelasController extends Controller
     }
 
     public function belajar(Materi $materi){
+        $userId = Auth::id();
+        $question = Question::where('id_materi', $materi->id_materi)->first();
+        $totalSoal = Question::where('id_materi', $materi->id_materi)->count();
+        $nilai = Answer::where('id_materi', $materi->id_materi)->where('id', $userId)->where('is_correct', true)->count();
 
-        return view('web.user.kelas.belajar.belajar', ['materi' => $materi, 'idCourse' => $materi->id_course]);
+        return view('web.user.kelas.belajar.belajar',
+        ['materi' => $materi,
+        'idCourse' => $materi->id_course,
+        'question' => $question,
+        'nilai' => $nilai,
+        'totalSoal' => $totalSoal]);
     }
+
+
 
 
 }

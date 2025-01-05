@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('answer', function (Blueprint $table) {
             $table->id('id_answer');
+            $table->foreignId('id_materi')->constrained('materi', 'id_materi')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('id_question')->constrained('question', 'id_question')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('id_option')->constrained('option', 'id_option')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('id')->constrained('users', 'id')->cascadeOnDelete()->cascadeOnUpdate();

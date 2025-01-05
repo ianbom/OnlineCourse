@@ -64,6 +64,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/kelas/{course}', [KelasController::class, 'show'])->name('kelas.show');
         Route::get('/belajar/{materi}', [KelasController::class, 'belajar'])->name('kelas.belajar');
 
+        Route::get('/quiz/{materi}', [BelajarController::class, 'kerjakanQuiz'])->name('quiz.kerjakan');
+        Route::post('/submit/quiz/{materi}', [BelajarController::class, 'submitQuiz'])->name('quiz.submit');
+
         Route::post('/catat/{materi}', [BelajarController::class, 'catat'])->name('belajar.catat');
         Route::post('/save/{course}', [BelajarController::class, 'saveCourse'])->name('belajar.save');
         Route::delete('/delete/save/{course}', [BelajarController::class, 'deleteSaveCourse'])->name('delete.save');

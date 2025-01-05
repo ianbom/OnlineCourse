@@ -68,6 +68,16 @@
                 @endif
             </div>
 
+            @if ($question)
+                <div class="mb-8">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Quiz </h2>
+                    <a href="{{ route('quiz.kerjakan', $materi->id_materi) }}" class="bg-green-500 p-1 rounded-sm text-white"> Kerjakan quiz</a>
+                    <p>Nilai anda {{ $nilai }} / {{ $totalSoal }}</p>
+                </div>
+                 @else
+            @endif
+
+
             <!-- Tombol Navigasi -->
             <div class="flex justify-between items-center mt-8 pt-6 border-t">
                 <a href="{{ route('kelas.show', $materi->id_course) }}" class="inline-flex items-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
