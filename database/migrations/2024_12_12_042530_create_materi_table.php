@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('materi', function (Blueprint $table) {
             $table->id('id_materi');
             $table->foreignId('id_course')->constrained('course', 'id_course')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->enum('type', ['materi', 'quiz', 'modul'])->default('materi');
             $table->string('name_materi');
             $table->string('video')->nullable();;
             $table->text('description');

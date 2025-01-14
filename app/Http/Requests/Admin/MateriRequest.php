@@ -17,6 +17,7 @@ class MateriRequest extends FormRequest
     {
         return [
             'id_course' => 'required',
+            'type' => 'required',
             'name_materi' => 'required|string',
             'video' => 'nullable|file|mimes:mp4,mkv,webm,avi,mpeg',
             'text_book' => 'nullable|file|mimes:pdf',

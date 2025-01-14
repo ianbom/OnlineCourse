@@ -34,6 +34,24 @@
                 @enderror
             </label>
 
+            <label class="block text-sm">
+                <span class="text-gray-700">Pilih Tipe</span>
+                <select
+                    name="type"
+                    id="type"
+                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-select focus:border-purple-400 focus:outline-none focus:ring-purple-400"
+                    required
+                >
+                    <option value="">-- Pilih Tipe --</option>
+                    <option value="materi">Materi</option>
+                    <option value="modul">Modul</option>
+                    <option value="quiz">Quiz</option>
+                </select>
+                @error('type')
+                    <div class="text-red-500 text-xs mt-2">{{ $message }}</div>
+                @enderror
+            </label>
+
             <!-- Nama Materi -->
             <label class="block mt-4 text-sm">
                 <span class="text-gray-700">Nama Materi</span>
