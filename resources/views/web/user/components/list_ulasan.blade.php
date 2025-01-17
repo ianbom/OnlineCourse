@@ -10,11 +10,15 @@
         <div class="p-3 flex-1 flex flex-col justify-between">
             <h3 class="font-medium text-sm">{{ $course->name_course }}</h3>
 
-            <!-- Button untuk membuka modal -->
-            <button onclick="toggleModal('ratingModal-{{ $course->id_course }}')"
-                class="mt-2 text-white bg-[#1E90FF] hover:bg-[#D3E9FF] hover:text-[#1E90FF] focus:outline-none focus:ring-2 focus:ring-[#1E90FF] focus:ring-offset-2 text-xs py-1 px-2 rounded-[12px]">
-                Beri Rating dan Komentar
-            </button>
+            @if($course->isRated)
+                <button class="bg bg-gray-500 p-2 rounded-sm">Sudah rating</button>
+            @else
+                <!-- Button untuk membuka modal -->
+                <button onclick="toggleModal('ratingModal-{{ $course->id_course }}')"
+                    class="mt-2 text-white bg-[#1E90FF] hover:bg-[#D3E9FF] hover:text-[#1E90FF] focus:outline-none focus:ring-2 focus:ring-[#1E90FF] focus:ring-offset-2 text-xs py-1 px-2 rounded-[12px]">
+                    Beri Rating dan Komentar
+                </button>
+            @endif
 
             <div class="flex items-center justify-between mt-2 text-xs text-gray-500">
                 <span class="flex items-center">
@@ -90,9 +94,10 @@
             </form>
         </div>
     </div>
-@empty
-    <h1 class="text-gray-500 text-center">Tidak ada course yang tersedia saat ini.</h1>
+    @empty
+    <p>Tidak ada data yang ditemukan</p>
 @endforelse
+
 
 <style>
 .star-rating span.active {

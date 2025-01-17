@@ -26,7 +26,7 @@
     <div class="mb-10">
         {{-- <h2 class="text-lg font-semibold mb-4"></h2> --}}
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-12">
-           @include('web.user.components.list_ulasan', ['course' => $course])
+           @include('web.user.components.list_ulasan', ['course'])
         </div>
     </div>
 </div>
@@ -42,7 +42,7 @@
         searchInput.addEventListener('input', function () {
             const searchTerm = searchInput.value;
 
-            fetch(`{{ route('catatan.search') }}?search=${searchTerm}`)
+            fetch(`{{ route('ulasan.search') }}?search=${searchTerm}`)
                 .then(response => response.json())
                 .then(data => {
                     resultsContainer.innerHTML = data.html;

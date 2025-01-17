@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('name_materi');
             $table->string('video')->nullable();;
             $table->text('description');
-            $table->string('text_book')->nullable();;
+            $table->string('text_book')->nullable();
+            $table->boolean('is_free')->default(false); 
             $table->timestamps();
         });
     }
