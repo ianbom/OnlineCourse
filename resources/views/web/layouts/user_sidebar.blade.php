@@ -31,7 +31,7 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="#"
+                        <a href="{{ route('ulasan.index') }}"
                            class="flex items-center px-4 py-2 rounded hover:bg-gray-100">
                             <i class="fas fa-highlighter text-blue-500 mr-3"></i>
                             <span class="text-gray-700">Beri Ulasan</span>

@@ -89,6 +89,7 @@ Route::middleware('auth')->group(function () {
 
 
         Route::get('/ulasan', [UlasanController::class, 'index'])->name('ulasan.index');
+        Route::post('/ulasan/{course}', [UlasanController::class, 'store'])->name('ulasan.store');
 
     });
 
