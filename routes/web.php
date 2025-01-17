@@ -8,10 +8,12 @@ use App\Http\Controllers\Admin\MateriController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BelajarController;
+use App\Http\Controllers\CatatanController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PaketLanggananController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UlasanController;
 use App\Models\Course;
 use Illuminate\Support\Facades\Route;
 
@@ -80,7 +82,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/order', [PembelianController::class, 'indexOrder'])->name('order.index');
         Route::get('/orders/search', [PembelianController::class, 'searchOrder'])->name('order.search');
 
-        
+        Route::get('/catatan', [CatatanController::class, 'index'])->name('catatan.index');
+        Route::get('/catatan/search', [CatatanController::class, 'search'])->name('catatan.search');
+        Route::get('/catatan/{course}', [CatatanController::class, 'show'])->name('catatan.show');
+        Route::delete('/catatan/{note}', [CatatanController::class, 'delete'])->name('catatan.delete');
+
+
+        Route::get('/ulasan', [UlasanController::class, 'index'])->name('ulasan.index');
 
     });
 
