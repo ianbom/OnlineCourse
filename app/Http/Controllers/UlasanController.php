@@ -13,7 +13,6 @@ class UlasanController extends Controller
         $userId = Auth::id();
         $ratedCourseIds = Rating::where('id', $userId)->pluck('id_course');
 
-
         $course = Course::all()->map(function ($course) use ($ratedCourseIds) {
             $course->isRated = $ratedCourseIds->contains($course->id_course);
             return $course;

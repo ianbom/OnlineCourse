@@ -98,10 +98,10 @@
                 </a>
 
 
-                <a href=""
+                <a href="{{ route('collection.index') }}"
                    class="flex flex-col
                    {{ Route::currentRouteName() == 'user.favorite.index' ? 'text-[#052D6E] font-semibold' : 'text-gray-700' }}">
-                    <span class="text-sm">My Favorite</span>
+                    <span class="text-sm">Collection</span>
                 </a>
             </div>
 

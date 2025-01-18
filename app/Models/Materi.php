@@ -33,4 +33,12 @@ class Materi extends Model
     public function answer(){
         return $this->hasMany(Answer::class, 'id_materi', 'id_materi');
     }
+
+    public function history(){
+        return $this->hasMany(Materi::class, 'id_materi', 'id_materi');
+    }
+
+    public function finished(){
+        return $this->hasMany(Materi::class, 'id_materi', 'id_materi');
+    }
 }

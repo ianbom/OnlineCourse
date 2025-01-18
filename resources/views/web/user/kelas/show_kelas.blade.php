@@ -39,6 +39,21 @@
                                 <i class="fas fa-question-circle text-orange-500"></i>
                                 <span>Kuis</span>
                             </div>
+
+                            @if ($checkSelesai)
+                            <form action="{{ route('kelas.hapusSelesaikan', $course->id_course) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg bg-red-500 rounded-lg p-2">Hapus selesai</button>
+                            </form>
+                            @else
+                            <form action="{{ route('kelas.selesaikan', $course->id_course) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="bg bg-blue-300 p-1 rounded-lg text-white">Selesaikan</button>
+                            </form>
+                            @endif
+
+
                             @if ($checkSimpan)
                             <form action="{{ route('delete.save', $course->id_course) }}" method="POST">
                                 @csrf

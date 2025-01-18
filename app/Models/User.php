@@ -71,5 +71,13 @@ class User extends Authenticatable
         return $this->hasMany(Answer::class, 'id', 'id');
     }
 
+    public function history(){
+        return $this->hasMany(History::class, 'id', 'id');
+    }
+
+    public function finished(){
+        return $this->hasMany(Finished::class, 'id', 'id');
+    }
+
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Answer;
 use App\Models\Course;
+use App\Models\Finished;
 use App\Models\Materi;
 use App\Models\Note;
 use App\Models\Option;
@@ -90,6 +91,18 @@ class BelajarController extends Controller
         } catch (\Exception $e) {
             return back()->withErrors(['error' => $e->getMessage()]);
         }
+    }
+
+    public function selesaiMateri(Materi $materi){
+
+        $userId = Auth::id();
+        Finished::create([
+            'id' => $userId,
+            'id_course' => $materi->id_course,
+            'id_materi' => $materi->id_materi,
+        ]);
+
+        return redirect()->back()->with('success', 'Kelas diselesaikan');
     }
 
 }

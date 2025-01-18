@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BelajarController;
 use App\Http\Controllers\CatatanController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PaketLanggananController;
 use App\Http\Controllers\PembelianController;
@@ -64,6 +65,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');
         Route::get('/kelas/search', [KelasController::class, 'searchKelas'])->name('kelas.search');
         Route::get('/kelas/{course}', [KelasController::class, 'show'])->name('kelas.show');
+        Route::post('/kelas/selesaikan/{course}', [KelasController::class, 'selesaiKelas'])->name('kelas.selesaikan');
+        Route::delete('/kelas/hapusSelesaikan/{course}', [KelasController::class, 'hapusSelesaiKelas'])->name('kelas.hapusSelesaikan');
         Route::get('/belajar/{materi}', [KelasController::class, 'belajar'])->name('kelas.belajar');
 
         Route::get('/quiz/{materi}', [BelajarController::class, 'kerjakanQuiz'])->name('quiz.kerjakan');
@@ -91,6 +94,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/ulasan', [UlasanController::class, 'index'])->name('ulasan.index');
         Route::get('/ulasan/search', [UlasanController::class, 'search'])->name('ulasan.search');
         Route::post('/ulasan/{course}', [UlasanController::class, 'store'])->name('ulasan.store');
+
+        Route::get('/collection', [CollectionController::class, 'index'])->name('collection.index');
 
     });
 

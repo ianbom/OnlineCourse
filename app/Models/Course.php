@@ -33,4 +33,12 @@ class Course extends Model
     public function saveCourse(){
         return $this->hasMany(Save::class, 'id_course', 'id_course');
     }
+
+    public function history(){
+        return $this->hasMany(History::class, 'id_course', 'id_course');
+    }
+
+    public function finished(){
+        return $this->hasMany(Finished::class, 'id_course', 'id_course');
+    }
 }
