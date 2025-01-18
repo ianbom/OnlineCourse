@@ -15,7 +15,6 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_parent' => 'nullable',
             'name_category' => 'required|string'
         ];
     }

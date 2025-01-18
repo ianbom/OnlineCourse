@@ -15,21 +15,6 @@
 
         <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
 
-            <!-- Pilih Parent Kategori -->
-            <label class="block text-sm">
-                <span class="text-gray-700">Pilih Parent Kategori</span>
-                <select
-                    name="id_parent"
-                    id="id_parent"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-select focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                >
-                    <option value="">-- Pilih Parent Kategori (Opsional) --</option>
-                    @foreach ($parentCategory as $category)
-                        <option value="{{ $category->id_category }}">{{ $category->name_category }}</option>
-                    @endforeach
-                </select>
-            </label>
-
             <!-- Nama Kategori -->
             <label class="block mt-4 text-sm">
                 <span class="text-gray-700">Nama Kategori</span>
@@ -41,6 +26,26 @@
                     placeholder="Masukkan nama kategori"
                     required
                 />
+            </label>
+
+            <!-- Subkategori -->
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700">Subkategori</span>
+                <div id="subcategories-container">
+                    <input
+                        type="text"
+                        name="sub_categories[]"
+                        class="block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400"
+                        placeholder="Masukkan nama subkategori"
+                    />
+                </div>
+                <button
+                    type="button"
+                    id="add-subcategory"
+                    class="px-4 py-2 mt-4 text-sm font-medium leading-5 text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
+                >
+                    Tambah Subkategori
+                </button>
             </label>
 
             <!-- Submit -->
@@ -56,5 +61,21 @@
             </a>
         </div>
     </form>
+
+
+
 </div>
+
+<script>
+    document.getElementById('add-subcategory').addEventListener('click', function () {
+        const container = document.getElementById('subcategories-container');
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = 'sub_categories[]';
+        input.className = 'block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400';
+        input.placeholder = 'Masukkan nama subkategori';
+        container.appendChild(input);
+    });
+</script>
+
 @endsection

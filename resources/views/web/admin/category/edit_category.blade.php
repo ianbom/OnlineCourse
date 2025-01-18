@@ -16,23 +16,6 @@
 
         <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
 
-            <!-- Pilih Parent Kategori -->
-            <label class="block text-sm">
-                <span class="text-gray-700">Pilih Parent Kategori</span>
-                <select
-                    name="id_parent"
-                    id="id_parent"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-lg focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                >
-                    <option value="">-- Pilih Parent Kategori (Opsional) --</option>
-                    @foreach ($parentCategory as $parent)
-                        <option value="{{ $parent->id_category }}" {{ $category->id_parent == $parent->id_category ? 'selected' : '' }}>
-                            {{ $parent->name_category }}
-                        </option>
-                    @endforeach
-                </select>
-            </label>
-
             <!-- Nama Kategori -->
             <label class="block mt-4 text-sm">
                 <span class="text-gray-700">Nama Kategori</span>
@@ -45,6 +28,41 @@
                     placeholder="Masukkan nama kategori"
                     required
                 />
+            </label>
+
+            <!-- Subkategori -->
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700">Subkategori</span>
+                <div id="subcategories-container">
+                    <!-- Loop untuk subkategori yang ada -->
+                    @foreach ($category->subCategories as $subCategory)
+                        <div class="flex items-center mt-2">
+                            <input
+                                type="text"
+                                name="sub_categories[{{ $subCategory->id_sub_category }}]"
+                                value="{{ old('sub_categories.' . $subCategory->id_sub_category, $subCategory->name_category) }}"
+                                class="block w-full text-sm border-gray-300 rounded-lg focus:border-purple-400 focus:outline-none focus:ring-purple-400"
+                                placeholder="Masukkan nama subkategori"
+                            />
+                            <button
+                                type="button"
+                                class="ml-2 text-sm text-red-600 hover:text-red-800 delete-subcategory"
+                                data-id="{{ $subCategory->id_sub_category }}"
+                            >
+                                Hapus
+                            </button>
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Tombol tambah subkategori baru -->
+                <button
+                    type="button"
+                    id="add-subcategory"
+                    class="px-4 py-2 mt-4 text-sm font-medium leading-5 text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
+                >
+                    Tambah Subkategori Baru
+                </button>
             </label>
 
             <!-- Submit -->
@@ -61,4 +79,38 @@
         </div>
     </form>
 </div>
+
+<script>
+    // Tambahkan input baru untuk subkategori
+    document.getElementById('add-subcategory').addEventListener('click', function () {
+        const container = document.getElementById('subcategories-container');
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = 'new_sub_categories[]';
+        input.className = 'block w-full mt-2 text-sm border-gray-300 rounded-lg focus:border-purple-400 focus:outline-none focus:ring-purple-400';
+        input.placeholder = 'Masukkan nama subkategori baru';
+        container.appendChild(input);
+    });
+
+    // Hapus subkategori yang ada (opsional: kirim request delete melalui AJAX jika diperlukan)
+    document.querySelectorAll('.delete-subcategory').forEach(button => {
+    button.addEventListener('click', function () {
+        // Tambahkan ID subkategori yang dihapus ke input tersembunyi
+        const subcategoryId = this.getAttribute('data-id');
+        const deletedInput = document.createElement('input');
+        deletedInput.type = 'hidden';
+        deletedInput.name = 'deleted_sub_categories[]';
+        deletedInput.value = subcategoryId;
+
+        // Tambahkan input ke form
+        const form = document.querySelector('form');
+        form.appendChild(deletedInput);
+
+        // Hapus elemen subkategori dari tampilan
+        this.closest('.flex').remove();
+    });
+});
+
+
+</script>
 @endsection

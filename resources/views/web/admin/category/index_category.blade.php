@@ -21,7 +21,6 @@
                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
                     <th class="px-4 py-3">#</th>
                     <th class="px-4 py-3">Nama Kategori</th>
-                    <th class="px-4 py-3">Parent Kategori</th>
                     <th class="px-4 py-3">Aksi</th>
                 </tr>
             </thead>
@@ -31,9 +30,6 @@
                         <td class="px-4 py-3 text-sm">{{ $loop->iteration }}</td>
                         <td class="px-4 py-3 text-sm font-semibold">
                             {{ $item->name_category }}
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                            {{ $item->parent->name_category ?? '-' }}
                         </td>
                         <td class="px-4 py-3 text-sm">
                             <div class="flex space-x-2">
