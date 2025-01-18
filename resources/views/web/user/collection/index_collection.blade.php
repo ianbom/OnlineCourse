@@ -7,7 +7,7 @@
         <!-- Header Section -->
         <div class="mb-4">
             <h1 class="text-[40px] font-bold text-left text-[#052D6E] mb-10" style="font-family: 'Libre Baskerville', serif;">
-                Koleksi</h1>
+                Perpustakaan</h1>
 
             <!-- Last Read Section -->
             @if ($lastRead)
@@ -47,7 +47,7 @@
             <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                 @foreach ($savedCourse as $course)
                     <div class="bg-white rounded-[16px] overflow-hidden border-2 border-transparent hover:border-[#D3E9FF] transition-all">
-                        <a href="#">
+                        <a href="{{ route('kelas.show', $course->id_course) }}">
                             <img src="{{ asset('storage/' . $course->image) }}" alt="Course Image" class="w-full h-128 object-cover rounded-[16px]">
                         </a>
                         <div class="p-4">
@@ -70,7 +70,7 @@
             <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                 @foreach ($finishedCourse as $course)
                     <div class="bg-white rounded-[16px] overflow-hidden border-2 border-transparent hover:border-[#D3E9FF] transition-all">
-                        <a href="#">
+                        <a href="{{ route('kelas.show', $course->id_course) }}">
                             <img src="{{ asset('storage/' . $course->image) }}" alt="Course Image" class="w-full h-128 object-cover rounded-[16px]">
                         </a>
                         <div class="p-4">

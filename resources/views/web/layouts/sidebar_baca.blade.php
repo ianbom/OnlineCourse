@@ -15,6 +15,7 @@
                 <h3 class="text-gray-400 text-sm font-semibold uppercase mb-3">Chapters </h3>
                 <ul>
                     @foreach ($course->materi as $materi)
+                    @if ($materi->is_free)
                         <li class="mb-2">
                             <a href="{{ route('kelas.belajar', $materi->id_materi) }}"
                                class="flex items-center px-4 py-2 rounded hover:bg-gray-100">
@@ -22,6 +23,26 @@
                             </a>
                             <hr class=" border-t-1 border-[#1E90FF]">
                         </li>
+                    @else
+                         @if ($subscription)
+                             <li class="mb-2">
+                                 <a href="{{ route('kelas.belajar', $materi->id_materi) }}"
+                                    class="flex items-center px-4 py-2 rounded hover:bg-gray-100">
+                                     <span class="text-gray-700">{{ $materi->name_materi }}</span>
+                                 </a>
+                                 <hr class=" border-t-1 border-[#1E90FF]">
+                             </li>
+                         @else
+                            <li class="mb-2">
+                               <a
+                                  class="flex items-center px-4 py-2 rounded hover:bg-gray-100">
+                                   <span class="text-gray-700">Langganan sek</span>
+                               </a>
+                               <hr class=" border-t-1 border-[#1E90FF]">
+                             </li>
+                         @endif
+                    @endif
+
                     @endforeach
                     <a href="{{ route('kelas.show', $materi->id_course) }}" class="bg-blue-200 rounded-md p-2 mt-4"> Back</a>
                 </ul>

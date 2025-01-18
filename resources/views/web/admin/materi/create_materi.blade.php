@@ -52,6 +52,23 @@
                 @enderror
             </label>
 
+            <label class="block text-sm mt-4">
+                <span class="text-gray-700">Apakah Gratis?</span>
+                <select
+                    name="is_free"
+                    id="is_free"
+                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-select focus:border-purple-400 focus:outline-none focus:ring-purple-400"
+                    required
+                >
+                    <option value="">-- Pilih Opsi --</option>
+                    <option value="1" {{ old('is_free') == '1' ? 'selected' : '' }}>Gratis</option>
+                    <option value="0" {{ old('is_free') == '0' ? 'selected' : '' }}>Berbayar</option>
+                </select>
+                @error('is_free')
+                    <div class="text-red-500 text-xs mt-2">{{ $message }}</div>
+                @enderror
+            </label>
+
             <!-- Nama Materi -->
             <label class="block mt-4 text-sm">
                 <span class="text-gray-700">Nama Materi</span>

@@ -17,6 +17,8 @@ class KelasController extends Controller
     public function index(){
 
         $course = Course::all();
+
+
         return view('web.user.kelas.index_kelas', ['course' => $course]);
     }
 
@@ -39,7 +41,16 @@ class KelasController extends Controller
         $checkSimpan = Save::where('id', $userId )->where('id_course', $course->id_course)->first();
         $checkSelesai = Finished::where('id', $userId )->where('id_course', $course->id_course)->first();
 
-        return view('web.user.kelas.show_kelas', ['course' => $course, 'checkSimpan' => $checkSimpan, 'checkSelesai' => $checkSelesai]);
+        $subscription = checkSubs();
+
+        if ($subscription) {
+           $subscription = true;
+        } else {
+            $subscription = false;
+        }
+
+        // return response($subscription);
+        return view('web.user.kelas.show_kelas', ['course' => $course, 'checkSimpan' => $checkSimpan, 'checkSelesai' => $checkSelesai, 'subscription' => $subscription  ]);
     }
 
     public function belajar(Materi $materi){
@@ -54,12 +65,21 @@ class KelasController extends Controller
             'id_materi' => $materi->id_materi,
         ]);
 
+        $subscription = checkSubs();
+
+        if ($subscription) {
+           $subscription = true;
+        } else {
+            $subscription = false;
+        }
+
         return view('web.user.kelas.belajar.belajar',
         ['materi' => $materi,
         'idCourse' => $materi->id_course,
         'question' => $question,
         'nilai' => $nilai,
-        'totalSoal' => $totalSoal]);
+        'totalSoal' => $totalSoal,
+        'subscription' => $subscription  ]);
     }
 
     public function selesaiKelas(Course $course){

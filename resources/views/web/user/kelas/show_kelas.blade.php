@@ -85,28 +85,38 @@
                 @forelse ($course->materi as $index => $materi)
                     <div class="flex items-center justify-between bg-white rounded-lg p-4 border">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 flex items-center justify-center bg-orange-500 rounded-full text-white">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div>
-                                <a href="{{ route('kelas.belajar', $materi->id_materi) }}" class="font-medium">{{ $index + 1 }}. {{ $materi->name_materi }}</a>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            @if($materi->video || $materi->text_book)
-                                <button class="text-orange-500">
-                                    <i class="fas fa-lock-open"></i>
-                                </button>
+                            @if ($materi->is_free)
+                                {{-- Jika materi gratis (is_free = true), semua orang bisa melihat --}}
+                                <div class="w-10 h-10 flex items-center justify-center bg-orange-500 rounded-full text-white">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <div>
+                                    <a href="{{ route('kelas.belajar', $materi->id_materi) }}" class="font-medium">
+                                        {{ $index + 1 }}. {{ $materi->name_materi }}
+                                    </a>
+                                </div>
                             @else
-                                <button class="text-gray-400">
-                                    <i class="fas fa-lock"></i>
-                                </button>
+            
+                                @if ($subscription)
+                                    <div class="w-10 h-10 flex items-center justify-center bg-orange-500 rounded-full text-white">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                    <div>
+                                        <a href="{{ route('kelas.belajar', $materi->id_materi) }}" class="font-medium">
+                                            {{ $index + 1 }}. {{ $materi->name_materi }}
+                                        </a>
+                                    </div>
+                                @else
+
+                                    <span>Anda harus langganan untuk melihat materi ini.</span>
+                                @endif
                             @endif
                         </div>
                     </div>
                 @empty
                     <p>No materials available for this course.</p>
                 @endforelse
+
             </div>
 
             <!-- CTA Button -->

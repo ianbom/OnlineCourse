@@ -52,22 +52,22 @@ class MateriController extends Controller
         try {
             $data = $request->all();
 
-            // Handle video file upload
+
             if ($request->hasFile('video')) {
                 $videoPath = $request->file('video')->store('materi/video', 'public');
                 $data['video'] = $videoPath;
             }
 
-            // Handle text book file upload
+
             if ($request->hasFile('text_book')) {
                 $textBookPath = $request->file('text_book')->store('materi/text_book', 'public');
                 $data['text_book'] = $textBookPath;
             }
 
-            // Create Materi record
+
             Materi::create($data);
 
-            // Redirect with success message
+           
             return redirect()->back()->with('success', 'Materi berhasil dibuat!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());

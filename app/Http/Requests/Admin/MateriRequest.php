@@ -22,6 +22,7 @@ class MateriRequest extends FormRequest
             'video' => 'nullable|file|mimes:mp4,mkv,webm,avi,mpeg',
             'text_book' => 'nullable|file|mimes:pdf',
             'description' => 'required|string',
+            'is_free' => 'nullable|boolean',
         ];
     }
 }
