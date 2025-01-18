@@ -1,6 +1,19 @@
 @extends('web.layouts.template')
 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.tailwind.min.css">
+
+
+
 @section('content')
+
+<style>
+
+    #tableCategory td {
+        border-bottom: 1px solid #ddd;
+    }
+</style>
+
 <div class="container mx-auto mt-8">
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-bold text-gray-700">Daftar Kategori</h1>
@@ -16,7 +29,7 @@
     @endif
 
     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-        <table class="w-full whitespace-no-wrap">
+        <table id="tableCategory" class="w-full whitespace-no-wrap">
             <thead>
                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
                     <th class="px-4 py-3">#</th>
@@ -65,4 +78,15 @@
         </table>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.tailwind.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#tableCategory').DataTable({
+        });
+    });
+</script>
 @endsection

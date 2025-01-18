@@ -75,6 +75,25 @@
                 @endif
             </label>
 
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700">Pilih Kategori</span>
+            </label>
+            <div class="grid grid-cols-2 gap-4 mt-2">
+                @foreach ($category as $cat)
+                    <label class="flex items-center">
+                        <input
+                            type="checkbox"
+                            name="category[]"
+                            value="{{ $cat->id_category }}"
+                            class="form-checkbox h-4 w-4 text-indigo-600"
+                            @if ($course->category->contains($cat->id_category)) checked @endif
+                        >
+                        <span class="ml-2 text-gray-700">{{ $cat->name_category }}</span>
+                    </label>
+                @endforeach
+                
+            </div>
+
             <!-- Submit -->
             <button
                 type="submit"

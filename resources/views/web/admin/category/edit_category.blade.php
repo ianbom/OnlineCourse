@@ -81,7 +81,7 @@
 </div>
 
 <script>
-    // Tambahkan input baru untuk subkategori
+  
     document.getElementById('add-subcategory').addEventListener('click', function () {
         const container = document.getElementById('subcategories-container');
         const input = document.createElement('input');
@@ -92,21 +92,21 @@
         container.appendChild(input);
     });
 
-    // Hapus subkategori yang ada (opsional: kirim request delete melalui AJAX jika diperlukan)
+
     document.querySelectorAll('.delete-subcategory').forEach(button => {
     button.addEventListener('click', function () {
-        // Tambahkan ID subkategori yang dihapus ke input tersembunyi
+
         const subcategoryId = this.getAttribute('data-id');
         const deletedInput = document.createElement('input');
         deletedInput.type = 'hidden';
         deletedInput.name = 'deleted_sub_categories[]';
         deletedInput.value = subcategoryId;
 
-        // Tambahkan input ke form
+
         const form = document.querySelector('form');
         form.appendChild(deletedInput);
 
-        // Hapus elemen subkategori dari tampilan
+
         this.closest('.flex').remove();
     });
 });

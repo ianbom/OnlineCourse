@@ -67,7 +67,7 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-        // Validasi data input
+      
         $validated = $request->validate([
             'name_category' => 'required|string|max:255',
             'sub_categories' => 'nullable|array',
@@ -78,12 +78,12 @@ class CategoryController extends Controller
             'deleted_sub_categories.*' => 'integer|exists:sub_category,id_sub_category',
         ]);
 
-        // Update kategori utama
+
         $category->update([
             'name_category' => $validated['name_category'],
         ]);
 
-        // Update subkategori yang ada
+
         if (!empty($validated['sub_categories'])) {
             foreach ($validated['sub_categories'] as $id_sub_category => $name) {
                 $subCategory = SubCategory::find($id_sub_category);
@@ -95,12 +95,12 @@ class CategoryController extends Controller
             }
         }
 
-        // Hapus subkategori yang dihapus
+
         if (!empty($validated['deleted_sub_categories'])) {
             SubCategory::whereIn('id_sub_category', $validated['deleted_sub_categories'])->delete();
         }
 
-        // Tambahkan subkategori baru
+
         if (!empty($validated['new_sub_categories'])) {
             foreach ($validated['new_sub_categories'] as $name) {
                 SubCategory::create([

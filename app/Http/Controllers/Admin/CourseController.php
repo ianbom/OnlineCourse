@@ -75,11 +75,6 @@ class CourseController extends Controller
         }
     }
 
-
-
-
-
-
     public function show(string $id)
     {
         $course = Course::with('materi')->findOrFail($id);
@@ -94,13 +89,14 @@ class CourseController extends Controller
     public function edit(string $id)
     {
         $course = Course::findOrFail($id);
-
-        return view('web.admin.course.edit_course', ['course' => $course]);
+        $category = Category::all();
+        return view('web.admin.course.edit_course', ['course' => $course, 'category' => $category]);
     }
     public function update(CourseRequest $request, string $id)
     {
         try {
             $course = Course::findOrFail($id);
+
             $courseData = $request->all();
 
             if ($request->hasFile('image')) {
@@ -115,11 +111,19 @@ class CourseController extends Controller
 
             $course->update($courseData);
 
-            return redirect()->back()->with('success', 'Course dan Content berhasil diupdate.');
+
+            if ($request->filled('category')) {
+                $course->category()->sync($request->category);
+            } else {
+                $course->category()->detach();
+            }
+
+            return redirect()->back()->with('success', 'Course dan konten berhasil diperbarui.');
         } catch (\Throwable $th) {
-           return response()->json(['error' => $th->getMessage()]);
+            return response()->json(['error' => $th->getMessage()]);
         }
     }
+
 
 
 
