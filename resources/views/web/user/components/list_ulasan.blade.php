@@ -1,7 +1,7 @@
 @forelse($course as $course)
     <div class="bg-white rounded-lg overflow-hidden flex flex-col">
         @if($course->image)
-        <a href="{{ route('kelas.show', $course->id_course) }}">
+        <a href="{{ route('ulasan.show', $course->id_course) }}">
             <img src="{{ asset('storage/' . $course->image) }}"
                  alt="{{ $course->name_course }}"
                  class="w-full aspect-[9/16] object-cover rounded-xl">

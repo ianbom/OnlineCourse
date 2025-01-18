@@ -80,12 +80,11 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href=""
-                           class="flex items-center px-4 py-2 rounded hover:bg-gray-100
-                           {{ Route::currentRouteName() == 'user.order.index' ? 'bg-[#D3E9FF] text-[#052D6E] font-semibold' : '' }}">
-                            <i class="fas fa-shopping-cart text-blue-500 mr-3"></i>
-                            <span class="text-gray-700">Keluar</span>
-                        </a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit"  class="flex items-center px-4 py-2 rounded hover:bg-gray-100">Keluar</button>
+                        </form>
+                       
                     </li>
                 </ul>
             </div>

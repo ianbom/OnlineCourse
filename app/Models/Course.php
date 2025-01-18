@@ -41,4 +41,8 @@ class Course extends Model
     public function finished(){
         return $this->hasMany(Finished::class, 'id_course', 'id_course');
     }
+
+    public function rating(){
+        return $this->hasMany(Rating::class, 'id_course', 'id_course');
+    }
 }

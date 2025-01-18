@@ -21,6 +21,12 @@ class UlasanController extends Controller
         return view('web.user.ulasan.index_ulasan', ['course' => $course]);
     }
 
+    public function show(Course $course){
+        $course->rating();
+        return response()->json(['course' => $course]);
+        return view('web.user.ulasan.detail_ulasan', ['course' => $course]);
+    }
+
 
     public function store(Request $request, Course $course) {
         $userId = Auth::id();
