@@ -78,7 +78,54 @@
             </div>
         </div>
 
+        <!-- Course Content -->
+        <div class="mt-8">
+            <h2 class="text-xl font-semibold mb-4">Konten tersedia</h2>
+            <div class="space-y-4">
+                @forelse ($course->materi as $index => $materi)
+                    <div class="flex items-center justify-between bg-white rounded-lg p-4 border">
+                        <div class="flex items-center gap-4">
+                            @if ($materi->is_free)
+                                {{-- Jika materi gratis (is_free = true), semua orang bisa melihat --}}
+                                <div class="w-10 h-10 flex items-center justify-center bg-orange-500 rounded-full text-white">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <div>
+                                    <a href="{{ route('kelas.belajar', $materi->id_materi) }}" class="font-medium">
+                                        {{ $index + 1 }}. {{ $materi->name_materi }}
+                                    </a>
+                                </div>
+                            @else
 
+                                @if ($subscription)
+                                    <div class="w-10 h-10 flex items-center justify-center bg-orange-500 rounded-full text-white">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                    <div>
+                                        <a href="{{ route('kelas.belajar', $materi->id_materi) }}" class="font-medium">
+                                            {{ $index + 1 }}. {{ $materi->name_materi }}
+                                        </a>
+                                    </div>
+                                @else
+
+                                    <span>Anda harus langganan untuk melihat materi ini.</span>
+                                @endif
+                            @endif
+                        </div>
+                    </div>
+                @empty
+                    <p>No materials available for this course.</p>
+                @endforelse
+
+            </div>
+
+            <!-- CTA Button -->
+            <div class="mt-8 text-center">
+                <a href="{{ route('kelas.belajar', $course->materi->first()->id_materi) }}" class="bg-orange-500 text-white px-8 py-3 rounded-lg inline-block hover:bg-orange-600">
+                    BELAJAR SEKARANG
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
