@@ -22,8 +22,6 @@ class UlasanController extends Controller
     }
 
     public function show(Course $course){
-        $course->rating();
-        return response()->json(['course' => $course]);
         return view('web.user.ulasan.detail_ulasan', ['course' => $course]);
     }
 
