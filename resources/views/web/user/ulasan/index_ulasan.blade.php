@@ -1,15 +1,17 @@
 @extends('web.layouts.user_app')
 
 @section('content')
-<div class="container mx-auto p-6">
+<div class="container mx-auto p-16">
     @if(session('success'))
     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
         {{ session('success') }}
     </div>
 @endif
-    <h1 class="text-2xl font-bold text-blue-900 mb-8 mt-16">Ulasan</h1>
+    <h1 class="text-[40px] font-bold text-[#1A1A1A] mb-8 mt-16 uppercase" style="font-family: 'Libre Baskerville', serif;">
+        ULASAN
+    </h1>
 
-    <div class="mb-10">
+    {{-- <div class="mb-10">
 
         <div class="relative max-w-xl">
             <input type="text"
@@ -20,12 +22,12 @@
                     Cari
                 </button>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Book Search -->
     <div class="mb-10">
         {{-- <h2 class="text-lg font-semibold mb-4"></h2> --}}
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-12">
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-8">
            @include('web.user.components.list_ulasan', ['course'])
         </div>
     </div>
