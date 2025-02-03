@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\MateriController;
+use App\Http\Controllers\Admin\PemateriController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BelajarController;
@@ -69,6 +70,8 @@ Route::middleware(['is_admin'])->prefix('admin')->group(function(){
 
     Route::resource('user', UserController::class)->except('index');
     Route::get('/index/user', [UserController::class, 'index'])->name('user.index');
+
+    Route::resource('pemateri', PemateriController::class);
 });
 
 
