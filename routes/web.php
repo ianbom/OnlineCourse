@@ -18,6 +18,17 @@ use App\Http\Controllers\UlasanController;
 use App\Models\Course;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/landing', function () {
+    return view('web.user.landing');
+})->name('landing');
+
+
+Route::get('/mulaibelajar', function () {
+    return view('web.user.mulaibelajar');
+})->name('mulaibelajar');
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -69,7 +80,7 @@ Route::middleware(['is_admin'])->prefix('admin')->group(function(){
         Route::get('/kelas/search', [KelasController::class, 'searchKelas'])->name('kelas.search');
         Route::get('/kelas/{course}', [KelasController::class, 'show'])->name('kelas.show');
         Route::post('/kelas/selesaikan/{course}', [KelasController::class, 'selesaiKelas'])->name('kelas.selesaikan');
-        Route::delete('/kelas/hapusSelesaikan/{course}', [KelasController::class, 'hapusSelesaiKelas'])->name('kelas.hapusSelesaikan');
+        Route::delete('/kelas/hapusSelesaikan/{course}', action: [KelasController::class, 'hapusSelesaiKelas'])->name('kelas.hapusSelesaikan');
         Route::get('/belajar/{materi}', [KelasController::class, 'belajar'])->name('kelas.belajar');
 
         Route::get('/quiz/{materi}', [BelajarController::class, 'kerjakanQuiz'])->name('quiz.kerjakan');

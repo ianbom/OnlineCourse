@@ -1,4 +1,4 @@
-@extends('web.layouts.user_app')
+@extends(view: 'web.layouts.user_app')
 
 @section('content')
 
