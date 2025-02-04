@@ -45,4 +45,8 @@ class Course extends Model
     public function rating(){
         return $this->hasMany(Rating::class, 'id_course', 'id_course');
     }
+
+    public function pemateri(){
+        return $this->belongsTo(Pemateri::class, 'id_pemateri', 'id_pemateri');
+    }
 }
