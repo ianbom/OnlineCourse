@@ -50,9 +50,15 @@ class BelajarController extends Controller
     public function kerjakanQuiz(Materi $materi){
         $question = Question::with('option')->where('id_materi', $materi->id_materi)->get();
 
-        // return response()->json(['question' => $question]);
+        $subscription = checkSubs();
 
-        return view('web.user.kelas.belajar.quiz', ['question' => $question, 'materi' => $materi, 'idCourse' => $materi->id_course]);
+        if ($subscription) {
+           $subscription = true;
+        } else {
+            $subscription = false;
+        }
+
+        return view('web.user.kelas.belajar.quiz', ['question' => $question, 'materi' => $materi, 'idCourse' => $materi->id_course, 'subscription' => $subscription]);
     }
 
         public function submitQuiz(Request $request, Materi $materi)

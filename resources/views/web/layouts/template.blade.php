@@ -10,6 +10,9 @@
     />
     <link rel="stylesheet" href="/windmill-dashboard/public/assets/css/tailwind.output.css">
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.tailwind.min.css">
+
 
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
@@ -255,6 +258,37 @@
                         <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                     </svg>
                     <span class="ml-4">Category</span>
+                </a>
+            </li>
+
+            <li class="relative px-6 py-3">
+                <!-- Highlight Bar -->
+                @if(Request::is('admin/pemateri'))
+                <span
+                    class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                    aria-hidden="true"
+                ></span>
+                @endif
+
+                <!-- Sidebar Link -->
+                <a
+                    class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800
+                    {{ Request::is('admin/pemateri') ? 'text-gray-800' : '' }}"
+                    href="{{ route('category.index') }}"
+                >
+                    <svg
+                        class="w-5 h-5"
+                        aria-hidden="true"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                    </svg>
+                    <span class="ml-4">Pemateri</span>
                 </a>
             </li>
 
@@ -860,6 +894,12 @@
         </main>
       </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.tailwind.min.js"></script>
+
+    @yield('scripts')
   </body>
 
 </html>

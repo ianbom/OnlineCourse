@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\MateriController;
+use App\Http\Controllers\Admin\PemateriController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BelajarController;
@@ -15,23 +16,15 @@ use App\Http\Controllers\PaketLanggananController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UlasanController;
-use App\Models\Course;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/landing', function () {
-    return view('web.user.landing');
-})->name('landing');
-
 
 Route::get('/mulaibelajar', function () {
     return view('web.user.mulaibelajar');
 })->name('mulaibelajar');
 
-
-
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('web.user.landing');
+})->name('landing');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -43,8 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['is_admin'])->prefix('admin')->group(function(){
-
+Route::middleware(['is_admin'])->prefix('admin')->group(function () {
     Route::resource('bundle', BundleController::class)->except('index');
     Route::get('/index/bundle', [BundleController::class, 'index'])->name('bundle.index');
     Route::get('/data/bundle', [BundleController::class, 'dataBundle'])->name('bundle.data');
@@ -69,51 +61,48 @@ Route::middleware(['is_admin'])->prefix('admin')->group(function(){
 
     Route::resource('user', UserController::class)->except('index');
     Route::get('/index/user', [UserController::class, 'index'])->name('user.index');
+
+    Route::resource('pemateri', PemateriController::class);
+});
+
+Route::prefix('user')->group(function () {
+    Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');
+    Route::get('/kelas/search', [KelasController::class, 'searchKelas'])->name('kelas.search');
+    Route::get('/kelas/{course}', [KelasController::class, 'show'])->name('kelas.show');
+    Route::post('/kelas/selesaikan/{course}', [KelasController::class, 'selesaiKelas'])->name('kelas.selesaikan');
+    Route::delete('/kelas/hapusSelesaikan/{course}', action: [KelasController::class, 'hapusSelesaiKelas'])->name('kelas.hapusSelesaikan');
+    Route::get('/belajar/{materi}', [KelasController::class, 'belajar'])->name('kelas.belajar');
+
+    Route::get('/quiz/{materi}', [BelajarController::class, 'kerjakanQuiz'])->name('quiz.kerjakan');
+    Route::post('/submit/quiz/{materi}', [BelajarController::class, 'submitQuiz'])->name('quiz.submit');
+
+    Route::post('/catat/{materi}', [BelajarController::class, 'catat'])->name('belajar.catat');
+    Route::post('/save/{course}', [BelajarController::class, 'saveCourse'])->name('belajar.save');
+    Route::delete('/delete/save/{course}', [BelajarController::class, 'deleteSaveCourse'])->name('delete.save');
+
+    Route::get('/paket-langganan', [PaketLanggananController::class, 'index'])->name('paket.index');
+    Route::post('/order/{bundle}', [PaketLanggananController::class, 'order'])->name('order.store');
+
+    Route::get('/order/{order}', [PembelianController::class, 'showOrder'])->name('order.show');
+    Route::put('/order/pay/{order}', [PembelianController::class, 'bayarOrder'])->name('order.bayar');
+    Route::put('/order/cancelled/{order}', [PembelianController::class, 'cancelOrder'])->name('order.cancel');
+    Route::get('/order', [PembelianController::class, 'indexOrder'])->name('order.index');
+    Route::get('/orders/search', [PembelianController::class, 'searchOrder'])->name('order.search');
+
+    Route::get('/catatan', [CatatanController::class, 'index'])->name('catatan.index');
+    Route::get('/catatan/search', [CatatanController::class, 'search'])->name('catatan.search');
+    Route::get('/catatan/{course}', [CatatanController::class, 'show'])->name('catatan.show');
+    Route::delete('/catatan/{note}', [CatatanController::class, 'delete'])->name('catatan.delete');
+
+
+    Route::get('/ulasan', [UlasanController::class, 'index'])->name('ulasan.index');
+    Route::get('/ulasan/{course}', [UlasanController::class, 'show'])->name('ulasan.show');
+    Route::get('/ulasan/search', [UlasanController::class, 'search'])->name('ulasan.search');
+    Route::post('/ulasan/{course}', [UlasanController::class, 'store'])->name('ulasan.store');
+
+    Route::get('/collection', [CollectionController::class, 'index'])->name('collection.index');
 });
 
 
 
-
-    Route::prefix('user')->group(function(){
-
-        Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');
-        Route::get('/kelas/search', [KelasController::class, 'searchKelas'])->name('kelas.search');
-        Route::get('/kelas/{course}', [KelasController::class, 'show'])->name('kelas.show');
-        Route::post('/kelas/selesaikan/{course}', [KelasController::class, 'selesaiKelas'])->name('kelas.selesaikan');
-        Route::delete('/kelas/hapusSelesaikan/{course}', action: [KelasController::class, 'hapusSelesaiKelas'])->name('kelas.hapusSelesaikan');
-        Route::get('/belajar/{materi}', [KelasController::class, 'belajar'])->name('kelas.belajar');
-
-        Route::get('/quiz/{materi}', [BelajarController::class, 'kerjakanQuiz'])->name('quiz.kerjakan');
-        Route::post('/submit/quiz/{materi}', [BelajarController::class, 'submitQuiz'])->name('quiz.submit');
-
-        Route::post('/catat/{materi}', [BelajarController::class, 'catat'])->name('belajar.catat');
-        Route::post('/save/{course}', [BelajarController::class, 'saveCourse'])->name('belajar.save');
-        Route::delete('/delete/save/{course}', [BelajarController::class, 'deleteSaveCourse'])->name('delete.save');
-
-        Route::get('/paket-langganan', [PaketLanggananController::class, 'index'])->name('paket.index');
-        Route::post('/order/{bundle}', [PaketLanggananController::class, 'order'])->name('order.store');
-
-        Route::get('/order/{order}', [PembelianController::class, 'showOrder'])->name('order.show');
-        Route::put('/order/pay/{order}', [PembelianController::class, 'bayarOrder'])->name('order.bayar');
-        Route::put('/order/cancelled/{order}', [PembelianController::class, 'cancelOrder'])->name('order.cancel');
-        Route::get('/order', [PembelianController::class, 'indexOrder'])->name('order.index');
-        Route::get('/orders/search', [PembelianController::class, 'searchOrder'])->name('order.search');
-
-        Route::get('/catatan', [CatatanController::class, 'index'])->name('catatan.index');
-        Route::get('/catatan/search', [CatatanController::class, 'search'])->name('catatan.search');
-        Route::get('/catatan/{course}', [CatatanController::class, 'show'])->name('catatan.show');
-        Route::delete('/catatan/{note}', [CatatanController::class, 'delete'])->name('catatan.delete');
-
-
-        Route::get('/ulasan', [UlasanController::class, 'index'])->name('ulasan.index');
-        Route::get('/ulasan/{course}', [UlasanController::class, 'show'])->name('ulasan.show');
-        Route::get('/ulasan/search', [UlasanController::class, 'search'])->name('ulasan.search');
-        Route::post('/ulasan/{course}', [UlasanController::class, 'store'])->name('ulasan.store');
-
-        Route::get('/collection', [CollectionController::class, 'index'])->name('collection.index');
-
-    });
-
-
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
