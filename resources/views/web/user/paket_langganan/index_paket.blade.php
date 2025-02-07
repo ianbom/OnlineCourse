@@ -21,7 +21,7 @@
 <div class="container mx-auto mt-10 p-10">
     <!-- Page Title -->
     <div class="flex justify-between items-center mb-12">
-        <h1 class="text-3xl font-bold text-left text-[1A1A1A]" style="font-family: 'Libre Baskerville', serif; color: #1A1A1A;">Subscription Packages</h1>
+        <h1 class="text-3xl font-bold text-left text-[1A1A1A]" style="font-family: 'Libre Baskerville', serif; color: #1A1A1A;">PAKET LANGGANAN</h1>
     </div>
 
     <!-- Package Cards -->

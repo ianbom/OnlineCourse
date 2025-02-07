@@ -13,7 +13,7 @@
      <!-- Page Title -->
      <div class="flex justify-between items-center mb-8">
         <h1 class="text-xl md:text-3xl font-bold text-left" style="font-family: 'Libre Baskerville', serif; color: #1A1A1A;">
-            Pesanan
+            PESANAN
         </h1>
     </div>
 
@@ -39,7 +39,7 @@
         </p>
     @else
         <!-- Tabel Order -->
-        <div id="order-table-container" class="overflow-x-auto shadow-lg rounded-2xl mt-6 border border-[#F58A44] border-2" style="font-family: 'Inter', sans-serif;">
+        <div id="order-table-container" class="overflow-x-auto  rounded-2xl mt-6 border border-[#F58A44] border-2" style="font-family: 'Inter', sans-serif;">
            @include('web.user.components.table_order', ['order' => $order])
         </div>
     @endif
