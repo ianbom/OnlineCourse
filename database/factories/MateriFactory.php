@@ -27,7 +27,7 @@ class MateriFactory extends Factory
             'id_course' => $this->faker->numberBetween(1, 10),
             'name_materi' => $this->faker->sentence(3),
             'description' => $this->faker->sentence(10),
-            'video' => $randVideo,
+            'video' => "https://www.youtube.com/watch?v=48Z-C5GO5uU",
             'text_book' => $randTextBook,
         ];
     }
