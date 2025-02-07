@@ -27,8 +27,11 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
-        return redirect()->intended(route('kelas.index', absolute: false));
+        if (auth()->user()->is_admin === 1) {
+            return redirect()->intended(route('bundle.index', absolute: false));
+        }else {
+            return redirect()->intended(route('kelas.index', absolute: false));
+        }
     }
 
     /**
