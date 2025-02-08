@@ -69,7 +69,7 @@ class CourseController extends Controller
                 $course->category()->attach($request->category);
             }
 
-            return redirect()->back()->with('success', 'Course dan Kategori berhasil dibuat.');
+            return redirect()->route('course.index')->with('success', 'Course dan Kategori berhasil dibuat.');
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()]);
         }
@@ -118,7 +118,7 @@ class CourseController extends Controller
                 $course->category()->detach();
             }
 
-            return redirect()->back()->with('success', 'Course dan konten berhasil diperbarui.');
+            return redirect()->route('course.index')->with('success', 'Course dan konten berhasil diperbarui.');
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()]);
         }

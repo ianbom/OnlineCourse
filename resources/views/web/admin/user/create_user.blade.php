@@ -1,131 +1,112 @@
-@extends('web.layouts.template')
+@extends('web.layouts.newAdmin_app')
+
+@section('title')
+    Tambah User Baru
+@endsection
 
 @section('content')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-<div class="container mx-auto mt-8">
-    <h1 class="text-2xl font-bold text-gray-700 mb-6">Buat User Baru</h1>
-
-    @if (session('success'))
-    <div class="px-4 py-3 mb-8 bg-green-100 text-green-700 rounded-lg">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    <form action="{{ route('user.store') }}" method="POST">
-        @csrf
-
-        <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-
-            <!-- Nama User -->
-            <label class="block text-sm">
-                <span class="text-gray-700">Nama User</span>
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                    placeholder="Masukkan nama user"
-                    required
-                />
-            </label>
-
-            <!-- Tanggal Lahir -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Tanggal Lahir</span>
-                <input
-                    type="date"
-                    name="birthday"
-                    id="birthday"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                />
-            </label>
-
-            <!-- Nomor Telepon -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Nomor Telepon</span>
-                <input
-                    type="text"
-                    name="phone"
-                    id="phone"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                    placeholder="Masukkan nomor telepon"
-                />
-            </label>
-
-            <!-- Email -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Email</span>
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                    placeholder="Masukkan email user"
-                    required
-                />
-            </label>
-
-            <!-- Password -->
-            <label class="block mt-4 text-sm relative">
-                <span class="text-gray-700">Password</span>
-                <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400 pr-10"
-                    placeholder="Masukkan password"
-                    required
-                />
-                <!-- Icon Mata -->
-                <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-                    <i id="eyeIcon" class="fa fa-eye"></i>
-                </button>
-            </label>
-
-
-            <!-- Apakah Admin -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Admin</span>
-                <select
-                    name="is_admin"
-                    id="is_admin"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-select focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                >
-                    <option value="0">Bukan Admin</option>
-                    <option value="1">Admin</option>
-                </select>
-            </label>
-
-            <!-- Tombol Submit -->
-            <button
-                type="submit"
-                class="px-4 py-2 mt-6 text-sm font-medium leading-5 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            >
-                Simpan
-            </button>
-
-            <a href="{{ route('user.index') }}" class="px-4 py-2 mt-6 text-sm font-medium leading-5 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                Kembali
-            </a>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Tambah User Baru</h3>
+                <p class="text-subtitle text-muted">Tambahkan user baru ke sistem.</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('user.index') }}">User</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Tambah User</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
-    </form>
+    </div>
+
+    <section class="form-section">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                        @endif
+
+                        <form action="{{ route('user.store') }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <!-- Nama User -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Nama User</label>
+                                    <input type="text" name="name" id="name" required
+                                        class="form-control" placeholder="Masukkan nama user">
+                                </div>
+
+                                <!-- Tanggal Lahir -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="birthday" class="form-label">Tanggal Lahir</label>
+                                    <input type="date" name="birthday" id="birthday"
+                                        class="form-control">
+                                </div>
+
+                                <!-- Nomor Telepon -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label">Nomor Telepon</label>
+                                    <input type="text" name="phone" id="phone"
+                                        class="form-control" placeholder="Masukkan nomor telepon">
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" name="email" id="email" required
+                                        class="form-control" placeholder="Masukkan email user">
+                                </div>
+
+                                <!-- Password -->
+                                <div class="col-md-6 mb-3 position-relative">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" name="password" id="password" required
+                                        class="form-control" placeholder="Masukkan password">
+                                    <button type="button" id="togglePassword" class="btn btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2">
+                                        <i id="eyeIcon" class="fa fa-eye"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Admin Status -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="is_admin" class="form-label">Admin</label>
+                                    <select name="is_admin" id="is_admin" class="form-select">
+                                        <option value="0">Bukan Admin</option>
+                                        <option value="1">Admin</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-end">
+                                <a href="{{ route('user.index') }}" class="btn btn-secondary">Batal</a>
+                                <button type="submit" class="btn btn-primary">Simpan User</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 <script>
-    const togglePassword = document.querySelector('#togglePassword');
-    const passwordField = document.querySelector('#password');
-    const eyeIcon = document.querySelector('#eyeIcon');
-
-    togglePassword.addEventListener('click', function () {
-        // Toggle between password and text
-        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordField.setAttribute('type', type);
-
-        // Toggle eye icon
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordField = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+        const type = passwordField.type === 'password' ? 'text' : 'password';
+        passwordField.type = type;
         eyeIcon.classList.toggle('fa-eye');
         eyeIcon.classList.toggle('fa-eye-slash');
     });
 </script>
-
 @endsection

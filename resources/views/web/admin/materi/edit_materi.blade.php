@@ -1,139 +1,100 @@
-@extends('web.layouts.template')
+@extends('web.layouts.newAdmin_app')
+@section('title')
+    Edit Materi
+@endsection
 
 @section('content')
-<div class="container mx-auto mt-8">
-    <h1 class="text-2xl font-bold text-gray-700 mb-6">Edit Materi</h1>
-
-    <!-- Success Message -->
-    @if (session('success'))
-    <div class="px-4 py-3 mb-8 bg-green-100 text-green-700 rounded-lg">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    <!-- Error Message -->
-    @if (session('error'))
-    <div class="px-4 py-3 mb-8 bg-red-100 text-red-700 rounded-lg">
-        {{ session('error') }}
-    </div>
-    @endif
-
-    <!-- Materi Edit Form -->
-    <form action="{{ route('materi.update', $materi->id_materi) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-
-        <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-
-            <!-- Nama Materi -->
-            <label class="block text-sm">
-                <span class="text-gray-700">Nama Materi</span>
-                <input
-                    type="text"
-                    name="name_materi"
-                    id="name_materi"
-                    value="{{ old('name_materi', $materi->name_materi) }}"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-lg focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('name_materi') border-red-500 @enderror"
-                    placeholder="Masukkan nama materi"
-                    required
-                />
-                @error('name_materi')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </label>
-
-            <!-- Deskripsi -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Deskripsi</span>
-                <textarea
-                    name="description"
-                    id="description"
-                    rows="4"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-lg focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('description') border-red-500 @enderror"
-                    placeholder="Masukkan deskripsi materi"
-                >{{ old('description', $materi->description) }}</textarea>
-                @error('description')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </label>
-
-            <!-- Materi Content (Choose Content) -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Pilih Modul</span>
-                <select
-                    name="id_course"
-                    id="id_course"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-lg focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('id_course') border-red-500 @enderror"
-                    required
-                >
-                    <option value="">Pilih Modul</option>
-                    @foreach ($course as $item)
-                        <option value="{{ $item->id_course }}"
-                            {{ old('id_course', $materi->id_course) == $item->id_course ? 'selected' : '' }}>
-                            {{ $item->name_course }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('id_course')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </label>
-
-            <!-- Upload Video -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Video</span>
-                <input
-                    type="file"
-                    name="video"
-                    id="video"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-lg focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('video') border-red-500 @enderror"
-                    accept="video/*"
-                />
-                @error('video')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-
-                @if ($materi->video)
-                <video class="mt-2 w-full h-48 rounded-md" controls>
-                    <source src="{{ asset('storage/' . $materi->video) }}" type="video/mp4">
-                    Browser Anda tidak mendukung tag video.
-                </video>
-                @endif
-            </label>
-
-            <!-- Upload Text Book -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Text Book</span>
-                <input
-                    type="file"
-                    name="text_book"
-                    id="text_book"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-lg focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('text_book') border-red-500 @enderror"
-                    accept="application/pdf"
-                />
-                @error('text_book')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-                @if ($materi->text_book)
-                <p class="mt-2 text-sm text-gray-600">
-                    <a href="{{ asset('storage/' . $materi->text_book) }}" class="text-blue-600 hover:underline" target="_blank">Lihat Text Book</a>
-                </p>
-                @endif
-            </label>
-
-            <!-- Submit Button -->
-            <button
-                type="submit"
-                class="px-4 py-2 mt-6 text-sm font-medium leading-5 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:shadow-outline-purple"
-            >
-                Simpan
-            </button>
-
-            <a href="{{ route('materi.index') }}" class="px-4 py-2 mt-6 text-sm font-medium leading-5 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                Kembali
-            </a>
-
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Edit Materi</h3>
+                <p class="text-subtitle text-muted">Perbarui informasi materi.</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('materi.index') }}">Daftar Materi</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Materi</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
-    </form>
+    </div>
+
+    <section class="form-section">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{{ route('materi.update', $materi->id_materi) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="row">
+                                <!-- Nama Materi -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="name_materi" class="form-label">Nama Materi</label>
+                                    <input type="text" id="name_materi" name="name_materi" value="{{ old('name_materi', $materi->name_materi) }}"
+                                        class="form-control" placeholder="Masukkan Nama Materi" required>
+                                </div>
+
+                                <!-- Pilih Modul -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_course" class="form-label">Pilih Modul</label>
+                                    <select name="id_course" id="id_course" class="form-control" required>
+                                        <option value="">Pilih Modul</option>
+                                        @foreach ($course as $item)
+                                            <option value="{{ $item->id_course }}" {{ old('id_course', $materi->id_course) == $item->id_course ? 'selected' : '' }}>
+                                                {{ $item->name_course }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <!-- Deskripsi -->
+                                <div class="col-md-12 mb-3">
+                                    <label for="description" class="form-label">Deskripsi</label>
+                                    <textarea id="description" name="description" rows="4" class="form-control" placeholder="Masukkan Deskripsi Materi" required>{{ old('description', $materi->description) }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Upload Video -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="video" class="form-label">Video</label>
+                                    <input type="file" id="video" name="video" class="form-control" accept="video/*">
+                                    @if($materi->video)
+                                        <video class="mt-2 w-100 rounded" controls>
+                                            <source src="{{ asset('storage/' . $materi->video) }}" type="video/mp4">
+                                            Browser Anda tidak mendukung tag video.
+                                        </video>
+                                    @endif
+                                </div>
+
+                                <!-- Upload Text Book -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="text_book" class="form-label">Text Book</label>
+                                    <input type="file" id="text_book" name="text_book" class="form-control" accept="application/pdf">
+                                    @if($materi->text_book)
+                                        <p class="mt-2">
+                                            <a href="{{ asset('storage/' . $materi->text_book) }}" class="text-primary" target="_blank">Lihat Text Book</a>
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="text-end mt-4">
+                                <a href="{{ route('materi.index') }}" class="btn btn-secondary">Batal</a>
+                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 @endsection

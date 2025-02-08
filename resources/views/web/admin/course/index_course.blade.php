@@ -1,37 +1,85 @@
-@extends('web.layouts.template')
+@extends('web.layouts.newAdmin_app')
+
+@section('title')
+    Daftar Course
+@endsection
 
 @section('content')
+    <div class="page-heading">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-md-6 order-md-1 order-last">
+                    <h3>Daftar Course</h3>
+                    <p class="text-subtitle text-muted">Kelola daftar course</p>
+                </div>
+                <div class="col-12 col-md-6 order-md-2 order-first">
+                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Beranda</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Daftar Course</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <section class="datatable">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3">
+                                <h5 class="card-title">Data Course</h5>
+                                <a href="{{ route('course.create') }}" class="btn btn-primary">Tambah Course</a>
+                            </div>
+                            @if (session('success'))
+                                <div class="alert alert-success">{{ session('success') }}</div>
+                            @endif
+                            <div class="table-responsive">
+                                <table id="courseTable" class="table table-striped table-bordered text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nama Course</th>
 
-<style>
-    body {
-        overflow-x: hidden;
-    }
+                                            <th>Deskripsi</th>
+                                            <th>Created At</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($course as $key => $c)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $c->name_course }}</td>
 
-    .courseTable_length{
-        padding-left: 100px
-    }
-
-</style>
-
-<div class="container mx-auto mt-8">
-    <div class="flex items-center justify-between mb-6">
-        <h1 class="text-2xl font-bold text-gray-700">Daftar Course</h1>
-        <a href="{{ route('course.create') }}" class="px-4 py-2 text-sm font-medium leading-5 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-            Buat Course
-        </a>
+                                                <td>{{ Str::limit($c->description, 50) }}</td>
+                                                <td>{{ date('d M Y', strtotime($c->created_at)) }}</td>
+                                                <td>
+                                                    <a href="{{ route('course.show', $c->id_course) }}" class="btn btn-info btn-sm">Detail</a>
+                                                    <a href="{{ route('course.edit', $c->id_course) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                    <form action="{{ route('course.destroy', $c->id_course) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Yakin ingin menghapus?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
+@endsection
 
-    @if (session('success'))
-    <div class="px-4 py-3 mb-8 bg-green-100 text-green-700 rounded-lg">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-        @include('web.admin.course.table_course', ['course' => $course])
-    </div>
-</div>
-
-
-
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#courseTable').DataTable();
+        });
+    </script>
 @endsection

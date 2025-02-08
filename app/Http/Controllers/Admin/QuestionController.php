@@ -40,7 +40,7 @@ class QuestionController extends Controller
         ]);
     }
 
-    return redirect()->back()->with('success', 'Pertanyaan berhasil ditambahkan');
+    return redirect()->route('question.index')->with('success', 'Pertanyaan berhasil ditambahkan');
 }
 
 
@@ -81,7 +81,7 @@ public function update(QuestionRequest $request, Question $question)
     $optionsToDelete = array_diff($existingOptionIds, $updatedOptionIds);
     $question->option()->whereIn('id_option', $optionsToDelete)->delete();
 
-    return redirect()->back()->with('success', 'Pertanyaan berhasil diperbarui');
+    return redirect()->route('question.index')->with('success', 'Pertanyaan berhasil diperbarui');
 }
 
 
