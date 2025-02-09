@@ -15,6 +15,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PaketLanggananController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\UlasanController;
 use Illuminate\Support\Facades\Route;
 
@@ -101,6 +102,8 @@ Route::prefix('user')->group(function () {
     Route::post('/ulasan/{course}', [UlasanController::class, 'store'])->name('ulasan.store');
 
     Route::get('/collection', [CollectionController::class, 'index'])->name('collection.index');
+
+    Route::resource('sertifikat', SertifikatController::class);
 });
 
 

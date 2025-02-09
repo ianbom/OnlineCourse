@@ -9,7 +9,7 @@
     @endif
 
     <h1 class="text-[40px] font-bold text-[#1A1A1A] mb-8 mt-16 uppercase" style="font-family: 'Libre Baskerville', serif;">
-        KELAS
+        Sertifikat
     </h1>
 
     <div class="mb-10">
@@ -32,34 +32,13 @@
                 Cari
             </button>
         </div>
-
-        <div class="filter-dropdown relative w-1/5">
-            <!-- Form untuk Filter -->
-            <form action="#" method="GET">
-                <select
-                    id="filter-select"
-                    name="category_id"
-                    class="form-control rounded-[12px] pl-4 pr-4 py-4 w-full border-2 border-transparent transition-all duration-300 focus:border-[#1E90FF] text-[#1E90FF]"
-                    onchange="this.form.submit()"
-                >
-                    <option value="">Semua Kategori</option>
-                    @foreach ($category as $item)
-                        <option value="{{ $item->id_category }}" {{ request('id_category') == $item->id_category ? 'selected' : '' }}>
-                            {{ $item->name_category }}
-                        </option>
-
-
-                    @endforeach
-                </select>
-            </form>
-        </div>
     </div>
 
 
     <!-- Book Search -->
     <div class="mb-10">
         <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-8">
-           @include('web.user.components.list_kelas', ['course' => $course])
+           @include('web.user.components.list_sertifikat', ['course' => $course])
         </div>
     </div>
 </div>

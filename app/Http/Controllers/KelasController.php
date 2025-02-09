@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\Finished;
 use App\Models\History;
@@ -14,13 +15,61 @@ use Illuminate\Support\Facades\Auth;
 
 class KelasController extends Controller
 {
-    public function index(){
+    public function index()
+    {
+        $course = Course::with('materi')->get()->map(function ($course) {
+            $course->setAttribute('total_quiz', $course->materi->where('type', 'quiz')->count());
+            $course->setAttribute('total_materi', $course->materi->where('type', 'materi')->count());
+            $course->setAttribute('total_modul', $course->materi->where('type', 'modul')->count());
 
-        $course = Course::all();
+            return $course;
+        });
 
+        $category = Category::all();
 
-        return view('web.user.kelas.index_kelas', ['course' => $course]);
+        return view('web.user.kelas.index_kelas', ['course' => $course, 'category' => $category]);
     }
+
+
+    public function filterKelas(Request $request)
+{
+
+    $query = Course::query();
+
+    $category_id = $request->input('category_id');
+
+    if ($category_id) {
+        $selectedCategory = Category::with('subCategories')->find($category_id);
+
+        if ($selectedCategory) {
+          
+            $query->whereHas('category', function($q) use ($category_id) {
+                $q->where('category.id_category', $category_id);
+            });
+
+            if ($selectedCategory->subCategories->count() > 0) {
+                $subCategoryIds = $selectedCategory->subCategories->pluck('id_sub_category');
+
+                $query->orWhereHas('category', function($q) use ($subCategoryIds) {
+                    $q->whereIn('category.id_category', $subCategoryIds);
+                });
+            }
+        }
+    }
+
+    // Eager load relationships yang diperlukan
+    $courses = $query->with(['category', 'pemateri'])->paginate(10);
+    $category = Category::all(); // untuk dropdown filter
+
+    return view('your-view-name', [
+        'courses' => $courses,
+        'category' => $category,
+        'selectedCategory' => $category_id
+    ]);
+}
+
+
+
 
     public function searchKelas(Request $request){
 

@@ -45,6 +45,16 @@
                                         class="form-control" placeholder="Masukkan nama course">
                                 </div>
 
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_pemateri" class="form-label">Pilih Pemateri</label>
+                                    <select name="id_pemateri" id="id_pemateri" class="form-select" required>
+                                        <option value="">-- Pilih Pemateri --</option>
+                                        @foreach ($pemateri as $item)
+                                            <option value="{{ $item->id_pemateri }}" {{ old('id_course') == $item->id_pemateri ? 'selected' : '' }}>{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <!-- Gambar -->
                                 <div class="col-md-6 mb-3">
                                     <label for="image" class="form-label">Gambar</label>

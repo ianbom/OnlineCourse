@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Content;
 use App\Models\Course;
 use App\Models\Materi;
+use App\Models\Pemateri;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -42,7 +43,8 @@ class CourseController extends Controller
     public function create()
     {
         $category = Category::all();
-        return view('web.admin.course.create_course', ['category' => $category]);
+        $pemateri = Pemateri::all();
+        return view('web.admin.course.create_course', ['category' => $category, 'pemateri' => $pemateri]);
     }
 
     public function store(CourseRequest $request)
@@ -90,7 +92,8 @@ class CourseController extends Controller
     {
         $course = Course::findOrFail($id);
         $category = Category::all();
-        return view('web.admin.course.edit_course', ['course' => $course, 'category' => $category]);
+        $pemateri = Pemateri::all();
+        return view('web.admin.course.edit_course', ['course' => $course, 'category' => $category, 'pemateri' => $pemateri]);
     }
     public function update(CourseRequest $request, string $id)
     {
