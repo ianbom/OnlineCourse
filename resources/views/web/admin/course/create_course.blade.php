@@ -1,101 +1,97 @@
-@extends('web.layouts.template')
+@extends('web.layouts.newAdmin_app')
+
+@section('title')
+    Tambah Course Baru
+@endsection
 
 @section('content')
-<div class="container mx-auto mt-8">
-    <h1 class="text-2xl font-bold text-gray-700 mb-6">Buat Course Baru</h1>
-
-    @if (session('success'))
-    <div class="px-4 py-3 mb-8 bg-green-100 text-green-700 rounded-lg">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    <form action="{{ route('course.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-
-        <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-
-            <!-- Nama Course -->
-            <label class="block text-sm">
-                <span class="text-gray-700">Nama Course</span>
-                <input
-                    type="text"
-                    name="name_course"
-                    id="name_course"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                    placeholder="Masukkan nama course"
-                    required
-                />
-            </label>
-
-            <!-- Deskripsi -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Deskripsi</span>
-                <textarea
-                    name="description"
-                    id="description"
-                    rows="4"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-textarea focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                    placeholder="Masukkan deskripsi course"
-                ></textarea>
-            </label>
-
-            <!-- Upload Gambar -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Gambar</span>
-                <input
-                    type="file"
-                    name="image"
-                    id="image"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                    accept="image/jpeg,image/png"
-                />
-            </label>
-
-            <!-- Upload Video -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Video</span>
-                <input
-                    type="file"
-                    name="video"
-                    id="video"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                    accept="video/mp4, video/mkv, video/webm, video/avi, video/mpeg"
-                />
-            </label>
-
-            {{-- Category --}}
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Pilih Kategori</span>
-            </label>
-            <div class="grid grid-cols-2 gap-4 mt-2">
-                @foreach ($category as $cat)
-                    <label class="flex items-center">
-                        <input
-                            type="checkbox"
-                            name="category[]"
-                            value="{{ $cat->id_category }}"
-                            class="form-checkbox h-4 w-4 text-indigo-600"
-                        >
-                        <span class="ml-2 text-gray-700">{{ $cat->name_category }}</span>
-                    </label>
-                @endforeach
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Tambah Course Baru</h3>
+                <p class="text-subtitle text-muted">Tambahkan course baru untuk platform.</p>
             </div>
-
-
-
-            <!-- Submit -->
-            <button
-                type="submit"
-                class="px-4 py-2 mt-6 text-sm font-medium leading-5 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            >
-                Simpan
-            </button>
-
-            <a href="{{ route('course.index') }}" class="px-4 py-2 mt-6 text-sm font-medium leading-5 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">Kembali</a>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Course</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Tambah Course</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
-    </form>
+    </div>
+
+    <section class="form-section">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                        @endif
+
+                        <form action="{{ route('course.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <!-- Nama Course -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="name_course" class="form-label">Nama Course</label>
+                                    <input type="text" name="name_course" id="name_course" required
+                                        class="form-control" placeholder="Masukkan nama course">
+                                </div>
+
+                                <!-- Gambar -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="image" class="form-label">Gambar</label>
+                                    <input type="file" name="image" id="image" accept="image/jpeg,image/png"
+                                        class="form-control">
+                                </div>
+
+                                <!-- Video -->
+                                <div class="col-md-12 mb-3">
+                                    <label for="video" class="form-label">Video</label>
+                                    <input type="file" name="video" id="video" accept="video/mp4, video/mkv, video/webm, video/avi, video/mpeg"
+                                        class="form-control">
+                                </div>
+
+                                <!-- Deskripsi -->
+                                <div class="col-md-12 mb-3">
+                                    <label for="description" class="form-label">Deskripsi</label>
+                                    <textarea name="description" id="description" rows="4" required
+                                        class="form-control" placeholder="Masukkan deskripsi course"></textarea>
+                                </div>
+
+                                <!-- Kategori -->
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Pilih Kategori</label>
+                                    <div class="row">
+                                        @foreach ($category as $cat)
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="category[]" value="{{ $cat->id_category }}">
+                                                    <label class="form-check-label">{{ $cat->name_category }}</label>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-end">
+                                <a href="{{ route('course.index') }}" class="btn btn-secondary">Batal</a>
+                                <button type="submit" class="btn btn-primary">Simpan Course</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
-
-
 @endsection

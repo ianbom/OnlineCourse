@@ -67,8 +67,8 @@ class MateriController extends Controller
 
             Materi::create($data);
 
-           
-            return redirect()->back()->with('success', 'Materi berhasil dibuat!');
+
+            return redirect()->route('materi.index')->with('success', 'Materi berhasil dibuat!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -119,7 +119,7 @@ class MateriController extends Controller
         }
         $materi->update($data);
 
-        return redirect()->back()->with('success', 'Materi has been updated');
+        return redirect()->route('materi.index')->with('success', 'Materi has been updated');
     } catch (\Throwable $th) {
 
         return response()->json(['error' => $th->getMessage()]);

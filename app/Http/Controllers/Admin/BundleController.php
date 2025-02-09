@@ -50,7 +50,7 @@ class BundleController extends Controller
         $data = $request->all();
         Bundle::create($data);
 
-        return redirect()->back()->with('success', 'Bundle created successfully');
+        return redirect()->route('bundle.index')->with('success', 'Bundle created successfully');
     }
 
     /**
@@ -76,7 +76,7 @@ class BundleController extends Controller
         $data = $request->all();
         $bundle->update($data);
 
-        return redirect()->back()->with('success', 'Paket Langganan Berhasil Diperbarui');
+        return redirect()->route('bundle.index')->with('success', 'Paket Langganan Berhasil Diperbarui');
     }
 
     /**

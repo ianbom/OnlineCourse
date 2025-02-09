@@ -49,7 +49,7 @@ class CategoryController extends Controller
         }
     }
 
-    return redirect()->back()->with('success', 'Category and subcategories created successfully.');
+    return redirect()->route('category.index')->with('success', 'Category and subcategories created successfully.');
 }
 
 
@@ -67,7 +67,7 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-      
+
         $validated = $request->validate([
             'name_category' => 'required|string|max:255',
             'sub_categories' => 'nullable|array',
@@ -110,7 +110,7 @@ class CategoryController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Category and subcategories updated successfully.');
+        return redirect()->route('category.index')->with('success', 'Category and subcategories updated successfully.');
     }
 
 
