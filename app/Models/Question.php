@@ -10,15 +10,18 @@ class Question extends Model
     protected $table = 'question';
     protected $primaryKey = 'id_question';
 
-    public function materi(){
+    public function materi()
+    {
         return $this->belongsTo(Materi::class, 'id_materi', 'id_materi');
     }
 
-    public function option(){
+    public function option()
+    {
         return $this->hasMany(Option::class, 'id_question', 'id_question');
     }
 
-    public function answer(){
+    public function answer()
+    {
         return $this->hasMany(Answer::class, 'id_question', 'id_question');
     }
 }

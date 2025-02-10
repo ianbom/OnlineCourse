@@ -1,4 +1,4 @@
-@forelse($course as $course)
+@forelse($courses as $course)
     <div class="bg-white rounded-lg overflow-hidden flex flex-col">
         @if ($course->image)
             <a href="{{ route('kelas.show', $course->id_course) }}">

@@ -14,6 +14,11 @@ class Materi extends Model
     protected $primaryKey = 'id_materi';
 
 
+    public function question()
+    {
+        return $this->hasMany(Question::class, 'id_materi', 'id_materi');
+    }
+
     public function course()
     {
         return $this->belongsTo(Course::class, 'id_course', 'id_course');
@@ -27,11 +32,6 @@ class Materi extends Model
     public function note()
     {
         return $this->hasMany(Note::class, 'id_materi', 'id_materi');
-    }
-
-    public function question()
-    {
-        return $this->hasMany(Question::class, 'id_materi', 'id_materi');
     }
 
     public function answer()

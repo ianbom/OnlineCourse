@@ -12,15 +12,14 @@ class Course extends Model
     protected $table = 'course';
     protected $primaryKey = 'id_course';
 
+    public function materi()
+    {
+        return $this->hasMany(Materi::class, 'id_course', 'id_course');
+    }
 
     public function content()
     {
         return $this->hasMany(Content::class, 'id_course', 'id_course');
-    }
-
-    public function materi()
-    {
-        return $this->hasMany(Materi::class, 'id_course', 'id_course');
     }
 
     public function courseCategory()

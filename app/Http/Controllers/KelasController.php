@@ -18,18 +18,23 @@ class KelasController extends Controller
 {
     public function index()
     {
-        $course = Course::withCount([
-            'materi',
-            'materi as total_quiz' => function ($query) {
-                $query->withCount('question');
-            },
-            'materi as total_video' => function ($query) {
-                $query->whereNotNull('video');
+        $courses = Course::with([
+            'materi' => function ($query) {
+                $query->withCount('question'); // Count number of questions per materi
             }
-        ])->get();
+        ])->withCount([
+            'materi', // Count total materi
+            'materi as total_video' => function ($query) {
+                $query->whereNotNull('video'); // Count materi where video is not null
+            }
+        ])->get();        
+        $courses->transform(function ($c) {
+            $c->total_quiz = $c->materi->sum('question_count'); // Sum all question counts
+            return $c;
+        });
+      
         $category = Category::all();
-
-        return view('web.user.kelas.index_kelas', ['course' => $course, 'category' => $category]);
+        return view('web.user.kelas.index_kelas', ['courses' => $courses, 'category' => $category]);
     }
 
 

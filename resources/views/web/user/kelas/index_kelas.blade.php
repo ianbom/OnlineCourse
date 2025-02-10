@@ -57,7 +57,7 @@
         <!-- Book Search -->
         <div class="mb-10">
             <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-8">
-                @include('web.user.components.list_kelas', ['course' => $course])
+                @include('web.user.components.list_kelas', ['courses' => $courses])
             </div>
         </div>
     </div>

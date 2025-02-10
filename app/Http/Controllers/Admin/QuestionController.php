@@ -43,7 +43,7 @@ class QuestionController extends Controller
             ]);
         }
 
-        return redirect()->route('question.index')->with('success', 'Pertanyaan berhasil ditambahkan');
+        return redirect()->route('question.index', ['materi' =>  $request->id_materi])->with('success', 'Pertanyaan berhasil ditambahkan');
     }
 
 
