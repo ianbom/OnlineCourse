@@ -17,8 +17,8 @@ class MateriFactory extends Factory
      */
     public function definition(): array
     {
-        $video = Storage::disk('public')->files('materi/video');
-        $randVideo = $video ? $video[array_rand($video)] : null;
+        // $video = Storage::disk('public')->files('materi/video');
+        // $randVideo = $video ? $video[array_rand($video)] : null;
 
         $textBook = Storage::disk('public')->files('materi/text_book');
         $randTextBook = $textBook ? $textBook[array_rand($textBook)] : null;
