@@ -22,28 +22,28 @@
 
                 <li class="sidebar-item {{ Route::is('user.index') ? 'active' : '' }}">
                     <a href="{{ route('user.index') }}" class='sidebar-link'>
-                        <i class="bi bi-book"></i>
+                        <i class="bi bi-people"></i>
                         <span>User</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item {{ Route::is('bundle.edit') ? 'active' : '' }}">
                     <a href="{{ route('bundle.index') }}" class='sidebar-link'>
-                        <i class="bi bi-bag"></i>
+                        <i class="bi bi-box-seam"></i>
                         <span>Paket Langganan</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item {{ Route::is('course.index') ? 'active' : '' }}">
                     <a href="{{ route('course.index') }}" class='sidebar-link'>
-                        <i class="bi bi-people"></i>
+                        <i class="bi bi-journal-richtext"></i>
                         <span>Kelas</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item {{ Route::is('materi.index') ? 'active' : '' }}">
                     <a href="{{ route('materi.index') }}" class='sidebar-link'>
-                        <i class="bi bi-person"></i>
+                        <i class="bi bi-card-text"></i>
                         <span>Materi</span>
                     </a>
                 </li>
@@ -57,7 +57,7 @@
 
                 <li class="sidebar-item {{ Route::is('pemateri.index') ? 'active' : '' }}">
                     <a href="{{ route('pemateri.index') }}" class='sidebar-link'>
-                        <i class="bi bi-box-seam"></i>
+                        <i class="bi bi-person-arms-up"></i>
                         <span>Pemateri</span>
                     </a>
                 </li>

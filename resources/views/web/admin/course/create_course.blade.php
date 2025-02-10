@@ -1,7 +1,7 @@
 @extends('web.layouts.newAdmin_app')
 
 @section('title')
-    Tambah Course Baru
+    Tambah Kelas Baru
 @endsection
 
 @section('content')
@@ -9,15 +9,15 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Tambah Course Baru</h3>
-                <p class="text-subtitle text-muted">Tambahkan course baru untuk platform.</p>
+                <h3>Tambah Kelas Baru</h3>
+                <p class="text-subtitle text-muted">Tambahkan Kelas baru untuk platform.</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Beranda</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Course</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Tambah Course</li>
+                        <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Kelas</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Tambah Kelas</li>
                     </ol>
                 </nav>
             </div>
@@ -40,7 +40,7 @@
                             <div class="row">
                                 <!-- Nama Course -->
                                 <div class="col-md-6 mb-3">
-                                    <label for="name_course" class="form-label">Nama Course</label>
+                                    <label for="name_course" class="form-label">Nama Kelas</label>
                                     <input type="text" name="name_course" id="name_course" required
                                         class="form-control" placeholder="Masukkan nama course">
                                 </div>
@@ -95,7 +95,7 @@
                             <!-- Submit Button -->
                             <div class="text-end">
                                 <a href="{{ route('course.index') }}" class="btn btn-secondary">Batal</a>
-                                <button type="submit" class="btn btn-primary">Simpan Course</button>
+                                <button type="submit" class="btn btn-primary">Simpan Kelas</button>
                             </div>
                         </form>
                     </div>
