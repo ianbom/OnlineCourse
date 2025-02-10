@@ -17,4 +17,8 @@ class CourseCategory extends Model
     public function category(){
         return $this->belongsTo(Category::class, 'id_category', 'id_category');
     }
+
+    public function subCategory(){
+        return $this->belongsTo(SubCategory::class, 'id_sub_category', 'id_sub_category');
+    }
 }

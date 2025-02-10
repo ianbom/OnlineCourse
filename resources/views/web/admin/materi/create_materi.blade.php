@@ -34,9 +34,9 @@
                             <div class="row">
                                 <!-- Pilih Modul -->
                                 <div class="col-md-6 mb-3">
-                                    <label for="id_course" class="form-label">Pilih Modul</label>
+                                    <label for="id_course" class="form-label">Pilih Kelas</label>
                                     <select name="id_course" id="id_course" class="form-select" required>
-                                        <option value="">-- Pilih Modul --</option>
+                                        <option value="">-- Pilih Kelas --</option>
                                         @foreach ($course as $courseItem)
                                             <option value="{{ $courseItem->id_course }}" {{ old('id_course') == $courseItem->id_course ? 'selected' : '' }}>{{ $courseItem->name_course }}</option>
                                         @endforeach
@@ -44,7 +44,7 @@
                                 </div>
 
                                 <!-- Pilih Tipe -->
-                                <div class="col-md-6 mb-3">
+                                {{-- <div class="col-md-6 mb-3">
                                     <label for="type" class="form-label">Pilih Tipe</label>
                                     <select name="type" id="type" class="form-select" required>
                                         <option value="">-- Pilih Tipe --</option>
@@ -52,7 +52,7 @@
                                         <option value="modul">Modul</option>
                                         <option value="quiz">Quiz</option>
                                     </select>
-                                </div>
+                                </div> --}}
 
                                 <!-- Apakah Gratis? -->
                                 <div class="col-md-6 mb-3">

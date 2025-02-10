@@ -1,7 +1,7 @@
 @extends('web.layouts.newAdmin_app')
 
 @section('title')
-    Edit Course
+    Edit Kelas
 @endsection
 
 @section('content')
@@ -9,15 +9,15 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Edit Course</h3>
-                <p class="text-subtitle text-muted">Perbarui informasi course.</p>
+                <h3>Edit Kelas</h3>
+                <p class="text-subtitle text-muted">Perbarui informasi Kelas.</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('landing') }}">Beranda</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Daftar Course</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Course</li>
+                        <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Daftar Kelas</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Kelas</li>
                     </ol>
                 </nav>
             </div>
@@ -42,8 +42,8 @@
                             <div class="row">
                                 <!-- Nama Course -->
                                 <div class="col-md-6 mb-3">
-                                    <label for="name_course" class="form-label">Nama Course</label>
-                                    <input type="text" name="name_course" id="name_course" value="{{ old('name_course', $course->name_course) }}" class="form-control" placeholder="Masukkan Nama Course" required>
+                                    <label for="name_course" class="form-label">Nama Kelas</label>
+                                    <input type="text" name="name_course" id="name_course" value="{{ old('name_course', $course->name_course) }}" class="form-control" placeholder="Masukkan Nama Kelas" required>
                                 </div>
 
                                 <div class="col-md-6 mb-3">

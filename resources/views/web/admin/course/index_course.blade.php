@@ -9,14 +9,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Daftar Course</h3>
-                    <p class="text-subtitle text-muted">Kelola daftar course</p>
+                    <h3>Daftar Kelas</h3>
+                    <p class="text-subtitle text-muted">Kelola daftar kelas</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('landing') }}">Beranda</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Daftar Course</li>
+                            <li class="breadcrumb-item active" aria-current="page">Daftar Kelas</li>
                         </ol>
                     </nav>
                 </div>
@@ -28,8 +28,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-3">
-                                <h5 class="card-title">Data Course</h5>
-                                <a href="{{ route('course.create') }}" class="btn btn-primary">Tambah Course</a>
+                                <h5 class="card-title">Data Kelas</h5>
+                                <a href="{{ route('course.create') }}" class="btn btn-primary">Tambah Kelas</a>
                             </div>
                             @if (session('success'))
                                 <div class="alert alert-success">{{ session('success') }}</div>
@@ -39,7 +39,7 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Nama Course</th>
+                                            <th>Nama Kelas</th>
 
                                             <th>Deskripsi</th>
                                             <th>Created At</th>

@@ -36,7 +36,7 @@
                             <p>{{ $materi->description }}</p>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <h5>Modul</h5>
+                            <h5>Kelas</h5>
                             <p class="fw-bold">{{ $materi->course->name_course }}</p>
                         </div>
                     </div>

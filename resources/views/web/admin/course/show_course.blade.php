@@ -1,18 +1,18 @@
 @extends('web.layouts.newAdmin_app')
-@section('title', 'Detail Course')
+@section('title', 'Detail Kelas')
 
 @section('content')
 <div class="page-heading">
     <div class="page-title d-flex justify-content-between align-items-center">
         <div>
-            <h3>Detail Course</h3>
-            <p class="text-subtitle text-muted">Informasi lengkap mengenai course.</p>
+            <h3>Detail Kelas</h3>
+            <p class="text-subtitle text-muted">Informasi lengkap mengenai Kelas.</p>
         </div>
         <nav aria-label="breadcrumb" class="breadcrumb-header">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('landing') }}">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Daftar Course</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Detail Course</li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Daftar Kelas</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detail Kelas</li>
             </ol>
         </nav>
     </div>
@@ -25,12 +25,16 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <h5>Nama Course</h5>
+                            <h5>Nama Kelas</h5>
                             <p class="fw-bold">{{ $course->name_course }}</p>
                         </div>
                         <div class="col-md-6 mb-3">
                             <h5>Deskripsi</h5>
                             <p>{{ $course->description }}</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <h5>Pemateri</h5>
+                            <p>{{ $course->pemateri->nama }}</p>
                         </div>
                     </div>
                     @if ($course->image)
@@ -50,7 +54,7 @@
                     @endif
                     <div class="text-end mt-4">
                         <a href="{{ route('course.edit', $course->id_course) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Edit</a>
-                        <form action="{{ route('course.destroy', $course->id_course) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus course ini?')">
+                        <form action="{{ route('course.destroy', $course->id_course) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus Kelas ini?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Hapus</button>
