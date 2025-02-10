@@ -13,9 +13,6 @@ class Category extends Model
     protected $table = 'category';
     protected $primaryKey = 'id_category';
 
-
-
-
     public function courseCategory(){
         return $this->hasMany(CourseCategory::class, 'id_category', 'id_category');
     }

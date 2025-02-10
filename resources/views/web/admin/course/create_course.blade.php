@@ -15,7 +15,7 @@
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('landing') }}">Beranda</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Course</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Tambah Course</li>
                     </ol>
@@ -43,6 +43,16 @@
                                     <label for="name_course" class="form-label">Nama Course</label>
                                     <input type="text" name="name_course" id="name_course" required
                                         class="form-control" placeholder="Masukkan nama course">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_pemateri" class="form-label">Pilih Pemateri</label>
+                                    <select name="id_pemateri" id="id_pemateri" class="form-select" required>
+                                        <option value="">-- Pilih Pemateri --</option>
+                                        @foreach ($pemateri as $item)
+                                            <option value="{{ $item->id_pemateri }}" {{ old('id_course') == $item->id_pemateri ? 'selected' : '' }}>{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <!-- Gambar -->

@@ -20,6 +20,7 @@ class CourseRequest extends FormRequest
             'video' => 'nullable|mimetypes:video/mp4,video/avi,video/mpeg|max:10000',
             'contents' => 'nullable|array',
             'contents.*.name_content' => 'nullable|string|max:255',
+            'id_pemateri' => 'nullable',
         ];
     }
 }
