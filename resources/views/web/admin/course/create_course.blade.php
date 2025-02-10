@@ -16,8 +16,8 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Beranda</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Kelas</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Tambah Kelas</li>
+                        <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Course</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Tambah Course</li>
                     </ol>
                 </nav>
             </div>
