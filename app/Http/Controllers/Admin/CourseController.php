@@ -26,19 +26,19 @@ class CourseController extends Controller
 
 
     public function dataCourse()
-{
-    $query = Course::query();
-    return DataTables::of($query)
-        ->addIndexColumn()
-        ->addColumn('action', function ($course) {
-            return view('web.admin.course.action_course', compact('course'))->render();
-        })
-        ->editColumn('created_at', function ($course) {
-            return $course->created_at->format('d-m-Y');
-        })
-        ->rawColumns(['action'])
-        ->make(true);
-}
+    {
+        $query = Course::query();
+        return DataTables::of($query)
+            ->addIndexColumn()
+            ->addColumn('action', function ($course) {
+                return view('web.admin.course.action_course', compact('course'))->render();
+            })
+            ->editColumn('created_at', function ($course) {
+                return $course->created_at->format('d-m-Y');
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
 
     public function create()
     {
@@ -148,70 +148,70 @@ class CourseController extends Controller
 
 
 
-// public function store2(CourseRequest $request)
-// {
-//     try {
-//         $courseData = $request->all();
+    // public function store2(CourseRequest $request)
+    // {
+    //     try {
+    //         $courseData = $request->all();
 
-//     if ($request->hasFile('image')) {
-//         $imagePath = $request->file('image')->store('course/image', 'public');
-//         $courseData['image'] = $imagePath;
-//     }
+    //     if ($request->hasFile('image')) {
+    //         $imagePath = $request->file('image')->store('course/image', 'public');
+    //         $courseData['image'] = $imagePath;
+    //     }
 
-//     if ($request->hasFile('video')) {
-//         $videoPath = $request->file('video')->store('course/video', 'public');
-//         $courseData['video'] = $videoPath;
-//     }
+    //     if ($request->hasFile('video')) {
+    //         $videoPath = $request->file('video')->store('course/video', 'public');
+    //         $courseData['video'] = $videoPath;
+    //     }
 
-//     $course = Course::create($courseData);
+    //     $course = Course::create($courseData);
 
-//     $contents = $request->input('contents', []);
-//     foreach ($contents as $content) {
-//         Content::create([
-//             'id_course' => $course->id_course,
-//             'name_content' => $content['name_content']
-//         ]);
-//     }
+    //     $contents = $request->input('contents', []);
+    //     foreach ($contents as $content) {
+    //         Content::create([
+    //             'id_course' => $course->id_course,
+    //             'name_content' => $content['name_content']
+    //         ]);
+    //     }
 
-//     return redirect()->back()->with('success', 'Course dan Content berhasil dibuat.');
-//     } catch (\Throwable $th) {
-//         return response()->json(['error' => $th->getMessage()], 500);
-//     }
+    //     return redirect()->back()->with('success', 'Course dan Content berhasil dibuat.');
+    //     } catch (\Throwable $th) {
+    //         return response()->json(['error' => $th->getMessage()], 500);
+    //     }
 
-// }
+    // }
 
-// public function update2(CourseRequest $request, string $id)
-// {
-//     try {
-//         $course = Course::findOrFail($id);
-//         $courseData = $request->all();
+    // public function update2(CourseRequest $request, string $id)
+    // {
+    //     try {
+    //         $course = Course::findOrFail($id);
+    //         $courseData = $request->all();
 
-//         if ($request->hasFile('image')) {
-//             $imagePath = $request->file('image')->store('course/image', 'public');
-//             $courseData['image'] = $imagePath;
-//         }
+    //         if ($request->hasFile('image')) {
+    //             $imagePath = $request->file('image')->store('course/image', 'public');
+    //             $courseData['image'] = $imagePath;
+    //         }
 
-//         if ($request->hasFile('video')) {
-//             $videoPath = $request->file('video')->store('course/video', 'public');
-//             $courseData['video'] = $videoPath;
-//         }
+    //         if ($request->hasFile('video')) {
+    //             $videoPath = $request->file('video')->store('course/video', 'public');
+    //             $courseData['video'] = $videoPath;
+    //         }
 
-//         $course->update($courseData);
+    //         $course->update($courseData);
 
 
-//         $contents = $request->input('contents', []);
-//         Content::where('id_course', $id)->delete();
-//         foreach ($contents as $content) {
-//             Content::create([
-//                 'id_course' => $id,
-//                 'name_content' => $content['name_content']
-//             ]);
-//         }
-//         return redirect()->back()->with('success', 'Course dan Content berhasil diupdate.');
-//     } catch (\Throwable $th) {
-//        return response()->json(['error' => $th->getMessage()]);
-//     }
-// }
+    //         $contents = $request->input('contents', []);
+    //         Content::where('id_course', $id)->delete();
+    //         foreach ($contents as $content) {
+    //             Content::create([
+    //                 'id_course' => $id,
+    //                 'name_content' => $content['name_content']
+    //             ]);
+    //         }
+    //         return redirect()->back()->with('success', 'Course dan Content berhasil diupdate.');
+    //     } catch (\Throwable $th) {
+    //        return response()->json(['error' => $th->getMessage()]);
+    //     }
+    // }
 
 
 

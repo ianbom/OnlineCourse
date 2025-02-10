@@ -13,15 +13,18 @@ class Course extends Model
     protected $primaryKey = 'id_course';
 
 
-    public function content(){
+    public function content()
+    {
         return $this->hasMany(Content::class, 'id_course', 'id_course');
     }
 
-    public function materi(){
+    public function materi()
+    {
         return $this->hasMany(Materi::class, 'id_course', 'id_course');
     }
 
-    public function courseCategory(){
+    public function courseCategory()
+    {
         return $this->hasMany(CourseCategory::class, 'id_course', 'id_course');
     }
 
@@ -30,23 +33,28 @@ class Course extends Model
         return $this->belongsToMany(Category::class, 'course_category', 'id_course', 'id_category');
     }
 
-    public function saveCourse(){
+    public function saveCourse()
+    {
         return $this->hasMany(Save::class, 'id_course', 'id_course');
     }
 
-    public function history(){
+    public function history()
+    {
         return $this->hasMany(History::class, 'id_course', 'id_course');
     }
 
-    public function finished(){
+    public function finished()
+    {
         return $this->hasMany(Finished::class, 'id_course', 'id_course');
     }
 
-    public function rating(){
+    public function rating()
+    {
         return $this->hasMany(Rating::class, 'id_course', 'id_course');
     }
 
-    public function pemateri(){
+    public function pemateri()
+    {
         return $this->belongsTo(Pemateri::class, 'id_pemateri', 'id_pemateri');
     }
 }

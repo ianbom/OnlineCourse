@@ -3,7 +3,7 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('landing') }}">
                         <img src="{{ asset('images/logo.png') }}" alt="Logo" srcset="">
                     </a>
                 </div>
@@ -13,8 +13,8 @@
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
 
-                <li class="sidebar-item {{ Route::is('dashboard') ? 'active' : '' }}">
-                    <a href="{{ route('dashboard') }}" class='sidebar-link'>
+                <li class="sidebar-item {{ Route::is('landing') ? 'active' : '' }}">
+                    <a href="{{ route('landing') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Beranda</span>
                     </a>
