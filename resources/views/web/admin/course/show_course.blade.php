@@ -10,7 +10,7 @@
         </div>
         <nav aria-label="breadcrumb" class="breadcrumb-header">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('landing') }}">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Daftar Kelas</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Detail Kelas</li>
             </ol>
