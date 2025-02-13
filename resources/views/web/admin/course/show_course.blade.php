@@ -10,7 +10,7 @@
         </div>
         <nav aria-label="breadcrumb" class="breadcrumb-header">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('landing') }}">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Daftar Kelas</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Detail Kelas</li>
             </ol>
@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <h5>Pemateri</h5>
-                            <p>{{ $course->pemateri->nama }}</p>
+                            <p>{{ $course->pemateri->nama ?? "Tidak ada"}}</p>
                         </div>
                     </div>
                     @if ($course->image)
