@@ -69,6 +69,7 @@ Route::middleware(['is_admin'])->prefix('admin')->group(function () {
 Route::prefix('user')->group(function () {
     Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');
     Route::get('/kelas/search', [KelasController::class, 'searchKelas'])->name('kelas.search');
+    Route::get('/kelas/filter', [KelasController::class, 'filterKelas'])->name('kelas.filter');
     Route::get('/kelas/{course}', [KelasController::class, 'show'])->name('kelas.show');
     Route::post('/kelas/selesaikan/{course}', [KelasController::class, 'selesaiKelas'])->name('kelas.selesaikan');
     Route::delete('/kelas/hapusSelesaikan/{course}', action: [KelasController::class, 'hapusSelesaiKelas'])->name('kelas.hapusSelesaikan');

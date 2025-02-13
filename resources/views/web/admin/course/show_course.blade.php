@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <h5>Pemateri</h5>
-                            <p>{{ $course->pemateri->nama }}</p>
+                            <p>{{ $course->pemateri->nama ?? 'Tidak ada'}}</p>
                         </div>
                     </div>
                     @if ($course->image)
