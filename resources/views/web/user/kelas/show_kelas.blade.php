@@ -49,7 +49,6 @@
                             </svg>
                             <span class="text-[#957F2E] font-inter font-medium text-[16px]">{{ $course->materi->whereNotNull('video')->count() }} Video</span>
                         </div>
-
                         <!-- Course completion and saving actions -->
                         @if ($checkSelesai)
                             <form action="{{ route('kelas.hapusSelesaikan', $course->id_course) }}" method="POST">
@@ -100,7 +99,6 @@
                     </div>
                 </div>
             </div>
-        </div>
 
         <!-- Course Content -->
         <div class="mt-16">
@@ -143,7 +141,7 @@
                                 @else
                                     <span>Anda harus langganan untuk melihat materi ini.</span>
                                 @endif
-                            @endif
+                            </div>
                         </div>
                     </div>
                 @empty
@@ -152,5 +150,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection

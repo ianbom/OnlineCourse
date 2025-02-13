@@ -1,148 +1,104 @@
-@extends('web.layouts.template')
+@extends('web.layouts.newAdmin_app')
+
+@section('title')
+    Tambah Materi Baru
+@endsection
 
 @section('content')
-<div class="container mx-auto mt-8">
-    <h1 class="text-2xl font-bold text-gray-700 mb-6">Buat Materi Baru</h1>
-
-    @if (session('success'))
-    <div class="px-4 py-3 mb-8 bg-green-100 text-green-700 rounded-lg">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    <form action="{{ route('materi.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-
-        <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-
-            <!-- Pilih Content -->
-            <label class="block text-sm">
-                <span class="text-gray-700">Pilih Modul</span>
-                <select
-                    name="id_course"
-                    id="id_course"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-select focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                    required
-                >
-                    <option value="">-- Pilih Modul --</option>
-                    @foreach ($course as $courseItem)
-                        <option value="{{ $courseItem->id_course }}" {{ old('id_course') == $courseItem->id_course ? 'selected' : '' }}>{{ $courseItem->name_course }}</option>
-                    @endforeach
-                </select>
-                @error('id_course')
-                    <div class="text-red-500 text-xs mt-2">{{ $message }}</div>
-                @enderror
-            </label>
-
-            <label class="block text-sm">
-                <span class="text-gray-700">Pilih Tipe</span>
-                <select
-                    name="type"
-                    id="type"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-select focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                    required
-                >
-                    <option value="">-- Pilih Tipe --</option>
-                    <option value="materi">Materi</option>
-                    <option value="modul">Modul</option>
-                    <option value="quiz">Quiz</option>
-                </select>
-                @error('type')
-                    <div class="text-red-500 text-xs mt-2">{{ $message }}</div>
-                @enderror
-            </label>
-
-            <label class="block text-sm mt-4">
-                <span class="text-gray-700">Apakah Gratis?</span>
-                <select
-                    name="is_free"
-                    id="is_free"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-select focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                    required
-                >
-                    <option value="">-- Pilih Opsi --</option>
-                    <option value="1" {{ old('is_free') == '1' ? 'selected' : '' }}>Gratis</option>
-                    <option value="0" {{ old('is_free') == '0' ? 'selected' : '' }}>Berbayar</option>
-                </select>
-                @error('is_free')
-                    <div class="text-red-500 text-xs mt-2">{{ $message }}</div>
-                @enderror
-            </label>
-
-            <!-- Nama Materi -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Nama Materi</span>
-                <input
-                    type="text"
-                    name="name_materi"
-                    id="name_materi"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                    placeholder="Masukkan nama materi"
-                    value="{{ old('name_materi') }}"
-                    required
-                />
-                @error('name_materi')
-                    <div class="text-red-500 text-xs mt-2">{{ $message }}</div>
-                @enderror
-            </label>
-
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Deskripsi</span>
-                <textarea
-                    name="description"
-                    id="description"
-                    rows="4"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-textarea focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                    placeholder="Masukkan deskripsi materi"
-                ></textarea>
-                @error('description')
-                <div class="text-red-500 text-xs mt-2">{{ $message }}</div>
-                @enderror
-            </label>
-
-            <!-- Video -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Video</span>
-                <input
-                    type="file"
-                    name="video"
-                    id="video"
-                    accept="video/mp4, video/mkv, video/webm, video/avi, video/mpeg"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                />
-                @error('video')
-                    <div class="text-red-500 text-xs mt-2">{{ $message }}</div>
-                @enderror
-            </label>
-
-            <!-- Textbook -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Text Book (PDF)</span>
-                <input
-                    type="file"
-                    name="text_book"
-                    id="text_book"
-                    accept="application/pdf"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                />
-                @error('text_book')
-                    <div class="text-red-500 text-xs mt-2">{{ $message }}</div>
-                @enderror
-            </label>
-
-            <!-- Submit -->
-            <button
-                type="submit"
-                class="px-4 py-2 mt-6 text-sm font-medium leading-5 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            >
-                Simpan
-            </button>
-
-            <a href="{{ route('materi.index') }}" class="px-4 py-2 mt-6 text-sm font-medium leading-5 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                Kembali
-            </a>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Tambah Materi Baru</h3>
+                <p class="text-subtitle text-muted">Tambahkan materi baru untuk platform.</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('landing') }}">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('materi.index') }}">Materi</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Tambah Materi</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
-    </form>
+    </div>
 
+    <section class="form-section">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{{ route('materi.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <!-- Pilih Modul -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_course" class="form-label">Pilih Kelas</label>
+                                    <select name="id_course" id="id_course" class="form-select" required>
+                                        <option value="">-- Pilih Kelas --</option>
+                                        @foreach ($course as $courseItem)
+                                            <option value="{{ $courseItem->id_course }}" {{ old('id_course') == $courseItem->id_course ? 'selected' : '' }}>{{ $courseItem->name_course }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <!-- Pilih Tipe -->
+                                {{-- <div class="col-md-6 mb-3">
+                                    <label for="type" class="form-label">Pilih Tipe</label>
+                                    <select name="type" id="type" class="form-select" required>
+                                        <option value="">-- Pilih Tipe --</option>
+                                        <option value="materi">Materi</option>
+                                        <option value="modul">Modul</option>
+                                        <option value="quiz">Quiz</option>
+                                    </select>
+                                </div> --}}
+
+                                <!-- Apakah Gratis? -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="is_free" class="form-label">Apakah Gratis?</label>
+                                    <select name="is_free" id="is_free" class="form-select" required>
+                                        <option value="">-- Pilih Opsi --</option>
+                                        <option value="1" {{ old('is_free') == '1' ? 'selected' : '' }}>Gratis</option>
+                                        <option value="0" {{ old('is_free') == '0' ? 'selected' : '' }}>Berbayar</option>
+                                    </select>
+                                </div>
+
+                                <!-- Nama Materi -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="name_materi" class="form-label">Nama Materi</label>
+                                    <input type="text" name="name_materi" id="name_materi" class="form-control" placeholder="Masukkan nama materi" value="{{ old('name_materi') }}" required>
+                                </div>
+
+                                <!-- Deskripsi -->
+                                <div class="col-md-12 mb-3">
+                                    <label for="description" class="form-label">Deskripsi</label>
+                                    <textarea name="description" id="description" rows="4" class="form-control" placeholder="Masukkan deskripsi materi"></textarea>
+                                </div>
+
+                                <!-- Video -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="video" class="form-label">Video</label>
+                                    <input type="file" name="video" id="video" accept="video/*" class="form-control">
+                                </div>
+
+                                <!-- Textbook -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="text_book" class="form-label">Text Book (PDF)</label>
+                                    <input type="file" name="text_book" id="text_book" accept="application/pdf" class="form-control">
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-end">
+                                <a href="{{ route('materi.index') }}" class="btn btn-secondary">Batal</a>
+                                <button type="submit" class="btn btn-primary">Simpan Materi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 @endsection

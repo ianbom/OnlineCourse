@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\Finished;
 use App\Models\History;
@@ -11,49 +12,102 @@ use App\Models\Question;
 use App\Models\Save;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class KelasController extends Controller
 {
-    public function index(){
-
-        $course = Course::all();
-
-
-        return view('web.user.kelas.index_kelas', ['course' => $course]);
+    public function index()
+    {
+        $courses = Course::with([
+            'materi' => function ($query) {
+                $query->withCount('question'); // Count number of questions per materi
+            }
+        ])->withCount([
+            'materi', // Count total materi
+            'materi as total_video' => function ($query) {
+                $query->whereNotNull('video'); // Count materi where video is not null
+            }
+        ])->get();        
+        $courses->transform(function ($c) {
+            $c->total_quiz = $c->materi->sum('question_count'); // Sum all question counts
+            return $c;
+        });
+      
+        $category = Category::all();
+        return view('web.user.kelas.index_kelas', ['courses' => $courses, 'category' => $category]);
     }
 
-    public function searchKelas(Request $request){
 
+    public function filterKelas(Request $request)
+    {
+
+        $query = Course::query();
+
+        $category_id = $request->input('category_id');
+
+        if ($category_id) {
+            $selectedCategory = Category::with('subCategories')->find($category_id);
+
+            if ($selectedCategory) {
+
+                $query->whereHas('category', function ($q) use ($category_id) {
+                    $q->where('category.id_category', $category_id);
+                });
+
+                if ($selectedCategory->subCategories->count() > 0) {
+                    $subCategoryIds = $selectedCategory->subCategories->pluck('id_sub_category');
+
+                    $query->orWhereHas('category', function ($q) use ($subCategoryIds) {
+                        $q->whereIn('category.id_category', $subCategoryIds);
+                    });
+                }
+            }
+        }
+
+        // Eager load relationships yang diperlukan
+        $courses = $query->with(['category', 'pemateri'])->paginate(10);
+        $category = Category::all(); // untuk dropdown filter
+
+        return view('your-view-name', [
+            'courses' => $courses,
+            'category' => $category,
+            'selectedCategory' => $category_id
+        ]);
+    }
+
+    public function searchKelas(Request $request)
+    {
         $search = $request->input('search');
 
         $course = Course::where('name_course', 'like', "%$search%")
-                    ->orWhere('description', 'like', "%$search%")
-                    ->get();
+            ->orWhere('description', 'like', "%$search%")
+            ->get();
 
         $html = view('web.user.components.list_kelas', compact('course'))->render();
 
         return response()->json(['html' => $html]);
-
     }
 
-    public function show(Course $course){
+    public function show(Course $course)
+    {
         $userId = Auth::id();
-        $checkSimpan = Save::where('id', $userId )->where('id_course', $course->id_course)->first();
-        $checkSelesai = Finished::where('id', $userId )->where('id_course', $course->id_course)->first();
+        $checkSimpan = Save::where('id', $userId)->where('id_course', $course->id_course)->first();
+        $checkSelesai = Finished::where('id', $userId)->where('id_course', $course->id_course)->first();
 
         $subscription = checkSubs();
 
         if ($subscription) {
-           $subscription = true;
+            $subscription = true;
         } else {
             $subscription = false;
         }
 
         // return response($subscription);
-        return view('web.user.kelas.show_kelas', ['course' => $course, 'checkSimpan' => $checkSimpan, 'checkSelesai' => $checkSelesai, 'subscription' => $subscription  ]);
+        return view('web.user.kelas.show_kelas', ['course' => $course, 'checkSimpan' => $checkSimpan, 'checkSelesai' => $checkSelesai, 'subscription' => $subscription]);
     }
 
-    public function belajar(Materi $materi){
+    public function belajar(Materi $materi)
+    {
         $userId = Auth::id();
         $question = Question::where('id_materi', $materi->id_materi)->first();
         $totalSoal = Question::where('id_materi', $materi->id_materi)->count();
@@ -68,21 +122,26 @@ class KelasController extends Controller
         $subscription = checkSubs();
 
         if ($subscription) {
-           $subscription = true;
+            $subscription = true;
         } else {
             $subscription = false;
         }
 
-        return view('web.user.kelas.belajar.belajar',
-        ['materi' => $materi,
-        'idCourse' => $materi->id_course,
-        'question' => $question,
-        'nilai' => $nilai,
-        'totalSoal' => $totalSoal,
-        'subscription' => $subscription  ]);
+        return view(
+            'web.user.kelas.belajar.belajar',
+            [
+                'materi' => $materi,
+                'idCourse' => $materi->id_course,
+                'question' => $question,
+                'nilai' => $nilai,
+                'totalSoal' => $totalSoal,
+                'subscription' => $subscription
+            ]
+        );
     }
 
-    public function selesaiKelas(Course $course){
+    public function selesaiKelas(Course $course)
+    {
 
         $userId = Auth::id();
         Finished::create([
@@ -92,15 +151,12 @@ class KelasController extends Controller
 
         return redirect()->back()->with('success', 'Kelas diselesaikan');
     }
-    public function hapusSelesaiKelas(Course $course){
+    public function hapusSelesaiKelas(Course $course)
+    {
         $userId = Auth::id();
         $finished = Finished::where('id', $userId)->where('id_course', $course->id_course)->first();
         $finished->delete();
 
         return redirect()->back()->with('success', 'Kelas diselesaikan dihapus');
     }
-
-
-
-
 }

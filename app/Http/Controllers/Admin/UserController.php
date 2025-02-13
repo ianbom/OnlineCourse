@@ -27,7 +27,7 @@ class UserController extends Controller
     {
         $data = $request->all();
         User::create($data);
-        return redirect()->back()->with('success', 'User created successfully');
+        return redirect()->route('user.index')->with('success', 'User created successfully');
     }
 
 
@@ -46,7 +46,7 @@ class UserController extends Controller
     {
         $data = $request->all();
         $user->update($data);
-        return redirect()->back()->with('success', 'User updated successfully');
+        return redirect()->route('user.index')->with('success', 'User updated successfully');
     }
 
 

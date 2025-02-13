@@ -23,21 +23,22 @@ class MateriController extends Controller
     }
 
 
-    public function dataMateri(){
-    $query = Materi::query();
-    return DataTables::of($query)
-        ->addIndexColumn()
-        ->addColumn('name_course', function ($materi) {
-            return $materi->course ? $materi->course->name_course : '-';
-        })
-        ->addColumn('action', function ($materi) {
-            return view('web.admin.materi.action_materi', compact('materi'))->render();
-        })
-        ->editColumn('created_at', function ($materi) {
-            return $materi->created_at->format('d-m-Y');
-        })
-        ->rawColumns(['action'])
-        ->make(true);
+    public function dataMateri()
+    {
+        $query = Materi::query();
+        return DataTables::of($query)
+            ->addIndexColumn()
+            ->addColumn('name_course', function ($materi) {
+                return $materi->course ? $materi->course->name_course : '-';
+            })
+            ->addColumn('action', function ($materi) {
+                return view('web.admin.materi.action_materi', compact('materi'))->render();
+            })
+            ->editColumn('created_at', function ($materi) {
+                return $materi->created_at->format('d-m-Y');
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
 
@@ -67,8 +68,8 @@ class MateriController extends Controller
 
             Materi::create($data);
 
-           
-            return redirect()->back()->with('success', 'Materi berhasil dibuat!');
+
+            return redirect()->route('materi.index')->with('success', 'Materi berhasil dibuat!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -90,41 +91,41 @@ class MateriController extends Controller
     }
 
     public function update(MateriRequest $request, string $id)
-{
-    try {
-        $materi = Materi::findOrFail($id);
-        $data = $request->all();
+    {
+        try {
+            $materi = Materi::findOrFail($id);
+            $data = $request->all();
 
 
-        if ($request->hasFile('video')) {
-            if ($materi->video) {
-                Storage::disk('public')->delete($materi->video);
-            }
-            $videoPath = $request->file('video')->store('materi/video', 'public');
-            $data['video'] = $videoPath;
-        } else {
-            $data['video'] = $materi->video;
-        }
-
-
-        if ($request->hasFile('text_book')) {
-            if ($materi->text_book) {
-                Storage::disk('public')->delete($materi->text_book);
+            if ($request->hasFile('video')) {
+                if ($materi->video) {
+                    Storage::disk('public')->delete($materi->video);
+                }
+                $videoPath = $request->file('video')->store('materi/video', 'public');
+                $data['video'] = $videoPath;
+            } else {
+                $data['video'] = $materi->video;
             }
 
-            $textBookPath = $request->file('text_book')->store('materi/text_book', 'public');
-            $data['text_book'] = $textBookPath;
-        } else {
-            $data['text_book'] = $materi->text_book;
+
+            if ($request->hasFile('text_book')) {
+                if ($materi->text_book) {
+                    Storage::disk('public')->delete($materi->text_book);
+                }
+
+                $textBookPath = $request->file('text_book')->store('materi/text_book', 'public');
+                $data['text_book'] = $textBookPath;
+            } else {
+                $data['text_book'] = $materi->text_book;
+            }
+            $materi->update($data);
+
+            return redirect()->route('materi.index')->with('success', 'Materi has been updated');
+        } catch (\Throwable $th) {
+
+            return response()->json(['error' => $th->getMessage()]);
         }
-        $materi->update($data);
-
-        return redirect()->back()->with('success', 'Materi has been updated');
-    } catch (\Throwable $th) {
-
-        return response()->json(['error' => $th->getMessage()]);
     }
-}
 
 
     /**

@@ -1,75 +1,69 @@
-@extends('web.layouts.template')
+@extends('web.layouts.newAdmin_app')
+
+@section('title')
+    Tambah Pemateri Baru
+@endsection
 
 @section('content')
-<div class="container mx-auto mt-8">
-    <h1 class="text-2xl font-bold text-gray-700 mb-6">Tambah Pemateri Baru</h1>
-
-    @if (session('success'))
-    <div class="px-4 py-3 mb-8 bg-green-100 text-green-700 rounded-lg">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    <form action="{{ route('pemateri.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-
-        <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-            <!-- Nama Pemateri -->
-            <label class="block text-sm">
-                <span class="text-gray-700">Nama Pemateri</span>
-                <input
-                    type="text"
-                    name="nama"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                    placeholder="Masukkan nama pemateri"
-                    value="{{ old('nama') }}"
-                    required
-                />
-                @error('nama')
-                    <div class="text-red-500 text-xs mt-2">{{ $message }}</div>
-                @enderror
-            </label>
-
-            <!-- Foto Pemateri -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Foto Pemateri</span>
-                <input
-                    type="file"
-                    name="foto"
-                    accept="image/*"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-input focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                />
-                @error('foto')
-                    <div class="text-red-500 text-xs mt-2">{{ $message }}</div>
-                @enderror
-            </label>
-
-            <!-- Deskripsi -->
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Deskripsi</span>
-                <textarea
-                    name="deskripsi"
-                    rows="4"
-                    class="block w-full mt-1 text-sm border-gray-300 rounded-md form-textarea focus:border-purple-400 focus:outline-none focus:ring-purple-400"
-                    placeholder="Masukkan deskripsi pemateri"
-                >{{ old('deskripsi') }}</textarea>
-                @error('deskripsi')
-                <div class="text-red-500 text-xs mt-2">{{ $message }}</div>
-                @enderror
-            </label>
-
-            <!-- Submit -->
-            <button
-                type="submit"
-                class="px-4 py-2 mt-6 text-sm font-medium leading-5 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            >
-                Simpan
-            </button>
-
-            <a href="{{ route('pemateri.index') }}" class="px-4 py-2 mt-6 text-sm font-medium leading-5 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                Kembali
-            </a>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Tambah Pemateri Baru</h3>
+                <p class="text-subtitle text-muted">Tambahkan pemateri baru untuk platform.</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('landing') }}">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('pemateri.index') }}">Pemateri</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Tambah Pemateri</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
-    </form>
+    </div>
+
+    <section class="form-section">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{{ route('pemateri.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <!-- Nama Pemateri -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="nama" class="form-label">Nama Pemateri</label>
+                                    <input type="text" name="nama" id="nama" required
+                                        class="form-control" placeholder="Masukkan nama pemateri">
+                                </div>
+
+                                <!-- Foto Pemateri -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="foto" class="form-label">Foto Pemateri</label>
+                                    <input type="file" name="foto" id="foto" accept="image/*"
+                                        class="form-control">
+                                </div>
+
+                                <!-- Deskripsi -->
+                                <div class="col-md-12 mb-3">
+                                    <label for="deskripsi" class="form-label">Deskripsi</label>
+                                    <textarea name="deskripsi" id="deskripsi" rows="5" required
+                                        class="form-control" placeholder="Masukkan deskripsi pemateri"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-end">
+                                <a href="{{ route('pemateri.index') }}" class="btn btn-secondary">Batal</a>
+                                <button type="submit" class="btn btn-primary">Simpan Pemateri</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 @endsection

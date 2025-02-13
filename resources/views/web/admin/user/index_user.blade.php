@@ -1,85 +1,94 @@
-@extends('web.layouts.template')
+@extends('web.layouts.newAdmin_app')
+
+@section('title')
+    Daftar User
+@endsection
 
 @section('content')
-<div class="container mx-auto mt-8">
-    <div class="flex items-center justify-between mb-6">
-        <h1 class="text-2xl font-bold text-gray-700">Daftar User</h1>
-        <a href="{{ route('user.create') }}" class="px-4 py-2 text-sm font-medium leading-5 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-            Tambah User
-        </a>
-    </div>
-
-    @if (session('success'))
-        <div class="px-4 py-3 mb-8 bg-green-100 text-green-700 rounded-lg">
-            {{ session('success') }}
+    <div class="page-heading">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-md-6 order-md-1 order-last">
+                    <h3>Daftar User</h3>
+                    <p class="text-subtitle text-muted">Kelola daftar user</p>
+                </div>
+                <div class="col-12 col-md-6 order-md-2 order-first">
+                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('landing') }}">Beranda</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Daftar User</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
         </div>
-    @endif
-
-    <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
-        <table class="w-full whitespace-no-wrap">
-            <thead>
-                <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
-                    <th class="px-4 py-3">#</th>
-                    <th class="px-4 py-3">Nama</th>
-                    <th class="px-4 py-3">Tanggal Lahir</th>
-                    <th class="px-4 py-3">Nomor Telepon</th>
-                    <th class="px-4 py-3">Email</th>
-                    <th class="px-4 py-3">Status Subs</th>
-                    <th class="px-4 py-3">Role</th>
-                    <th class="px-4 py-3">Aksi</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y">
-                @forelse ($user as $item)
-                    <tr class="text-gray-700">
-                        <td class="px-4 py-3 text-sm">{{ $loop->iteration }}</td>
-                        <td class="px-4 py-3 text-sm">{{ $item->name }}</td>
-                        <td class="px-4 py-3 text-sm">{{ $item->birthday ?? 'N/A' }}</td>
-                        <td class="px-4 py-3 text-sm">{{ $item->phone ?? 'N/A' }}</td>
-                        <td class="px-4 py-3 text-sm">{{ $item->email }}</td>
-                        <td class="px-4 py-3 text-sm">{{ $item->subscription->first()->id_subscription ?? 'Not-Buy' }}</td>
-                        <td class="px-4 py-3 text-sm">
-                            @if ($item->is_admin)
-                                <span class="text-green-600 font-semibold">Admin</span>
-                            @else
-                                <span class="text-gray-600">User</span>
-                            @endif
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                            <div class="flex space-x-2">
-                                <!-- Edit Button -->
-                                <a href="{{ route('user.edit', $item->id) }}"
-                                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline-blue"
-                                    aria-label="Edit">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                    </svg>
-                                </a>
-
-                                <!-- Delete Button -->
-                                <form action="{{ route('user.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus user ini?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline-red"
-                                        aria-label="Delete">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                </form>
+        <section class="datatable">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3">
+                                <h5 class="card-title">Data User</h5>
+                                <a href="{{ route('user.create') }}" class="btn btn-primary">Tambah User</a>
                             </div>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="7" class="px-4 py-3 text-center text-sm text-gray-500">
-                            Tidak ada user yang tersedia.
-                        </td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+                            @if (session('success'))
+                                <div class="alert alert-success">{{ session('success') }}</div>
+                            @endif
+                            <div class="table-responsive">
+                                <table id="userTable" class="table table-striped table-bordered text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nama</th>
+                                            <th>Tanggal Lahir</th>
+                                            <th>Nomor Telepon</th>
+                                            <th>Email</th>
+                                            <th>Status Subs</th>
+                                            <th>Role</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($user as $key => $item)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->birthday ?? 'N/A' }}</td>
+                                                <td>{{ $item->phone ?? 'N/A' }}</td>
+                                                <td>{{ $item->email }}</td>
+                                                <td>{{ $item->subscription->first()->id_subscription ?? 'Not-Buy' }}</td>
+                                                <td>
+                                                    @if ($item->is_admin)
+                                                        <span class="badge bg-success">Admin</span>
+                                                    @else
+                                                        <span class="badge bg-secondary">User</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('user.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                    <form action="{{ route('user.destroy', $item->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Yakin ingin menghapus user ini?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-</div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#userTable').DataTable();
+        });
+    </script>
 @endsection

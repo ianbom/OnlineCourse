@@ -1,120 +1,109 @@
-@extends('web.layouts.template')
+@extends('web.layouts.newAdmin_app')
+@section('title')
+    Edit Pertanyaan
+@endsection
 
 @section('content')
-<div class="container mx-auto mt-8">
-    <h1 class="text-2xl font-bold text-gray-700 mb-6">Edit Pertanyaan</h1>
-
-    <!-- Success Message -->
-    @if (session('success'))
-    <div class="px-4 py-3 mb-8 bg-green-100 text-green-700 rounded-lg">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    <!-- Error Messages -->
-    @if ($errors->any())
-    <div class="px-4 py-3 mb-8 bg-red-100 text-red-700 rounded-lg">
-        <ul class="list-disc pl-5">
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-
-    <!-- Form Edit Question -->
-    <form action="{{ route('question.update', $question->id_question) }}" method="POST">
-        @csrf
-        @method('PUT')
-
-        <!-- Materi Selection -->
-        <div class="mb-4">
-            <label for="id_materi" class="block text-sm font-medium text-gray-700">Materi</label>
-            <select name="id_materi" id="id_materi" required
-                class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                @foreach ($materi as $m)
-                <option value="{{ $m->id_materi }}" {{ $m->id_materi == $question->id_materi ? 'selected' : '' }}>
-                    {{ $m->name_materi }}
-                </option>
-                @endforeach
-            </select>
-        </div>
-
-        <!-- Question Input -->
-        <div class="mb-4">
-            <label for="question" class="block text-sm font-medium text-gray-700">Pertanyaan</label>
-            <textarea name="question" id="question" rows="4" required
-                class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400">{{ old('question', $question->question) }}</textarea>
-        </div>
-
-        <!-- Options Input -->
-        <div class="mb-4">
-            <h2 class="text-lg font-semibold text-gray-800">Pilihan Jawaban</h2>
-            <div id="options-container">
-                @foreach ($question->option as $index => $option)
-                <div class="flex items-center mb-2 option-item">
-                    <input type="text" name="option[{{ $index }}][option]" value="{{ $option->option }}" required
-                        class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                    <label class="ml-4 flex items-center text-gray-600">
-                        <input type="radio" name="is_correct" value="{{ $index }}" class="form-radio" {{ $option->is_correct ? 'checked' : '' }}>
-                        <span class="ml-2">Benar</span>
-                    </label>
-                    <button type="button" class="ml-4 text-red-600 delete-option">
-                        Hapus
-                    </button>
-                </div>
-
-                @endforeach
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Edit Pertanyaan</h3>
+                <p class="text-subtitle text-muted">Perbarui informasi pertanyaan.</p>
             </div>
-            <button type="button" id="add-option"
-                class="mt-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                Tambah Pilihan
-            </button>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('landing') }}">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('question.index', $question->id_materi) }}">Daftar Pertanyaan</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Pertanyaan</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
+    </div>
 
-        <!-- Submit Button -->
-        <div class="mt-8">
-            <button type="submit"
-                class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400">
-                Simpan Perubahan
-            </button>
-            <a href="{{ route('question.index', $question->id_materi) }}"
-                class="ml-4 px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400">
-                Batal
-            </a>
+    <section class="form-section">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{{ route('question.update', $question->id_question) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="row">
+                                <!-- Materi Selection -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_materi" class="form-label">Materi</label>
+                                    <select name="id_materi" id="id_materi" class="form-control" required>
+                                        @foreach ($materi as $m)
+                                            <option value="{{ $m->id_materi }}" {{ $m->id_materi == $question->id_materi ? 'selected' : '' }}>
+                                                {{ $m->name_materi }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <!-- Question Input -->
+                                <div class="col-md-12 mb-3">
+                                    <label for="question" class="form-label">Pertanyaan</label>
+                                    <textarea name="question" id="question" class="form-control" rows="4" required>{{ old('question', $question->question) }}</textarea>
+                                </div>
+
+                                <!-- Options Input -->
+                                <div class="col-md-12 mb-3">
+                                    <h5>Pilihan Jawaban</h5>
+                                    <div id="options-container">
+                                        @foreach ($question->option as $index => $option)
+                                            <div class="input-group mb-2 option-item">
+                                                <input type="text" name="option[{{ $index }}][option]" value="{{ $option->option }}" class="form-control" required>
+                                                <div class="input-group-text">
+                                                    <input type="radio" name="is_correct" value="{{ $index }}" {{ $option->is_correct ? 'checked' : '' }}>
+                                                    <label class="ms-2">Benar</label>
+                                                </div>
+                                                <button type="button" class="btn btn-danger delete-option">Hapus</button>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <button type="button" id="add-option" class="btn btn-primary mt-2">Tambah Pilihan</button>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="text-end mt-4">
+                                <a href="{{ route('question.index', $question->id_materi) }}" class="btn btn-secondary">Batal</a>
+                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    </form>
+    </section>
 </div>
 
-<!-- Add Option Script -->
 <script>
-    // Fungsi menambahkan opsi baru
     document.getElementById('add-option').addEventListener('click', function () {
         const container = document.getElementById('options-container');
         const newOptionIndex = container.children.length;
         const newOption = document.createElement('div');
-        newOption.classList.add('flex', 'items-center', 'mb-2', 'option-item');
+        newOption.classList.add('input-group', 'mb-2', 'option-item');
         newOption.innerHTML = `
-            <input type="text" name="option[${newOptionIndex}][option]" placeholder="Pilihan jawaban" required
-                class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400">
-            <label class="ml-4 flex items-center text-gray-600">
-                <input type="radio" name="is_correct" value="${newOptionIndex}" class="form-radio">
-                <span class="ml-2">Benar</span>
-            </label>
-            <button type="button" class="ml-4 text-red-600 delete-option">Hapus</button>
+            <input type="text" name="option[${newOptionIndex}][option]" class="form-control" placeholder="Pilihan jawaban" required>
+            <div class="input-group-text">
+                <input type="radio" name="is_correct" value="${newOptionIndex}">
+                <label class="ms-2">Benar</label>
+            </div>
+            <button type="button" class="btn btn-danger delete-option">Hapus</button>
         `;
         container.appendChild(newOption);
     });
 
-    // Delegasikan event listener untuk tombol hapus
     document.getElementById('options-container').addEventListener('click', function (e) {
         if (e.target && e.target.classList.contains('delete-option')) {
-            const optionItem = e.target.closest('.option-item');
-            if (optionItem) {
-                optionItem.remove();
-            }
+            e.target.closest('.option-item').remove();
         }
     });
 </script>
-
 @endsection

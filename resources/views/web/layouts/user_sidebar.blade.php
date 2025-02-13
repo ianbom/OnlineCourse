@@ -45,7 +45,7 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="" class="flex items-center px-4 py-2 rounded hover:bg-gray-100">
+                        <a href="{{ route('sertifikat.index') }}" class="flex items-center px-4 py-2 rounded hover:bg-gray-100 {{ Route::currentRouteName() == 'sertifikat.index' ? 'bg-[#FDE4D3] text-[#1A1A1A] font-semibold' : '' }}">
                             <i class="fas fa-file-alt text-[#F58A44] mr-3"></i>
                             <span class="text-gray-700">Sertifikat</span>
                         </a>

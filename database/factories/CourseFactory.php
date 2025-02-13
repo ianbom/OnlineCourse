@@ -25,7 +25,7 @@ class CourseFactory extends Factory
             'name_course' => $this->faker->sentence(3),
             'description' => $this->faker->sentence(10),
             'image' => $randImage,
-            'video' => null
+            'video' => "https://www.youtube.com/watch?v=48Z-C5GO5uU"
         ];
     }
 }

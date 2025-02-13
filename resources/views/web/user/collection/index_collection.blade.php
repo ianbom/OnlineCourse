@@ -1,4 +1,4 @@
-@extends(view: 'web.layouts.user_app')
+@extends('web.layouts.user_app')
 
 @section('content')
 
@@ -81,6 +81,5 @@
                 @endforeach
             </div>
         </div>
-
     </div>
 @endsection
