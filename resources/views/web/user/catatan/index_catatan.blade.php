@@ -12,7 +12,7 @@
         Catatan
     </h1>
 
-    <div class="mb-10">
+    {{-- <div class="mb-10">
         <div class="relative max-w-xl">
             <!-- Search icon on the left -->
             <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#979797]">
@@ -32,7 +32,7 @@
                 Cari
             </button>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Book Search -->
     <div class="mb-10">
