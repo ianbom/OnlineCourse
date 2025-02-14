@@ -107,7 +107,7 @@
             <hr class="my-8 border-t-1 border-[#F58A44]">
 
             <div class="flex flex-col items-start">
-                <a href="">
+                <a href="{{ route('collection.index') }}">
                     <img src="{{ asset('img/Frame 1.png') }}" class="w-24 h-24 mb-2">
                 </a>
                 <a href="{{ route('collection.index') }}" class="text-sm {{ Route::currentRouteName() == 'user.favorite.index' ? 'text-[#1A1A1A] font-semibold' : 'text-gray-700' }}">
