@@ -10,6 +10,7 @@ use App\Models\History;
 use App\Models\Materi;
 use App\Models\Question;
 use App\Models\Save;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,26 +21,28 @@ class KelasController extends Controller
     {
         $courses = Course::with([
             'materi' => function ($query) {
-                $query->withCount('question'); // Count number of questions per materi
+                $query->withCount('question');
             }
         ])->withCount([
-            'materi', // Count total materi
+            'materi',
             'materi as total_video' => function ($query) {
-                $query->whereNotNull('video'); // Count materi where video is not null
+                $query->whereNotNull('video');
             }
-        ])->get();        
+        ])->get();
         $courses->transform(function ($c) {
-            $c->total_quiz = $c->materi->sum('question_count'); // Sum all question counts
+            $c->total_quiz = $c->materi->sum('question_count');
             return $c;
         });
-      
+
         $category = Category::all();
-        return view('web.user.kelas.index_kelas', ['courses' => $courses, 'category' => $category]);
+        $subCategory = SubCategory::all();
+        return view('web.user.kelas.index_kelas', ['courses' => $courses, 'category' => $category, 'subCategory' => $subCategory]);
     }
 
 
     public function filterKelas(Request $request)
     {
+         $subCategory = SubCategory::all();
 
         $query = Course::query();
 
@@ -65,11 +68,25 @@ class KelasController extends Controller
         }
 
         // Eager load relationships yang diperlukan
-        $courses = $query->with(['category', 'pemateri'])->paginate(10);
+        $courses = $query->with([
+            'materi' => function ($query) {
+                $query->withCount('question');
+            }
+        ])->withCount([
+            'materi',
+            'materi as total_video' => function ($query) {
+                $query->whereNotNull('video');
+            }
+        ])->get();
+        $courses->transform(function ($c) {
+            $c->total_quiz = $c->materi->sum('question_count');
+            return $c;
+        });
         $category = Category::all(); // untuk dropdown filter
 
-        return view('your-view-name', [
+        return view('web.user.kelas.index_kelas', [
             'courses' => $courses,
+            'subCategory' => $subCategory,
             'category' => $category,
             'selectedCategory' => $category_id
         ]);

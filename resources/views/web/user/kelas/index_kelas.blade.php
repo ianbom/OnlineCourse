@@ -13,8 +13,8 @@
             KELAS
         </h1>
 
-        <div class="mb-10">
-            <div class="relative max-w-xl">
+        <div class="mb-10 flex flex-col md:flex-row md:items-center gap-4">
+            <div class="relative w-full md:w-3/5">
                 <!-- Search icon on the left -->
                 <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#979797]">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -35,16 +35,24 @@
                 </button>
             </div>
 
-            <div class="filter-dropdown relative w-1/5">
-                <!-- Form untuk Filter -->
-                <form action="#" method="GET">
+            <!-- Form untuk Filter -->
+            <div class="relative w-full md:w-1/3 shadow-sm">
+                <form action="{{ route('kelas.filter') }}" method="GET">
                     <select id="filter-select" name="category_id"
-                        class="form-control rounded-[12px] pl-4 pr-4 py-4 w-full border-2 border-transparent transition-all duration-300 focus:border-[#1E90FF] text-[#1E90FF]"
+                        class="form-control rounded-[12px] pl-4 pr-4 py-4 w-full border-2 border-transparent transition-all duration-300 focus:border-[#1E90FF] text-black"
                         onchange="this.form.submit()">
-                        <option value="">Semua Kategori</option>
+                        <option value="" class="text-black">Pilih Kategori</option>
+                        <option value="" class="text-black">Semua Kategori</option>
                         @foreach ($category as $item)
-                            <option value="{{ $item->id_category }}"
-                                {{ request('id_category') == $item->id_category ? 'selected' : '' }}>
+                            <option value="{{ $item->id_category }}" class="text-black"
+                                {{ request('category_id') == $item->id_category ? 'selected' : '' }}>
+                                {{ $item->name_category }}
+                            </option>
+                        @endforeach
+
+                        @foreach ($subCategory as $item)
+                            <option value="{{ $item->id_category }}" class="text-black"
+                                {{ request('category_id') == $item->id_category ? 'selected' : '' }}>
                                 {{ $item->name_category }}
                             </option>
                         @endforeach
@@ -52,7 +60,6 @@
                 </form>
             </div>
         </div>
-
 
         <!-- Book Search -->
         <div class="mb-10">
