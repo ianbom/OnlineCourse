@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             CourseSeeder::class,
             MateriSeeder::class,
             BundleSeeder::class,
+            PemateriSeeder::class,
         ]);
 
     }

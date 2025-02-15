@@ -41,15 +41,27 @@
                         </div>
                     </div>
 
-                    @if ($materi->video)
-                    <div class="mb-3 text-center">
-                        <h5>Video Materi</h5>
-                        <video class="w-100 rounded shadow-sm" controls>
-                            <source src="{{ asset('storage/' . $materi->video) }}" type="video/mp4">
-                            Browser Anda tidak mendukung tag video.
-                        </video>
-                    </div>
-                    @endif
+                        @if ($materi->video)
+                            <div class="mb-3 text-center">
+                                <h5>Video Materi</h5>
+                                @php
+                                    // Ambil video ID dari URL YouTube
+                                    if (preg_match('/(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $materi->video, $matches)) {
+                                        $videoId = $matches[1];
+                                        $embedUrl = "https://www.youtube.com/embed/$videoId";
+                                    } else {
+                                        $embedUrl = null;
+                                    }
+                                @endphp
+
+                                @if ($embedUrl)
+                                    <iframe class="w-100 rounded shadow-sm" height="400" src="{{ $embedUrl }}" frameborder="0" allowfullscreen></iframe>
+                                @else
+                                    <p>Video tidak valid. Silakan periksa URL video.</p>
+                                @endif
+                            </div>
+                        @endif
+
 
                     @if ($materi->text_book)
                     <div class="mb-3">

@@ -327,59 +327,27 @@
             Pemateri yang <span class="text-[#F58A44] font-light italic">Kompeten</span>
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 justify-center items-center">
-            @foreach(range(1, 4) as $item)
             @php
                 // Array warna background
                 $bgColors = ['bg-[#FDE4D3]', 'bg-[#DBF5D2]', 'bg-[#F0F0F0]'];
-                $bgColor = $bgColors[($item - 1) % count($bgColors)];
+            @endphp
+            @foreach($pemateri as $index => $item)
+            @php
+                // Menentukan warna berdasarkan indeks
+                $bgColor = $bgColors[$index % count($bgColors)];
             @endphp
             <div class="{{ $bgColor }} rounded-[16px] p-6">
                 <div class="bg-gray-200 w-24 h-24 mx-auto rounded-full mb-4 flex items-center justify-center">
-                    <img src="{{ asset('img/ustad_' . $item . '.png') }}" alt="Icon" class="w-24 h-24">
+                    <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto Pemateri" class="w-24 h-24 rounded-full">
                 </div>
                 <h5 class="font-medium text-lg text-[#484848] hover:text-[#F58A44] transition duration-300 ease-in-out mb-2">
-                    @switch($item)
-                        @case(1)
-                            Ustadz Ahmad
-                            @break
-                        @case(2)
-                            Ustadz Basri
-                            @break
-                        @case(3)
-                            Ustadz Cahyadi
-                            @break
-                        @case(4)
-                            Ustadz Mansur
-                            @break
-                        @default
-                            Nama Ustadz
-                    @endswitch
+                    {{ $item->nama }}
                 </h5>
                 <ul class="text-left text-sm -ml-8 text-[#484848] space-y-1">
-                    @switch($item)
-                        @case(1)
-                            <li>Chief Advisor of SHAE Academy</li>
-                            <li>Alumni S1 Universitas Islam Madinah</li>
-                            <li>Mahasiswa Magister Manajemen UNY</li>
-                            @break
-                        @case(2)
-                            <li>Pembicara Internasional</li>
-                            <li>Alumni S2 Universitas Al-Azhar</li>
-                            <li>Founder Yayasan Pendidikan Islam</li>
-                            @break
-                        @case(3)
-                            <li>Pakar Fiqih Kontemporer</li>
-                            <li>Alumni Pondok Modern Gontor</li>
-                            <li>Dosen Ilmu Keislaman</li>
-                            @break
-                         @case(4)
-                            <li>Pakar Fiqih Kontemporer</li>
-                            <li>Alumni Pondok Modern Darussalam </li>
-                            <li>Dosen Ilmu Keislaman</li>
-                            @break
-                        @default
-                            <li>Informasi Ustadz</li>
-                    @endswitch
+                    {{-- Pisahkan deskripsi berdasarkan koma atau titik --}}
+                    @foreach(explode("\n", $item->deskripsi ?? '') as $desc)
+                        <li>{{ $desc }}</li>
+                    @endforeach
                 </ul>
             </div>
             @endforeach
@@ -414,6 +382,8 @@ MULAI BELAJAR                </a>
 
 <!--section BERLANGGAN-->
 <div id="subscription" class="pt-32 pb-8 flex justify-center items-center min-h-screen bg-white">
+
+
     <section class="features max-w-6xl mx-auto">
         <!-- Title -->
         <h2 class="text-[#F58A44] text-center font-semibold text-2xl mb-4" style="font-family: 'Libre Baskerville', serif;">Pilih Paket Langganan Anda</h2>
@@ -423,45 +393,45 @@ MULAI BELAJAR                </a>
             Temukan Paket Langganan yang Paling Sesuai
         </p>
 
-
         <div class="flex justify-center max-w-6xl mx-auto">
             <!-- Package Cards -->
+            @php
+            // Pilih gambar secara acak
+            $randomImage = $images[array_rand($images)];
+        @endphp
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {{-- @foreach ($paketLangganan as $paket) --}}
-
-
-                @php
-                    // Pilih gambar secara acak
-                    $randomImage = $images[array_rand($images)];
-                @endphp
+                @foreach ($bundle as $paket)
                 <div class="bg-[#F58A44] rounded-[16px] p-6 text-white">
-                    <!-- Gambar Acak -->
+                    <!-- Gambar Acak (Placeholder atau Static jika gambar tidak ada dalam schema) -->
                     <div class="mb-4">
                         <img src="{{ $randomImage }}" alt="Package Image" class="rounded-lg w-full h-50 object-cover">
                     </div>
 
-                    <h3 class="text-[16px] font-bold mb-2" style="font-family: 'Inter', sans-serif;">NAMA PAKET</h3>
-                    <p class="mb-6 text-[14px] text-white" style="font-family: 'Inter', sans-serif;">Deskripsi Deskripsi DeskripsiDeskripsi Deskripsi</p>
+                    <!-- Nama Paket -->
+                    <h3 class="text-[16px] font-bold mb-2" style="font-family: 'Inter', sans-serif;">{{ $paket->name_bundle }}</h3>
+
+                    <!-- Deskripsi -->
+                    <p class="mb-6 text-[14px] text-white" style="font-family: 'Inter', sans-serif;">{{ $paket->description }}</p>
 
                     <!-- Time and Price -->
                     <div class="flex justify-between items-center mb-6 p-3 border rounded-[8px]">
                         <div class="flex items-center space-x-2" style="font-family: 'Inter', sans-serif;">
-                            <span class="text-[14px]">masa Hari</span>
+                            <span class="text-[14px]">Masa {{ $paket->duration }} Hari</span>
                         </div>
                         <div class="text-[16px] font-bold" style="font-family: 'Inter', sans-serif;">
-                            <span>Rp. Harga</span>
+                            <span>Rp. {{ number_format($paket->price, 0, ',', '.') }}</span>
                         </div>
                     </div>
 
+                    <!-- Tombol Subscribe -->
                     <button type="button"
                             class="w-full bg-[#FDE4D3] text-[#F58A44] py-4 rounded-[12px] font-bold hover:bg-white transition"
                             onclick="window.location.href='{{ route('login') }}'" style="font-family: 'Inter', sans-serif;">
                         Subscribe Now
                     </button>
                 </div>
-                {{-- @endforeach --}}
+                @endforeach
             </div>
-
         </div>
     </section>
 </div>
