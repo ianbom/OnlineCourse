@@ -46,14 +46,24 @@
             <!-- Video Materi -->
             <div class="mb-8">
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">Video Materi</h2>
-                @if (!empty($materi->video))
-                    <video controls class="w-full rounded-md border">
-                        <source src="{{ asset('storage/' . $materi->video) }}" type="video/mp4">
-                        Browser Anda tidak mendukung pemutar video.
-                    </video>
-                @else
-                    <p class="text-gray-500">Tidak ada video untuk materi ini.</p>
-                @endif
+                @if ($materi->video)
+                    @php
+                        if (preg_match('/(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $materi->video, $matches)) {
+                        $videoId = $matches[1];
+                        $embedUrl = "https://www.youtube.com/embed/$videoId";
+                        } else {
+                        $embedUrl = null;
+                        }
+                         @endphp
+
+                        @if ($embedUrl)
+                            <div class="mt-3">
+                                 <iframe class="w-100 rounded shadow-sm" height="250" src="{{ $embedUrl }}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                                        @else
+                                            <p class="text-danger mt-2">Video tidak valid. Silakan periksa URL video.</p>
+                                        @endif
+                                    @endif
             </div>
 
             <!-- Buku Materi -->
