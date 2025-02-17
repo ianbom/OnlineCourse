@@ -78,8 +78,8 @@
 
                                 <!-- Video -->
                                 <div class="col-md-6 mb-3">
-                                    <label for="video" class="form-label">Video</label>
-                                    <input type="file" name="video" id="video" accept="video/*" class="form-control">
+                                    <label for="video" class="form-label">Link Video</label>
+                                    <input type="text" name="video" id="video" class="form-control">
                                 </div>
 
                                 <!-- Textbook -->

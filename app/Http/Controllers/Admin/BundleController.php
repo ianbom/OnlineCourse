@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BundleRequest;
 use App\Models\Bundle;
+use App\Models\Pemateri;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -88,5 +89,13 @@ class BundleController extends Controller
         $bundle->delete();
 
         return redirect()->back()->with('success', 'Paket Langganan Berhasil Dihapus');
+    }
+
+    public function landingpage(){
+
+        $pemateri = Pemateri::take(4)->get();
+        $bundle = Bundle::take(3)->get();
+
+        return view('web.user.landing', ['pemateri' => $pemateri, 'bundle' => $bundle]);
     }
 }

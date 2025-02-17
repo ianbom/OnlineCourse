@@ -27,7 +27,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item {{ Route::is('bundle.edit') ? 'active' : '' }}">
+                <li class="sidebar-item {{ Route::is('bundle.index') ? 'active' : '' }}">
                     <a href="{{ route('bundle.index') }}" class='sidebar-link'>
                         <i class="bi bi-box-seam"></i>
                         <span>Paket Langganan</span>

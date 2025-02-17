@@ -54,10 +54,10 @@ class MateriController extends Controller
             $data = $request->all();
 
 
-            if ($request->hasFile('video')) {
-                $videoPath = $request->file('video')->store('materi/video', 'public');
-                $data['video'] = $videoPath;
-            }
+            // if ($request->hasFile('video')) {
+            //     $videoPath = $request->file('video')->store('materi/video', 'public');
+            //     $data['video'] = $videoPath;
+            // }
 
 
             if ($request->hasFile('text_book')) {
@@ -71,7 +71,7 @@ class MateriController extends Controller
 
             return redirect()->route('materi.index')->with('success', 'Materi berhasil dibuat!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', $th->getMessage());
+            return response()->json(['error' => $th->getMessage()]);
         }
     }
 

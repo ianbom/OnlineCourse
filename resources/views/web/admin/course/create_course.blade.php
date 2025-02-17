@@ -15,7 +15,7 @@
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('landing') }}">Beranda</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Course</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Tambah Course</li>
                     </ol>
@@ -63,11 +63,11 @@
                                 </div>
 
                                 <!-- Video -->
-                                <div class="col-md-12 mb-3">
+                                {{-- <div class="col-md-12 mb-3">
                                     <label for="video" class="form-label">Video</label>
                                     <input type="file" name="video" id="video" accept="video/mp4, video/mkv, video/webm, video/avi, video/mpeg"
                                         class="form-control">
-                                </div>
+                                </div> --}}
 
                                 <!-- Deskripsi -->
                                 <div class="col-md-12 mb-3">

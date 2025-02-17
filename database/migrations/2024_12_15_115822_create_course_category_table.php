@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_course_category');
             $table->foreignId('id_course')->constrained('course', 'id_course')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('id_category')->constrained('category', 'id_category')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('id_sub_category')->constrained('sub_category', 'id_sub_category')->cascadeOnDelete()->cascadeOnUpdate();
+            // $table->foreignId('id_sub_category')->constrained('sub_category', 'id_sub_category')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
