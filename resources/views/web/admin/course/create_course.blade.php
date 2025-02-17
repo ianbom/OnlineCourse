@@ -63,11 +63,11 @@
                                 </div>
 
                                 <!-- Video -->
-                                <div class="col-md-12 mb-3">
+                                {{-- <div class="col-md-12 mb-3">
                                     <label for="video" class="form-label">Video</label>
                                     <input type="file" name="video" id="video" accept="video/mp4, video/mkv, video/webm, video/avi, video/mpeg"
                                         class="form-control">
-                                </div>
+                                </div> --}}
 
                                 <!-- Deskripsi -->
                                 <div class="col-md-12 mb-3">

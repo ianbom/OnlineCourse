@@ -23,9 +23,9 @@ Route::get('/mulaibelajar', function () {
     return view('web.user.mulaibelajar');
 })->name('mulaibelajar');
 
-Route::get('/', function () {
-    return view('web.user.landing');
-})->name('landing');
+// Route::get('/', function () {
+//     return view('web.user.landing');
+// })->name('landing');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -37,7 +37,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/', [BundleController::class, 'landingpage'])->name('landing');
+
 Route::middleware(['is_admin'])->prefix('admin')->group(function () {
+
     Route::resource('bundle', BundleController::class)->except('index');
     Route::get('/index/bundle', [BundleController::class, 'index'])->name('bundle.index');
     Route::get('/data/bundle', [BundleController::class, 'dataBundle'])->name('bundle.data');

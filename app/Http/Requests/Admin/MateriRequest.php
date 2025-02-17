@@ -16,12 +16,12 @@ class MateriRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_course' => 'required',
-            'type' => 'required',
-            'name_materi' => 'required|string',
-            'video' => 'nullable|file|mimes:mp4,mkv,webm,avi,mpeg',
+            'id_course' => 'nullable',
+            'type' => 'nullable',
+            'name_materi' => 'nullable|string',
+            'video' => 'nullable',
             'text_book' => 'nullable|file|mimes:pdf',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'is_free' => 'nullable|boolean',
         ];
     }
