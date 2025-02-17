@@ -10,14 +10,26 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
 
-      @include('web.layouts.sidebar_baca')
+        @include('web.layouts.sidebar_baca')
 
     </body>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const button = document.querySelector("[data-drawer-toggle='logo-sidebar']");
+            const sidebar = document.getElementById("logo-sidebar");
 
+            button.addEventListener("click", function() {
+                sidebar.classList.toggle("-translate-x-full");
+            });
+        });
+    </script>
 </html>
