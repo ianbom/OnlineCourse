@@ -8,9 +8,9 @@
     </div>
     @endif
 
-    {{-- <h1 class="text-[40px] font-bold text-[#1A1A1A] mb-8 mt-16 uppercase" style="font-family: 'Libre Baskerville', serif;">
+     <h1 class="text-[40px] font-bold text-[#1A1A1A] mb-8 mt-16 uppercase" style="font-family: 'Libre Baskerville', serif;">
         KELAS
-    </h1> --}}
+    </h1> 
 
     <div class="mb-10">
         <div class="relative max-w-xl">
