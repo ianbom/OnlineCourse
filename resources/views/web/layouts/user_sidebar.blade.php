@@ -77,6 +77,7 @@
                     <hr class="my-8 border-t-1 border-[#F58A44]">
                 </div>
 
+                <!-- kedua -->
                 <div>
                     <ul>
                         <li class="mb-2">
@@ -86,28 +87,30 @@
                             </a>
                         </li>
                         <li class="mb-2">
+                            <a href="{{ route('order.index') }}" class="flex items-center px-4 py-2 rounded hover:bg-gray-100 {{ Route::currentRouteName() == 'order.index' ? 'bg-[#FDE4D3] text-[#1A1A1A] font-semibold' : '' }}">
+                                <i class="fas fa-users text-[#F58A44] mr-3"></i>
+                                <span class="text-gray-700">Profile Anda</span>
+                            </a>
+                        </li>
+                        {{-- <li class="mb-2">
                             <a href="" class="flex items-center px-4 py-2 rounded hover:bg-gray-100 {{ Route::currentRouteName() == 'paket.index' ? 'bg-[#FDE4D3] text-[#1A1A1A] font-semibold' : '' }}">
                                 <i class="fas fa-book text-[#F58A44] mr-3"></i>
                                 <span class="text-gray-700">Berlanggan</span>
                             </a>
-                        </li>
-                        <li class="mb-2">
+                        </li> --}}
+                        {{-- <li class="mb-2">
                             <a href="{{ route('order.index') }}" class="flex items-center px-4 py-2 rounded hover:bg-gray-100 {{ Route::currentRouteName() == 'order.index' ? 'bg-[#FDE4D3] text-[#1A1A1A] font-semibold' : '' }}">
                                 <i class="fas fa-shopping-cart text-[#F58A44] mr-3"></i>
                                 <span class="text-gray-700">Pembelian</span>
                             </a>
-                        </li>
-                    </ul>
-                </div>
-                <hr class="my-8 border-t-1 border-[#F58A44]">
+                        </li> --}}
 
-                <div>
-                    <ul>
+                        {{-- logout --}}
                         <li class="mb-2">
                             <form action="{{ route('logout') }}" method="POST" class="w-full">
                                 @csrf
                                 <button type="submit" class="flex items-center px-4 py-2 w-full text-left rounded hover:bg-gray-100 text-gray-700">
-                                    <i class="fas fa-sign-out-alt text-red-500 mr-3"></i>
+                                    <i class="fas fa-sign-out-alt text-[#F58A44] mr-3"></i>
                                     <span>Keluar</span>
                                 </button>
                             </form>
@@ -115,6 +118,22 @@
                     </ul>
                 </div>
                 <hr class="my-8 border-t-1 border-[#F58A44]">
+
+                <!-- ketiga -->
+                {{-- <div>
+                    <ul>
+                        <li class="mb-2">
+                            <form action="{{ route('logout') }}" method="POST" class="w-full">
+                                @csrf
+                                <button type="submit" class="flex items-center px-4 py-2 w-full text-left rounded hover:bg-gray-100 text-gray-700">
+                                    <i class="fas fa-sign-out-alt text-[#F58A44] mr-3"></i>
+                                    <span>Keluar</span>
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <hr class="my-8 border-t-1 border-[#F58A44]"> --}}
 
                 <div class="flex flex-col items-start">
                     <a href="{{ route('collection.index') }}">
