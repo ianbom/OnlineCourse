@@ -32,9 +32,6 @@ class SertifikatController extends Controller
 
         $courseIds = $courseStats->pluck('id_course');
 
-
-
-
         $course = Course::with('materi')->whereIn('id_course', $courseIds)->get()->map(function ($course) {
             $course->setAttribute('total_quiz', $course->materi->where('type', 'quiz')->count());
             $course->setAttribute('total_materi', $course->materi->where('type', 'materi')->count());
@@ -44,6 +41,7 @@ class SertifikatController extends Controller
         });
         return view('web.user.sertifikat.index_sertifikat', ['course' => $course]);
     }
+    
 
     public function show(Course $sertifikat){
         $data = [
@@ -56,4 +54,5 @@ class SertifikatController extends Controller
 
         return $pdf->download('sertifikat-' . $sertifikat->name_course . '.pdf');
     }
+
 }
