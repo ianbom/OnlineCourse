@@ -87,12 +87,29 @@
                 {{-- <h2 class="text-xl font-semibold text-gray-800 mb-4">Video Materi</h2> --}}
                 @if (!empty($materi->video))
                     <div class="relative">
-                        <video id="materiVideo" controls class="w-full rounded-[16px] border">
+                        {{-- <video id="materiVideo" controls class="w-full rounded-[16px] border">
                             <source src="{{ asset('storage/' . $materi->video) }}" type="video/mp4">
                             Browser Anda tidak mendukung pemutar video.
-                        </video>
+                        </video> --}}
+
+                        @php
+                        if (preg_match('/(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $materi->video, $matches)) {
+                            $videoId = $matches[1];
+                            $embedUrl = "https://www.youtube.com/embed/$videoId";
+                        } else {
+                            $embedUrl = null;
+                        }
+                    @endphp
+
+                    @if ($embedUrl)
+                        <div class="mt-3">
+                            <iframe class="w-full rounded-[8px] border" height="500" src="{{ $embedUrl }}" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    @else
+                        <p class="text-danger mt-2">Video tidak valid. Silakan periksa URL video.</p>
+                    @endif
                         <!-- Tombol Play Custom -->
-                        <button
+                        {{-- <button
                             id="playButton"
                             class="absolute inset-0 flex items-center justify-center"
                             onclick="playVideo()">
@@ -101,7 +118,7 @@
                                     <path d="M6 4l10 6-10 6V4z"></path>
                                 </svg>
                             </div>
-                        </button>
+                        </button> --}}
                     </div>
                 @else
                     <p class="text-gray-500">Tidak ada video untuk materi ini.</p>
@@ -138,10 +155,10 @@
 
 
             @if ($question)
-                <div class="mb-8">
+                <div class="mb-8 mt-3">
                     <h2 class="text-xl font-semibold text-gray-800 mb-4">Quiz </h2>
                     <a href="{{ route('quiz.kerjakan', $materi->id_materi) }}" class="bg-green-500 p-2 rounded-md text-white">Kerjakan quiz</a>
-                    <p>Nilai anda {{ $nilai }} / {{ $totalSoal }}</p>
+                    <p class="mt-3">Nilai anda {{ $nilai }} / {{ $totalSoal }}</p>
                 </div>
             @endif
 

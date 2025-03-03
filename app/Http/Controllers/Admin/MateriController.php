@@ -97,17 +97,6 @@ class MateriController extends Controller
             $data = $request->all();
 
 
-            if ($request->hasFile('video')) {
-                if ($materi->video) {
-                    Storage::disk('public')->delete($materi->video);
-                }
-                $videoPath = $request->file('video')->store('materi/video', 'public');
-                $data['video'] = $videoPath;
-            } else {
-                $data['video'] = $materi->video;
-            }
-
-
             if ($request->hasFile('text_book')) {
                 if ($materi->text_book) {
                     Storage::disk('public')->delete($materi->text_book);
