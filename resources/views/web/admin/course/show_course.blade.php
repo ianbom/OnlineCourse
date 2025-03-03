@@ -43,7 +43,7 @@
                         <img src="{{ asset('storage/' . $course->image) }}" alt="Course Image" class="img-fluid rounded shadow-sm" style="max-width: 400px;">
                     </div>
                     @endif
-                    @if ($course->video)
+                    {{-- @if ($course->video)
                     <div class="mb-3 text-center">
                         <h5>Video</h5>
                         <video class="w-100 rounded shadow-sm" controls>
@@ -51,7 +51,7 @@
                             Browser Anda tidak mendukung tag video.
                         </video>
                     </div>
-                    @endif
+                    @endif --}}
                     <div class="text-end mt-4">
                         <a href="{{ route('course.edit', $course->id_course) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Edit</a>
                         <form action="{{ route('course.destroy', $course->id_course) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus Kelas ini?')">

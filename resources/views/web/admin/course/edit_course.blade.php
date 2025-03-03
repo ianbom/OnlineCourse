@@ -68,7 +68,7 @@
                                 </div>
 
                                 <!-- Video -->
-                                <div class="col-md-12 mb-3">
+                                {{-- <div class="col-md-12 mb-3">
                                     <label for="video" class="form-label">Video</label>
                                     <input type="file" name="video" id="video" accept="video/*" class="form-control">
                                     @if ($course->video)
@@ -77,7 +77,7 @@
                                         Browser Anda tidak mendukung tag video.
                                     </video>
                                     @endif
-                                </div>
+                                </div> --}}
 
                                 <!-- Deskripsi -->
                                 <div class="col-md-12 mb-3">
