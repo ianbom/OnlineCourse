@@ -69,7 +69,7 @@ Route::middleware(['is_admin'])->prefix('admin')->group(function () {
     Route::resource('pemateri', PemateriController::class);
 });
 
-Route::prefix('user')->group(function () {
+Route::prefix('user')->middleware('auth')->group(function () {
     Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');
     Route::get('/kelas/search', [KelasController::class, 'searchKelas'])->name('kelas.search');
     Route::get('/kelas/filter', [KelasController::class, 'filterKelas'])->name('kelas.filter');
