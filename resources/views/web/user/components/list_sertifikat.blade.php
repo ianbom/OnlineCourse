@@ -1,14 +1,12 @@
 @forelse($course as $course)
     <div class="bg-[#F58A44] p-5 rounded-lg overflow-hidden flex flex-col">
-        @if($course->image)
 
         {{-- GAMBAR INI GANTI JADI IMAGE SERTIF YA --}}
-        <img src="{{ asset('storage/' . $course->image) }}"
+        <img src="{{ asset('img/bg_ustad1.png') }}"
         alt="{{ $course->name_course }}"
         class="w-full h-[200px] object-cover rounded-xl">
 
 
-        @endif
         <div class="p-1 flex-1 flex flex-col justify-between mt-4">
             <h3 class="font-semibold text-[15px] text-[#FFFFFFFF]" style="font-family: 'Inter', sans-serif;">
                 Sertifikat Kelas {{ $course->name_course }}
