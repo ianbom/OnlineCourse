@@ -93,7 +93,7 @@ class BelajarController extends Controller
                 );
             }
 
-            return response($answer);
+            return redirect()->route('kelas.belajar', $materi->id_materi);
         } catch (\Exception $e) {
             return back()->withErrors(['error' => $e->getMessage()]);
         }

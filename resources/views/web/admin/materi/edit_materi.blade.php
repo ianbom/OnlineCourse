@@ -67,7 +67,7 @@
                                 <!-- Video Upload -->
                                 <div class="col-md-6">
                                     <label for="video" class="form-label fw-semibold">Video</label>
-                                    <input type="file" id="video" name="video" class="form-control" accept="video/*">
+                                    <input type="text" name="video" id="video" class="form-control" value="{{ old('video', $materi->video) }}">
                                     @if ($materi->video)
                                         @php
                                             if (preg_match('/(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $materi->video, $matches)) {

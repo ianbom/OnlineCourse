@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
 
         return $this->call([
             UserSeeder::class,
-            CourseSeeder::class,
-            MateriSeeder::class,
+            // CourseSeeder::class,
+            // MateriSeeder::class,
             BundleSeeder::class,
             PemateriSeeder::class,
         ]);
