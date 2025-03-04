@@ -10,7 +10,7 @@
 
      <h1 class="text-[40px] font-bold text-[#1A1A1A] mb-8 mt-16 uppercase" style="font-family: 'Libre Baskerville', serif;">
         KELAS
-    </h1> 
+    </h1>
 
         <div class="mb-10 flex flex-col md:flex-row md:items-center gap-4">
             <div class="relative w-full md:w-3/5">
@@ -69,20 +69,43 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.querySelector('#search-input');
-            const resultsContainer = document.querySelector('.grid');
+      document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.querySelector('#search-input');
+    const searchButton = document.querySelector('button');
+    const resultsContainer = document.querySelector('.grid');
 
-            searchInput.addEventListener('input', function() {
-                const searchTerm = searchInput.value;
+    // Function to perform search
+    function performSearch() {
+        const searchTerm = searchInput.value;
 
-                fetch(`{{ route('kelas.search') }}?search=${searchTerm}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        resultsContainer.innerHTML = data.html;
-                    })
-                    .catch(error => console.error('Error:', error));
-            });
-        });
+        fetch(`{{ route('kelas.search') }}?search=${searchTerm}`)
+            .then(response => response.json())
+            .then(data => {
+                resultsContainer.innerHTML = data.html;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Search on input change (with debounce for better performance)
+    let debounceTimer;
+    searchInput.addEventListener('input', function() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(performSearch, 300);
+    });
+
+    // Search on button click
+    searchButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        performSearch();
+    });
+
+    // Search on Enter key press
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            performSearch();
+        }
+    });
+});
     </script>
 @endsection

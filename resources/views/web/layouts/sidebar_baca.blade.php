@@ -24,7 +24,7 @@
             ></path>
         </svg>
     </button>
-
+    
     <!-- Sidebar -->
     <aside
         id="logo-sidebar"
