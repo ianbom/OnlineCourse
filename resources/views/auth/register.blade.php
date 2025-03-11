@@ -29,24 +29,28 @@
             background-color: transparent;
             z-index: -1;
         }
+
         .x-input-error {
-    color: #F58A44;
-    font-size: 14px;
-    margin-top: 5px;
-    padding-bottom: 5px;
-    /* Memberikan jarak agar tidak bertumpuk */
-    position: absolute;
-    display: block; /* Pastikan pesan error menempati satu baris sendiri */
-top:2;
-    left: 0;
-    bottom: -20px; /* Menyesuaikan posisi agar muncul di bawah */
-    width: 100%;
-}
+            color: #F58A44;
+            font-size: 14px;
+            margin-top: 5px;
+            padding-bottom: 5px;
+            /* Memberikan jarak agar tidak bertumpuk */
+            position: absolute;
+            display: block;
+            /* Pastikan pesan error menempati satu baris sendiri */
+            top: 2;
+            left: 0;
+            bottom: -20px;
+            /* Menyesuaikan posisi agar muncul di bawah */
+            width: 100%;
+        }
+
         input:focus {
-        border-color: #F58A44 !important;
-        box-shadow: none !important;
-        outline: none;
-    }
+            border-color: #F58A44 !important;
+            box-shadow: none !important;
+            outline: none;
+        }
 
         .register-card {
             background-color: transparent;
@@ -98,33 +102,48 @@ top:2;
             @csrf
 
             <div class="mb-4 position-relative">
-                <input type="text" name="name" id="name" class="form-control" placeholder="Full Name" required autofocus autocomplete="name" value="{{ old('name') }}">
+                <input type="text" name="name" id="name" class="form-control" placeholder="Full Name"
+                    required autofocus autocomplete="name" value="{{ old('name') }}">
                 <i class="bi bi-person form-control-icon"></i>
                 <div class="x-input-error">{{ $errors->first('name') }}</div>
             </div>
 
             <div class="mb-4 position-relative">
-                <input type="email" name="email" id="email" class="form-control" placeholder="Email" required autocomplete="username" value="{{ old('email') }}">
+                <input type="email" name="email" id="email" class="form-control" placeholder="Email" required
+                    autocomplete="username" value="{{ old('email') }}">
                 <i class="bi bi-envelope form-control-icon"></i>
                 <div class="x-input-error">{{ $errors->first('email') }}</div>
-                        </div>
-
-            <div class="mb-4 position-relative">
-                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required autocomplete="new-password">
-                <i class="bi bi-shield-lock form-control-icon"></i>
-       <div class="x-input-error">{{ $errors->first('password') }}</div>
             </div>
 
             <div class="mb-4 position-relative">
-                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Confirm Password" required autocomplete="new-password">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password"
+                    required autocomplete="new-password">
+                <i class="bi bi-shield-lock form-control-icon"></i>
+                <div class="x-input-error">{{ $errors->first('password') }}</div>
+            </div>
+
+            <div class="mb-4 position-relative">
+                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"
+                    placeholder="Confirm Password" required autocomplete="new-password">
                 <i class="bi bi-shield-lock form-control-icon"></i>
                 <div class="x-input-error">{{ $errors->first('password_confirmation') }}</div>
             </div>
 
             <button type="submit" class="btn btn-register w-100 mb-4">Register</button>
+            <div class="text-center mb-3">
+                <a href="{{ route('auth.google') }}" class="btn btn-outline-light w-100"
+                    style="background-color: #1A1B22; border: none; padding: 10px 0; display: flex; align-items: center; justify-content: center; color: #fff; border-radius: 16px;"
+                    onmouseover="this.style.backgroundColor='#1E90FF'; this.style.color='#fff';"
+                    onmouseout="this.style.backgroundColor='#1A1B22'; this.style.color='#fff';">
+                    <img src="images/google.png" alt="Sign in with Google" style="height: 20px; margin-right: 10px;">
+                    <p style="font-size: 10px; color: #ffffff; font-weight: bold; margin: 0;">Or, Register with Google
+                    </p>
+                </a>
+            </div>
         </form>
 
-        <p class="text-white">Already have an account? <a href="{{ route('login') }}" class="text-white fw-bold">Login Now!</a></p>
+        <p class="text-white">Already have an account? <a href="{{ route('login') }}" class="text-white fw-bold">Login
+                Now!</a></p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
