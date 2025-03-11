@@ -41,7 +41,7 @@
         >
             <!-- Logo -->
             <div class="py-4">
-                <img src="{{ asset('img/lgoshaelife.png') }}" alt="Logo" class="w-32 h-auto ml-2">
+                <img src="{{ asset('img/logo-shae-life.png') }}" alt="Logo" class="w-32 h-auto ml-2">
             </div>
 
             <!-- Menu -->

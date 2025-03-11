@@ -66,7 +66,7 @@
             <div class="d-flex align-items-center justify-content-between py-4">
                 <!-- Logo -->
                 <div class="d-flex align-items-center">
-                    <img src="{{ asset('img/lgoshaelife.png') }}" alt="Logo" class="w-40 h-auto ms-2">
+                    <img src="{{ asset('img/logo-shae-life.png') }}" alt="Logo" class="w-40 h-auto ms-2">
                 </div>
 
                 <!-- Navigation Menu -->
