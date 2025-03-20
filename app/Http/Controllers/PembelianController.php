@@ -93,7 +93,7 @@ class PembelianController extends Controller
             $id_payment_gateway = $order->id_order . '-' . Str::uuid();
             $transactionDetails = [
                 'order_id' => $id_payment_gateway,
-                'gross_amount' => $order->total_bayar,
+                'gross_amount' => $order->price_total,
             ];
 
             // Customer details
@@ -110,9 +110,9 @@ class PembelianController extends Controller
             $snapToken = Snap::getSnapToken($params);
             Payment::create([
                 'id_order' => $order->id_order,
-                'total_bayar' => $order->total_bayar,
-                'metode_pembayaran' => 'Belum Pilih',
-                'status_pembayaran' => 'Proses',
+                'price_total' => $order->price_total,
+                'payment_method' => 'Belum Pilih',
+                'payment_status' => 'Proses',
                 'snap_token' => $snapToken,
                 'id_payment_gateway' => $id_payment_gateway
             ]);

@@ -18,6 +18,7 @@
     @stack('scripts')
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;

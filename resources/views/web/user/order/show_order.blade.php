@@ -80,14 +80,6 @@
 
             <!-- Aksi -->
             <div class="flex flex-wrap gap-3 justify-end mt-6">
-                <!-- Tombol Kembali -->
-                {{-- <a href="{{ url()->previous() }}" class="bg-gray-500 text-white py-2 px-4 rounded-xl  hover:bg-transparent hover:border-gray-500 hover:text-gray-500 border-2 transition-all duration-300">
-                Kembali
-            </a> --}}
-
-                <!-- Cetak Invoice -->
-
-
                 <!-- Tombol Batalkan Order -->
                 @if ($order->status_order == 'pending')
                     <form action="{{ route('order.cancel', $order->id_order) }}" method="POST">
@@ -99,7 +91,7 @@
                         </button>
                     </form>
 
-                    <form action="{{ route('order.bayar', $order->id_order) }}" method="POST">
+                    <form action="{{ route('order.bayar', $order->id_order) }}" method="POST" id="payment_form">
                         @csrf
                         @method('PUT')
                         <button type="submit"
@@ -107,13 +99,6 @@
                             Bayar Sekarang
                         </button>
                     </form>
-                @endif
-
-                @if ($order->status_order == 'success')
-                    <a href="#"
-                        class="bg-[#F58A44] text-white py-2 px-4 rounded-2xl  hover:bg-transparent hover:border-[#F58A44] hover:text-[#F58A44] border-2 transition-all duration-300">
-                        Cetak Invoice
-                    </a>
                 @endif
 
                 @if ($order->status_order == 'cancelled')
