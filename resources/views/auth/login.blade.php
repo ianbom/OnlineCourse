@@ -137,7 +137,7 @@
                     style="background-color: #1A1B22; border: none; padding: 10px 0; display: flex; align-items: center; justify-content: center; color: #fff; border-radius: 16px;"
                     onmouseover="this.style.backgroundColor='#1E90FFFF'; this.style.color='#fff';"
                     onmouseout="this.style.backgroundColor='#1A1B22'; this.style.color='#fff';">
-                    <img src="images/google.png" alt="Sign in with Google" style="height: 20px; margin-right: 10px;">
+                    <img src="{{ asset('img/google.png')}}" alt="Sign in with Google" style="height: 20px; margin-right: 10px;">
                     <p style="font-size: 10px; color: #ffffff; font-weight: bold; margin: 0;">Or, sign-in with Google
                     </p>
                 </a>
