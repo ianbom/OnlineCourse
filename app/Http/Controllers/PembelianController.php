@@ -21,6 +21,8 @@ class PembelianController extends Controller
 
     return view('web.user.order.index_order', compact('order'));
 }
+
+
     public function showOrder(Order $order){
         $userId = Auth::id();
         $order = Order::where('id', $userId)->findOrFail($order->id_order);
