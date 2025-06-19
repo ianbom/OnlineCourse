@@ -89,7 +89,7 @@ Route::prefix('user')->middleware('auth')->group(function () {
     Route::post('/order/{bundle}', [PaketLanggananController::class, 'order'])->name('order.store');
 
     Route::get('/order/{order}', [PembelianController::class, 'showOrder'])->name('order.show');
-    Route::put('/order/pay/{order}', [PembelianController::class, 'bayarOrder'])->name('order.bayar');
+    Route::post('/order/pay/{order}', [PembelianController::class, 'bayarOrder'])->name('order.bayar');
     Route::put('/order/cancelled/{order}', [PembelianController::class, 'cancelOrder'])->name('order.cancel');
     Route::get('/order', [PembelianController::class, 'indexOrder'])->name('order.index');
     Route::get('/orders/search', [PembelianController::class, 'searchOrder'])->name('order.search');
